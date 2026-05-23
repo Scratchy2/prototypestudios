@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProtoType Studios</title>
+    <link href="/style.css" rel="stylesheet" type="text/css" media="all">
+  </head>
+  <body>
+    <center>
+      <h1 class="large">ProtoType Studios</h1>
+      <h6 class="medium">One person, making prototypes, bettering the world.</h6><hr>
+      <button id="creulette"><div class="prototype">
+        <p class="large title">Creulette</p>
+        <h6 class="small">Get rewarded for a daily random color.</h6>
+      </div></button>
+      <hr><footer class="small">© 2026 Milo the Protogen. All rights reserved.</footer>
+    </center>
+    <script>
+      function gr() {
+        g = (g + 0.3) % 360;
+        document.querySelector("#creulette").style.background = `linear-gradient(to right, hsl(${g}, 100%, 50%), hsl(${g+36}, 100%, 50%))`;
+        document.querySelector("#creulette").style.color = `hsl(${g+180}, 100%, 50%)`;
+      }
+      let g = 0;
+      window.onload = () => {
+        setInterval(gr, 16);
+      }
+    </script>
+  </body>
+</html>
