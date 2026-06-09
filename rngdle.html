@@ -41,7 +41,7 @@
         border: 1px solid oklch(44.2% 0.017 285.786);
         color: oklch(87.2% 0.01 258.338);
         border-radius: 999rem;
-        font-size: 1.1rem;
+        font-size: 1rem;
         width: fit-content;
         padding-inline: 0.75rem;
         padding-block: 0.25rem;
@@ -50,12 +50,13 @@
       }
       #ep2 {
         color: #c4c4c4;
-        font-size: 1.1rem;
+        font-size: 1rem;
       }
       #ep3 {
         color: #9a9a9a;
         margin-top: 0;
         margin-bottom: 1rem;
+        font-size: 0.75rem;
         font-family: "Inter", sans-serif;
         font-weight: normal;
       }
@@ -196,28 +197,39 @@
       <h1 class="large">RNGdle Sandbox</h1><hr><br>
       <b>
         <input id="num" min="0" max="1000000" type="number" placeholder="??????">
-        <p style="color: #606060; margin-bottom: 1rem;"><span id="rarity">??????</span> • <span id="percentile">TOP 1%</span></p>
+        <p style="color: #606060; margin-bottom: 1rem;"><span id="rarity">??????</span> • <span id="percentile">TOP ???%</span></p>
         <p id="ep">??? EP</p>
         <span id="ep2">??? EP</span>
         <p id="ep3">YOUR LIFETIME EP</p>
         <button id="share"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share2 lucide-share-2 w-4 h-4" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg><span>SHARE</span></button>
       </b>
-      <h6>Note: This EP value is not accurate, as some badges aren't counted in the final EP value.</h6>
-      <h6>Also, some badges don't have logic yet. :P</h6>
-      <h6>Play the game for the actual EP values!</h6>
+      <h6>Note: Not all badges have logic, and the percentile is an approximation that fits R²=0.9997.</h6>
+      <h6>Play the game for the actual values!</h6>
       <hr><footer>© 2026 ProtoType Studios. All rights reserved.</footer>
       <footer>This project and its owner are not affiliated with RNGdle or its owner.</footer>
     </center>
     <script>
       function CNums() {
+        // 4 consecutive numbers
+        if (s=="78910" || s=="10987" || s=="891011" || s=="111098") return 25000025;
+        if (s.includes("78910") || s.includes("10987")) return 2631582;
+        if (s.includes("7") && s.includes("8") && s.includes("9") && s.includes("10")) return 2272730;
+        if (s.includes("8") && s.includes("9") && s.includes("10") && s.includes("11") && length == 6) return 2272730;
+        
         // 3 consecutive numbers
         // 2 digits
-        if (Math.abs(s.slice(0,2)-s.slice(2,4))==1 && Math.abs(s.slice(0,2)-s.slice(4,6))==2) return 555556;
+        const a = s.slice(0,2);
+        const b = s.slice(2,4);
+        const c = s.slice(4,6);
+        if (Math.abs(a-b)==1 && Math.abs(a-c)==2) return 555556;
+        if ((Math.abs(a-b)==Math.abs(a-c)) || (Math.abs(a-b)==2 && Math.abs(a-c)==1)) return 277778;
         // 1 digit
         if (s=="8910" || s=="91011" || s=="11109" || s=="1098") {
           return 555556;
         }
-      
+        if (s=="8109" || s=="9810" || s=="9108" || s=="1089" || s=="91110" || s=="10911" || s=="10119" || s=="11910") {
+          return 277778;
+        }
         if (s.includes("8910") || s.includes("91011") || s.includes("11109") || s.includes("1098")){
           return 157978;
         }
@@ -226,6 +238,18 @@
         // 2 consecutive numbers
         // 3 digits
         if (Math.abs(s.slice(0,3)-s.slice(3,6)) == 1) return 50505;
+        // 2 digits
+        for (i in s) {
+          if (length - i < 2) break;
+          if (s[i]=="0") continue;
+          if (Math.abs((s[Number(i)+2]+s[Number(i)+3])-(s[i]+s[Number(i)+1])) == 1) {
+            if (length == 4) return 50505;
+            return 1659;
+          } else if (s.includes(Number(s[i]+s[Number(i)+1])+1)) {
+            if (Math.abs(s.indexOf(Number(s[i]+s[Number(i)+1]))-s.indexOf(Number(s[i]+s[Number(i)+1])+1))==1) continue;
+            return 1575;
+          }
+        }
         // 1 digit
         if (s=="910" || s=="109" || s=="99100" || s=="10099"){
           return 50505; 
@@ -233,18 +257,6 @@
           return 1659;
         } else if (s.includes("9") && s.includes("10")) {
           return 1575;
-        }
-        // 2 digits
-        for (i in s) {
-          if (s.length - i < 2) break;
-          if (s[i]=="0") continue;
-          if (Math.abs((s[Number(i)+2]+s[Number(i)+3])-(s[i]+s[Number(i)+1])) == 1) {
-            if (s.length == 4) return 50505;
-            return 1659;
-          } else if (s.includes(Number(s[i]+s[Number(i)+1])+1)) {
-            if (Math.abs(s.indexOf(Number(s[i]+s[Number(i)+1]))-s.indexOf(Number(s[i]+s[Number(i)+1])+1))==1) continue;
-            return 1575;
-          }
         }
         return 0;
       }
@@ -257,16 +269,39 @@
         }
         return 1274;
       }
+      function update() {
+        if (ep == 0) {
+          document.querySelector("#ep").textContent = `??? EP`;
+        document.querySelector("#ep2").textContent = `??? EP`;
+        }
+        epdisp += 0.1337 * (ep - epdisp);
+        percentile = 100 * (1 - (1 + ((epdisp-1759) / 1971.49729) ** 2.55098212) ** -0.411708664) || -1;
+        document.querySelector("#ep").textContent = `${Math.round(epdisp).toLocaleString()} EP`;
+        document.querySelector("#ep2").textContent = `${Math.round(epdisp).toLocaleString()} EP`;
+        if (percentile == -1) document.querySelector("#percentile").textContent = "TOP ???%"
+        if (percentile < 1) {
+          document.querySelector("#percentile").textContent = "BOTTOM <1%";
+        } else if (percentile < 50) {
+          document.querySelector("#percentile").textContent = `BOTTOM ${Math.round(percentile)}%`;
+        } else if (percentile < 99.5) {
+          document.querySelector("#percentile").textContent = `TOP ${Math.round(100-percentile)}%`;
+        } else {
+          document.querySelector("#percentile").textContent = "TOP <1%";
+        }
+      }
       let num = "??????";
       let s = "??????";
       let ep = 0;
-      let length = s.length;
+      let epdisp = 0;
+      let length = "??????";
       let sum = s.split("").reduce((acc, digit) => acc + Number(digit), 0);
       let product = s.split("").reduce((acc, digit) => acc * Number(digit), 1);
       let sum1 = -696969;
       let sum2 = -420420;
+      setInterval(update, 16);
       document.querySelector("#num").oninput = () => {
         document.querySelector("#num").value = document.querySelector("#num").value.replaceAll(".", "");
+        ep = 0;
         if (document.querySelector("#num").value > 1000000) {
           document.querySelector("#num").value = 1000000;
         }
@@ -274,24 +309,28 @@
           document.querySelector("#num").value = 0;
         }
         if (!document.querySelector("#num").value) {
-          document.querySelector("#ep").textContent = `??? EP`;
           document.querySelector("#num").style.width = "15.5rem";
           document.querySelector("#num").style.fontSize = "2.75rem";
           return;
         }
         num = Number(document.querySelector("#num").value);
         s = String(num);
-        ep = 0;
         length = s.length;
         sum = s.split("").reduce((acc, digit) => acc + Number(digit), 0);
         product = s.split("").reduce((acc, digit) => acc * Number(digit), 1);
         sum1 = -6969;
         sum2 = -420420;
-        document.querySelector("#num").style.fontSize = s.length < 6 ? "3.75rem" : "2.75rem";
-        document.querySelector("#num").style.width = s.length == 6 ? "15.5rem" : `${5.5+12*s.length/6}rem`;
-        if (s.length % 2 == 0) {
-          sum1 = s.split("").slice(0,s.length/2).reduce((acc, digit) => acc + Number(digit), 0);
-          sum2 = s.split("").slice(s.length/2,s.length).reduce((acc, digit) => acc + Number(digit), 0);
+        const counts = {};
+        const digits = s.split("");
+        for (const d of digits) {
+        	counts[d] = (counts[d] || 0) + 1;
+        }
+        const maxCount = Math.max(...Object.values(counts));
+        document.querySelector("#num").style.fontSize = length < 6 ? "3.75rem" : "2.75rem";
+        document.querySelector("#num").style.width = length == 6 ? "15.5rem" : `${5.5+12*length/6}rem`;
+        if (length % 2 == 0) {
+          sum1 = s.split("").slice(0,length/2).reduce((acc, digit) => acc + Number(digit), 0);
+          sum2 = s.split("").slice(length/2,length).reduce((acc, digit) => acc + Number(digit), 0);
         }
         let u = [...new Set(s.split(""))];
         if (length == 6) ep+=111;
@@ -315,19 +354,19 @@
         if (u.length == 4) ep+=290;
         if ((s.match(/0/gi) || []).length == 1) ep+=309;
         if ((/(.).\1/gi).test(s)) ep+=312;
-        // two pair ep+=447;
+        if (u.length == length - 2 && maxCount == 2) ep+=447;
         if (Math.abs(s[0] - s.at(-1)) == 1) ep+=529;
-        if (u.length == s.length) ep+=593;
+        if (u.length == length) ep+=593;
         if (num % 7 == 0) ep+=700;
-        // three of a kind ep+=724;
+        if (maxCount == 3) ep+=724;
         // hills ep+=733;
-        if (s[0] == s.at(-1) && s.length > 2) ep+=1000;
+        if (s[0] == s.at(-1) && length > 2) ep+=1000;
         if (s[0] == s.at(-1)) ep+=1000;
         if (s.at(-1) == 5) ep+=1000;
         if (s.at(-1) == 0) ep+=1000;
         if (num % sum == 0) ep+=1048;
         if (num % 11 == 0) ep+=1100;
-        if (s.length == 5) ep+=1111;
+        if (length == 5) ep+=1111;
         if (num % 12 == 0) ep+=1200;
         if (u.length == 3) ep+=1265;
         ep += Prime();
@@ -339,7 +378,7 @@
         if (s.includes("67")) ep+=2024;
         if (s.includes("69")) ep+=2024;
         if (s.includes("86")) ep+=2024;
-        if ((u.length == s.length - 1) && ((s.match(/1/gi) || []).length == 2)) ep+=2121;
+        if ((u.length == length - 1) && ((s.match(/1/gi) || []).length == 2)) ep+=2121;
         // full house ep+=2397;
         if (sum == 21) ep+=2521;
         if (sum < 15) ep+=2667;
@@ -381,11 +420,10 @@
         if ((/(.)\1\1(?!\1)(.)\2/gi).test(s)) ep+=30111;
         if (sum > 45) ep+=33300;
         if (s.includes("007")) ep+=34614;
-        // turtle ep+=36049;
+        if (s.split("").every((d, i, a) => i == 0 || Math.abs(d-a[i-1])==1)) ep+=36049;
         if (s.includes("000")) ep+=37023;
         if ((/(.)\1\1\1/gi).test(s)) ep+=37023;
         if (s.split("") == s.split("").reverse()) ep+=50025;
-        // 2 consecutive numbers ep+=50505;
         if (u.length === 2 && (s.split(u[0]).length - 1 === 1 || s.split(u[1]).length - 1 === 1)) ep+=82237;
         // even spacing absolute ep+=90992;
         if (Math.sqrt(num) % 1 == 0) ep+=99900;
@@ -400,10 +438,8 @@
         if ((/^(.)(?!\1)(.)\2\2(?!\1).$/gmi).test(s)) ep+=137174;
         if ((/^(.)(?!\1)(.)\2(?!\2).$/gmi).test(s)) ep+=137174;
         if ((/(.)\1(?!\1)(.)\2(?!\1)(?!\2)(.)\3/gi).test(s)) ep+=154321;
-        // 3 consecutive numbers ep+=157978;
         if ((s.split("").every((d, i, a) => i == 0 || a[i-1] < d))) ep+=219298;
         if ((/^(.)(?!\1)(.)((?!\2)\1((?!\1)\2((?!\2)\1((?!\1)\2)?)?)?)?$/gmi).test(s)) ep+=246914;
-        // 3 consecutive numbers ep+=277778;
         if (s.includes("1337")) ep+=333334;
         if (s.includes("1984")) ep+=333334;
         if (s.includes("2718")) ep+=333334;
@@ -418,18 +454,15 @@
         if ((/01234|12345|23456|34567|45678|56789|98765|87654|76543|65432|54321|43210/gi).test(s)) ep+=454546;
         // strobogrammatic ep+=502513;
         if (s.includes("0000")) ep+=552487;
-        // 3 consecutive numbers ep+=555556;
         // even spacing ep+=862070;
         if (Math.cbrt(num) % 1 == 0) ep+=990100;
         if (s.endsWith("5000")) ep+=1000001;
         if (s.endsWith("9999")) ep+=1000001;
         if (sum == product) ep+=1030929;
-        if (s.length == 2) ep+=1111111;
+        if (length == 2) ep+=1111111;
         if ((/02468|86420|13579|97531/gi).test(s)) ep+=1449277;
         if (s.split("").every(d => d < 2)) ep+=1538463;
         if (u.length == 1) ep+=2222224;
-        // 4 consecutive numbers ep+=2272730;
-        // 4 consecutive numbers ep+=2631582;
         if ("9876543210".includes(s)) ep+=2857146;
         if ((num ** (1/4)).toFixed(10) % 1 == 0) ep+=3125003;
         if ("0123456789".includes(s)) ep+=3333337;
@@ -446,13 +479,12 @@
         if (s.endsWith("99999")) ep+=10000010;
         if (s.includes("00000")) ep+=10000010;
         if ((/(.)\1\1\1\1\1/gi).test(s)) ep+=10000010;
-        if (("0123456789".includes(s) || "9876543210".includes(s)) && s.length == 6) ep+=11111122;
+        if (("0123456789".includes(s) || "9876543210".includes(s)) && length == 6) ep+=11111122;
         if (s.includes("07734")) ep+=11111122;
         if ([1,2,6,24,120,720,5040,40320,362880].includes(num)) ep+=11111122;
         if ((num ** (1/7)).toFixed(10) % 1 == 0) ep+=12500013;
         if ((num ** (1/8)).toFixed(10) % 1 == 0) ep+=16666683;
         if ((num ** (1/9)).toFixed(10) % 1 == 0) ep+=20000020;
-        // 4 consecutive numbers ep+=25000025;
         if ([271,2718,27182,271828].includes(num)) ep+=25000025;
         if ([314,3141,31415,314159].includes(num)) ep+=25000025;
         if ((num ** (1/10)).toFixed(10) % 1 == 0) ep+=25000025;
@@ -461,10 +493,8 @@
         if ((num ** (1/17)).toFixed(10) % 1 == 0) ep+=33333367;
         if ((num ** (1/19)).toFixed(10) % 1 == 0) ep+=33333367;
         if (s=="8008"||s=="58008") ep+=50000050;
-        if (s.length == 1) ep+=100000100;
+        if (length == 1) ep+=100000100;
         if ([42,67,69,86,101,350,365,420,666,777,911,1337,1984,7734,80085,365365,420420,424242,676767,696969,777777,911911].includes(num)) ep+=100000100;
-        document.querySelector("#ep").textContent = `${ep.toLocaleString()} EP`;
-        document.querySelector("#ep2").textContent = `${ep.toLocaleString()} EP`;
         const rarity = ep < 2050 ? "trash" : ep < 5349 ? "common" : ep < 8642 ? "uncommon" : ep < 20245 ? "rare" : ep < 33971 ? "epic" : ep < 150679 ? "anomaly" : "mythic";
         document.querySelector("#num").classList = rarity;
         document.querySelector("#rarity").classList = rarity;
