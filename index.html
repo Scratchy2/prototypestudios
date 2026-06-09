@@ -14,6 +14,10 @@
         <p class="large title">Creulette</p>
         <h6 class="small">Get rewarded for a daily random color.</h6>
       </div></button>
+      <button id="rngdle"><div class="prototype">
+        <p class="large title">RNGdle Sandbox</p>
+        <h6 class="small">Find out how much EP a number might earn.</h6>
+      </div></button>
       <hr><footer class="small">© 2026 Milo the Protogen. All rights reserved.</footer>
     </center>
     <script>
@@ -25,6 +29,12 @@
       let g = 0;
       window.onload = () => {
         setInterval(gr, 16);
+      }
+      document.querySelector("#creulette").onclick = () => {
+        window.open('/creulette', '_blank').focus();
+      }
+      document.querySelector("#rngdle").onclick = () => {
+        window.open('/rngdle', '_blank').focus();
       }
     </script>
   </body>
