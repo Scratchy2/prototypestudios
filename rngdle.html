@@ -2,6 +2,13 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name="description" content="Find out how much EP a number might earn.">
+    <meta property="og:description" content="Find out how much EP a number might earn.">
+    <meta name="keywords" content="rngdle, sandbox, sand, box, ep, entropy, points, point">
+    <meta name="author" content="ProtoType Studios">
+    <meta property="og:title" content="RNGdle Sandbox by ProtoType Studios">
+    <meta property="og:url" content="https://prototypestudios.neocities.org/rngdle">
+    <meta name="theme-color" content="#0a0a0a">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RNGdle Sandbox</title>
     <link href="/style.css" rel="stylesheet" type="text/css" media="all">
@@ -23,6 +30,7 @@
         border: 3px solid oklch(44.2% 0.017 285.786);
         background: linear-gradient(135deg, #fff3 0%, #ffffff09 33%, transparent 60%, #ffffff07 100%), linear-gradient(to bottom right in oklab, color-mix(in oklab, oklch(37% 0.013 285.805) 50%,transparent) 0%, oklch(27.4% 0.006 286.033) 50%, color-mix(in oklab, oklch(37% 0.013 285.805) 50%,transparent) 100%);
         box-sizing: border-box;
+        box-shadow: 0 10px 15px -3px color-mix(in oklab,color-mix(in oklab, oklch(27.4% 0.006 286.033) 50%,transparent) 100%,transparent),0 4px 6px -4px color-mix(in oklab,color-mix(in oklab, oklch(27.4% 0.006 286.033) 50%,transparent) 100%,transparent);
         padding-inline: 1.75rem;
         padding-block: 1rem;
         width: 16.25rem;
@@ -144,21 +152,23 @@
       }
       input.epic {
         background: linear-gradient(135deg, #fff3 0%, #ffffff09 33%, transparent 60%, #ffffff07 100%),
-          linear-gradient(to bottom right in oklab, color-mix(in oklab, oklch(38.1% 0.176 304.987) 60%,transparent) 0%, oklch(27.4% 0.006 286.033) 50%, color-mix(in oklab, oklch(38.1% 0.176 304.987) 60%,transparent) 100%), linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 60%);
+          linear-gradient(to bottom right in oklab, color-mix(in oklab, oklch(38.1% 0.176 304.987) 60%,transparent) 0%, oklch(27.4% 0.006 286.033) 50%, color-mix(in oklab, oklch(38.1% 0.176 304.987) 60%,transparent) 100%);
         border: 3px solid oklch(43.8% 0.218 303.724);
         color: oklch(71.4% 0.203 305.504);
       }
       input.anomaly {
         background: linear-gradient(135deg, #fff3 0%, #ffffff09 33%, transparent 60%, #ffffff07 100%),
-          linear-gradient(to bottom right in oklab, color-mix(in oklab, oklch(40.8% 0.123 38.172) 60%,transparent) 0%, oklch(27.4% 0.006 286.033) 50%, color-mix(in oklab, oklch(40.8% 0.123 38.172) 60%,transparent) 100%), linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 60%);
+          linear-gradient(to bottom right in oklab, color-mix(in oklab, oklch(40.8% 0.123 38.172) 60%,transparent) 0%, oklch(27.4% 0.006 286.033) 50%, color-mix(in oklab, oklch(40.8% 0.123 38.172) 60%,transparent) 100%), linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 100%);
         border: 3px solid oklch(47% 0.157 37.304);
         color: oklch(75% 0.183 55.934);
+        box-shadow: 0 0 18px color-mix(in oklab,color-mix(in oklab, oklch(40.8% 0.123 38.172) 30%,transparent) 100%,transparent);
       }
       input.mythic {
         background: linear-gradient(135deg, transparent 0%, #ffffff07 33%, transparent 60%, #ffffff07 100%),
-          linear-gradient(to bottom right in oklab, color-mix(in oklab, oklch(41% 0.159 10.272) 55%,transparent) 0%, color-mix(in oklab, oklch(38.1% 0.176 304.987) 45%,transparent) 50%, color-mix(in oklab, oklch(39.8% 0.07 227.392) 55%,transparent) 100%), linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 60%);
+          linear-gradient(to bottom right in oklab, color-mix(in oklab, oklch(41% 0.159 10.272) 55%,transparent) 0%, color-mix(in oklab, oklch(38.1% 0.176 304.987) 45%,transparent) 50%, color-mix(in oklab, oklch(39.8% 0.07 227.392) 55%,transparent) 100%), linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 100%);
         border: 3px solid oklch(45.9% 0.187 3.815);
         color: oklch(96.7% 0.003 264.542);
+        box-shadow: 0 0 24px color-mix(in oklab,color-mix(in oklab, oklch(40.8% 0.153 2.432) 30%,transparent) 100%,transparent),0 0 42px color-mix(in oklab,color-mix(in oklab, oklch(40.8% 0.153 2.432) 30%,transparent) 100%,transparent);
       }
       
       #rarity.trash, #ep.trash {
@@ -204,8 +214,12 @@
     </style>
   </head>
   <body>
+    <div class="header">
+      <button class="back" onclick="window.location.href = 'https://prototypestudios.neocities.org';">← Back to ProtoType Studios</button>
+      <h1 class="large project">RNGdle Sandbox</h1>
+    </div>
     <center>
-      <h1 class="large">RNGdle Sandbox</h1><hr><br>
+      <h6>Find out how much EP a number might earn.</h6><hr><br>
       <b>
         <input id="num" min="0" max="1000000" type="number" placeholder="??????">
         <p style="color: #606060; margin-bottom: 1rem;"><span id="rarity">??????</span> • <span id="percentile">TOP ???%</span></p>
@@ -286,7 +300,6 @@
           d[i] = Math.sign(d[Number(i)+1]-d[i]) || null;
         }
         d.splice(-1, 1);
-        console.log(d)
         if (!(d.includes(-1) && d.includes(1))) return 0;
         if (d.includes(null)) return 0;
         if (d.join(",") == [...d].sort().join(",")) return 4199;
@@ -307,7 +320,7 @@
           document.querySelector("#rarity").classList = "common";
           document.querySelector("#rarity").textContent = "??????";
           document.querySelector("#ep").classList = "common";
-        } else if (percentile < 1) {
+        } else if (ep < 2050) {
           document.querySelector("#percentile").textContent = "BOTTOM <1%";
         } else if (percentile < 50) {
           document.querySelector("#percentile").textContent = `BOTTOM ${Math.round(percentile)}%`;
@@ -358,7 +371,8 @@
         }
         const maxCount = Math.max(...Object.values(counts));
         document.querySelector("#num").style.fontSize = length < 6 ? "3.75rem" : "2.75rem";
-        document.querySelector("#num").style.width = length == 6 ? "15.5rem" : `${5.5+12*length/6}rem`;
+        document.querySelector("#num").style.width = length == 6 ? "15.5rem" : `${5.5+14*length/6}rem`;
+        document.querySelector("#num").style.paddingBlock = length < 6 ? "0.75rem" : "1rem";
         if (length % 2 == 0) {
           sum1 = [...s].slice(0,length/2).reduce((acc, digit) => acc + Number(digit), 0);
           sum2 = [...s].slice(length/2,length).reduce((acc, digit) => acc + Number(digit), 0);
@@ -423,7 +437,7 @@
         if ((/(.)(?!\1).\1(?!\1).\1/gi).test(s)) ep+=5321;
         if ((/(.)\1(?!\1)(.)\2/gi).test(s)) ep+=6142;
         if ([...s].every(d => d < 5)) ep+=6400;
-        if ((/(.)\1\1\1/gi).test(s)) ep+=8436;
+        if (maxCount == 4) ep+=8436;
         if (s.endsWith("50")) ep+=10000;
         if (s.endsWith("99")) ep+=10000;
         if (s.endsWith("00")) ep+=10000;
@@ -444,13 +458,13 @@
         if (s.includes("911")) ep+=25006;
         if (s.includes("101")) ep+=25132;
         if (s.includes("404")) ep+=25132;
-        if ((/0123|1234|2345|3456|4567|5678|6789|9876|8765|7654|6543|5432|4321|3210/gi).test(s)) ep+=25907
+        if ((/0123|1234|2345|3456|4567|5678|6789|9876|8765|7654|6543|5432|4321|3210/gi).test(s)) ep+=25907;
         if (s.includes("666")) ep+=27027;
         if (s.includes("777")) ep+=27027;
         if ((/(.)\1\1(?!\1)(.)\2/gi).test(s)) ep+=30111;
         if (sum > 45) ep+=33300;
         if (s.includes("007")) ep+=34614;
-        if ([...s].every((d, i, a) => i == 0 || Math.abs(d-a[i-1])==1)) ep+=36049;
+        if ([...s].every((d, i, a) => i == 0 || Math.abs(d-a[i-1])<2)) ep+=36049;
         if (s.includes("000")) ep+=37023;
         if ((/(.)\1\1\1/gi).test(s)) ep+=37023;
         if ([...s] == [...s].reverse()) ep+=50025;
