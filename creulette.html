@@ -3,8 +3,12 @@
   <head>
     <meta charset="UTF-8">
     <meta name="description" content="Get rewarded for a daily random color. Epilepsy warning!">
+    <meta property="og:description" content="Get rewarded for a daily random color. Epilepsy warning!">
     <meta name="keywords" content="daily, random, color, creulette, prototype, studios">
     <meta name="author" content="ProtoType Studios">
+    <meta property="og:title" content="Creulette by ProtoType Studios">
+    <meta property="og:url" content="https://prototypestudios.neocities.org/creulette">
+    <meta name="theme-color" content="#303336">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Creulette</title>
     <link href="/style.css" rel="stylesheet" type="text/css" media="all">
@@ -126,8 +130,11 @@
     </style>
   </head>
   <body>
+    <div class="header">
+      <button class="back" onclick="window.location.href = 'https://prototypestudios.neocities.org';">← Back to ProtoType Studios</button>
+      <h1 class="large project">Creulette</h1>
+    </div>
     <center>
-      <h1 class="large">Creulette</h1>
       <h6 class="medium">Get rewarded for a daily random color. Epilepsy warning!</h6><hr>
       <div id="color"></div>
       <p class="small" id="color2">#fafa00</p>
@@ -583,7 +590,7 @@
       `);
       await sleep(556);
       document.querySelector("#stats").insertAdjacentHTML("beforeend", `
-        <button class="large mono" id="share" style="animation: appear 0.5s; font-size: 1rem;" onclick="navigator.clipboard.writeText('Creulette 🟨 ${color}\\n${percentile}${ordinal} percentile, ${chrto} Chroma\\n${saturation.toFixed(3)}sp, ${brightness.toFixed(0)}bp\\nhttps://prototypestudios.neocities.org/creulette')">SHARE YOUR ROLL</p>
+        <button class="large mono" id="share" style="animation: appear 0.5s; font-size: 1rem;" onclick="navigator.clipboard.writeText('Creulette 🟨 ${color}\\n${percentile}${ordinal} percentile, ${chrto} Chroma\\n${saturation.toFixed(3)}sp, ${brightness.toFixed(0)}bp\\nhttps://prototypestudios.neocities.org/creulette?color=${color.replace(/[^0-9a-f]/gi, "")}&type=hex\\nhttps://prototypestudios.neocities.org/creulette')">SHARE YOUR ROLL</p>
       `);
       await sleep(556);
       document.querySelector("#stats").insertAdjacentHTML("beforeend", `
@@ -593,6 +600,19 @@
     setInterval(update, 16);
     let chrto = 0;
     let chr = 0;
+    window.onload = async () => {
+      const color = new URLSearchParams(document.location.search).get("color");
+      const type = new URLSearchParams(document.location.search).get("type");
+      if (color) {
+        if (type=="hex") {
+          document.querySelector("#roll").remove();
+          document.querySelector("h6").textContent = "User-shared roll";
+          document.querySelector("#color").style.backgroundColor = `#${color}`;
+          document.querySelector("#color2").textContent = `#${color}`;
+          await analyzeNumber("hex", color.slice(0,2), color.slice(2,4), color.slice(4,6), "-1");
+        }
+      }
+    }
     document.querySelector("#roll").onclick = async () => {
       document.querySelector("#roll").remove();
       await roll();
