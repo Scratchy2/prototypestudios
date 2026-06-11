@@ -67,6 +67,10 @@
       .prop:active {
         scale: 0.99;
       }
+      .prop.trash {
+        background: linear-gradient(to bottom, #808448, #808244);
+        border: 4px solid #aa2;
+      }
       .prop.common {
         background: linear-gradient(to bottom, #606468, #404244);
         border: 4px solid #999;
@@ -103,27 +107,31 @@
       .value:active {
         scale: 0.99;
       }
-      .value.common { /* 10-999 Chroma */
+      .value.trash { /* -40-9 Chroma */
+        box-shadow: 0 0 50px 2px #aa4;
+        background-color: #aa4;
+      }
+      .value.common { /* 10-99 Chroma */
         box-shadow: 0 0 50px 3px #aaa;
         background-color: #aaa;
       }
-      .value.uncommon { /* 1 000-9 999 Chroma */
+      .value.uncommon { /* 100-999 Chroma */
         box-shadow: 0 0 50px 7px #0a0;
         background-color: #0a0;
       }
-      .value.rare { /* 10 000-99 999 Chroma */
+      .value.rare { /* 1 000-9 999 Chroma */
         box-shadow: 0 0 50px 13px #00a;
         background-color: #00a;
       }
-      .value.epic { /* 100 000-999 999 Chroma */
+      .value.epic { /* 10 000-99 999 Chroma */
         box-shadow: 0 0 50px 17px #50a;
         background-color: #50a;
       }
-      .value.legendary { /* 1 000 000-9 999 999 Chroma */
+      .value.legendary { /* 100 000-999 999 Chroma */
         box-shadow: 0 0 50px 23px #aa0;
         background-color: #aa0;
       }
-      .value.mythic { /* 10 000 000+ Chroma */
+      .value.mythic { /* 1 000 000+ Chroma */
         box-shadow: 0 0 50px 33px #a00;
         background-color: #a00;
       }
@@ -286,19 +294,19 @@
     // Posted by Foxcode, modified by community. See post 'Timeline' for change history
     // Retrieved 2026-06-05, License - CC BY-SA 4.0
     function stdev(array) {
-      const n = array.length
-      const mean = array.reduce((a, b) => a + b) / n
-      return Math.sqrt(array.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n)
+      const n = array.length;
+      const mean = array.reduce((a, b) => a + b) / n;
+      return Math.sqrt(array.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n);
     }
     
     async function createProperty(name) {
       const info = badges[name].split(" +");
       const chroma = parseInt(info[1].replaceAll(" ","")) || 10;
       let rarity = "common";
-      if (chroma >= 10000000) {
+      if (chroma >= 1000000) {
         rarity = "mythic";
-      } else if (chroma >= 1000) {
-        rarity = ["uncommon", "rare", "epic", "legendary"][Math.floor(Math.log10(chroma))-3];
+      } else {
+        rarity = ["common", "uncommon", "rare", "epic", "legendary"][Math.floor(Math.log10(chroma))-1];
       }
       document.querySelector("#props").insertAdjacentHTML("afterbegin", `
         <div class="prop ${rarity}">
@@ -439,13 +447,41 @@
         if (full === "663399") await createProperty("Rebecca's Blessing");
         if (full === "fafa00") await createProperty("What You Started With");
         await sleep(500+Math.random()*2500);
-        const saturation = stdev([parseInt(rh, 16), parseInt(gs, 16), parseInt(bl, 16)]);
-        const sp = Math.round(10000000/(1-(stdev([parseInt(rh, 16), parseInt(gs, 16), parseInt(bl, 16)])/147.3)**15)-9999990)
+        const saturation = stdev([r, g, b]);
+        function spchr(x) {
+          if (x <= 0) return 1.0;
+          if (x >= 120.20815) return 1/16777216;
+          const c9 = -1.1998967e-18;
+          const c8 =  3.3842305e-16;
+          const c7 = -2.3680341e-14;
+          const c6 = -1.6263676e-12;
+          const c5 =  3.1125425e-10;
+          const c4 = -1.6195772e-08;
+          const c3 =  1.8804693e-06;
+          const c2 = -0.0002542122;
+          const c1 =  0.0000405729;
+          const c0 =  0.9999137205;
+          let p = c9;
+          p = p * x + c8;
+          p = p * x + c7;
+          p = p * x + c6;
+          p = p * x + c5;
+          p = p * x + c4;
+          p = p * x + c3;
+          p = p * x + c2;
+          p = p * x + c1;
+          p = p * x + c0;
+          return 10/Math.max(0, Math.min(1, p));
+        }
+        let sp = Math.round(spchr(saturation));
+        if (sp > 333333) sp = 333333;
+        if (sp < 0.1) sp = 333333;
+        if (sp < 10) sp = 10;
         let rarity = "common";
         if (sp >= 10000000) {
           rarity = "mythic";
-        } else if (sp >= 1000) {
-          rarity = ["uncommon", "rare", "epic", "legendary"][Math.floor(Math.log10(sp))-3];
+        } else {
+          rarity = ["common", "uncommon", "rare", "epic", "legendary"][Math.floor(Math.log10(sp))-1];
         }
         document.querySelector("#props").insertAdjacentHTML("afterbegin", `
           <div class="prop ${rarity}">
@@ -456,24 +492,50 @@
         `);
         chrto += sp;
         await sleep(1000);
-        let brightness = [parseInt(rh, 16), parseInt(gs, 16), parseInt(bl, 16)].reduce((a, b) => a + b);
-        if (brightness > 3333333) brightness = 3333333;
+        let brightness = [r, g, b].reduce((a, b) => a + b);
+        // Scepthan on Discord
+        const adj = (Math.min(brightness, 765 - brightness) + 1) / 765;
+        let prob = 9 * adj**3;
+        if (adj > 1/3) prob -= (3 * adj - 1)**3;
+        let bpchr = Math.round(10 / prob);
         rarity = "common";
-        if (Math.round(3333323 * Math.abs((brightness - 382.5)/382.5) ** 8 + 10) >= 10000000) {
+        if (bpchr >= 10000000) {
           rarity = "mythic";
-        } else if (Math.round(3333323 * Math.abs((brightness - 382.5)/382.5) ** 8 + 10) >= 1000) {
-          rarity = ["uncommon", "rare", "epic", "legendary"][Math.floor(Math.log10(Math.round(3333323 * Math.abs((brightness - 382.5)/382.5) ** 8 + 10)))-3];
+        } else {
+          rarity = ["common", "uncommon", "rare", "epic", "legendary"][Math.floor(Math.log10(bpchr))-1];
         }
         document.querySelector("#props").insertAdjacentHTML("afterbegin", `
           <div class="prop ${rarity}">
             <p class="large name">Brightness of ${brightness}bp</p>
             <p class="medium description">Measured using the sum of the channels.</p>
-            <p class="small value ${rarity}">+${Math.round(3333323 * Math.abs((brightness - 382.5)/382.5) ** 8 + 10)} Chroma</p>
+            <p class="small value ${rarity}">+${bpchr} Chroma</p>
           </div>
         `);
-        chrto += Math.round(3333323 * Math.abs((brightness - 382.5)/382.5) ** 8 + 10);
+        chrto += bpchr;
+        await sleep(1500);
+        const redbeauty = 1.5*r*(1/(1+Math.pow((g+1)/(r**4/16581375), 3)))*Math.pow(1+b/(r+1), 2.5);
+        const greenbeauty = 1.3333*g*(1/(1+Math.pow((r+1)/(g/1.4), 3)))*Math.pow(g/125+b/(g+1), 1.5);
+        const bluebeauty = 100*Math.cbrt(b/175)*Math.pow(0.8+b/(g+1), 2);
+        const beauty = Math.min([redbeauty, greenbeauty, bluebeauty].reduce((a, b) => a + b) / 3, 900);
+        let ap = Math.round(10/(1-Math.pow(beauty/901, 0.1))+0.0001*beauty**2-50);
+        rarity = "common";
+        if (ap >= 10000000) {
+          rarity = "mythic";
+        } else if (rarity) {
+          rarity = "trash";
+        } else {
+          rarity = ["common", "uncommon", "rare", "epic", "legendary"][Math.floor(Math.log10(ap))-1];
+        }
+        document.querySelector("#props").insertAdjacentHTML("afterbegin", `
+          <div class="prop ${rarity}">
+            <p class="large name">Beauty of ${beauty.toFixed(3)}ap</p>
+            <p class="medium description">Measured using a complex algorithm that compares each channel to the others and averages the score of each channel.</p>
+            <p class="small value ${rarity}">+${Math.abs(ap)} Chroma</p>
+          </div>
+        `);
+        chrto += ap;
         await sleep(800);
-        return [saturation, brightness];
+        return [saturation, brightness, beauty];
       } else if (type == "rgb") {
         const r = parseInt(rh, 16);
         const g = parseInt(gs, 16);
@@ -491,9 +553,9 @@
       document.querySelector("#color2").style.scale = `${scale + 0.1 * (1 - scale)}`;
       chr += 0.2 * (chrto - chr);
       document.querySelector("#chroma").textContent = `${Math.round(chr)} Chroma`;
-      document.querySelector("#chroma").style.color = `hsl(${400/Math.PI*Math.atan(chrto/7575)}, 100%, 50%)`
+      document.querySelector("#chroma").style.color = `hsl(${400/Math.PI*Math.atan(chrto/3333)}, 100%, 50%)`
       document.querySelector("#chroma").style.setProperty("--shake", `${3*Math.atan(chrto/33333)}px`);
-      document.querySelector("#chroma").style.fontSize = `${1+3.5*Math.atan(chrto/70707)}em`;
+      document.querySelector("#chroma").style.fontSize = `${1+3*Math.atan(chrto/70707)}em`;
     }
     async function roll() {
       chrto = 0;
@@ -517,6 +579,10 @@
       } else {
         color = "hsla";
       }
+      const type = color;
+      let r = 0;
+      let g = 0;
+      let b = 0;
       if (color == "hex") {
         for (let i = 0; i < 6; i++) {
           for (let j = 0; j < 30 + 5 * clist.length; j++) {
@@ -529,9 +595,9 @@
         }
         updateColor(color);
         const matches = hexregex.exec(color);
-        const r = matches[1];
-        const g = matches[2];
-        const b = matches[3];
+        r = matches[1];
+        g = matches[2];
+        b = matches[3];
         [saturation, brightness] = await analyzeNumber("hex", r, g, b, "-1");
       } else if (color == "rgb") {
         for (let i = 0; i < 6; i++) {
@@ -578,7 +644,7 @@
           if ("3579".includes(clist.length)) document.querySelector("#color2").style.scale = 2;
         }
       }
-      let percentile = (200/Math.PI*Math.atan(chrto/6767)).toFixed(2);
+      let percentile = (200/Math.PI*Math.atan(chrto/1347)).toFixed(2);
       if (percentile <= 99) {
         percentile = String(Math.round(percentile));
       } else if (percentile <= 99.9) {
@@ -586,11 +652,44 @@
       }
       const ordinal = percentile.at(-2) == "1" ? "th" : percentile.endsWith("1") ? "st" : percentile.endsWith("2") ? "nd" : percentile.endsWith("3") ? "rd" : "th";
       document.querySelector("#stats").insertAdjacentHTML("beforeend", `
-        <p class="large mono" id="percentile" style="animation: appear 0.5s; font-size: 2em; color: hsl(${240/Math.PI*Math.atan(chrto/6767)}, 100%, 50%)">${percentile}${ordinal} percentile</p>
+        <p class="large mono" id="percentile" style="animation: appear 0.5s; font-size: 2em; color: hsl(${240/Math.PI*Math.atan(chrto/1347)}, 100%, 50%)">${percentile}${ordinal} percentile</p>
       `);
       await sleep(556);
+      let redsq=[216,61,101];
+      let orangesq=[247,103,67];
+      let yellowsq=[255,177,81];
+      let greensq=[74,196,138];
+      let bluesq=[64,127,214];
+      let purplesq=[143,101,228];
+      let brownsq=[129,82,88];
+      let blacksq=[66,60,72];
+      let whitesq=[216,197,232];
+      if (type == "hex") {
+        r = parseInt(r, 16);
+        g = parseInt(g, 16);
+        b = parseInt(b, 16);
+        redsq = Math.sqrt(Math.pow(216-r, 2)+Math.pow(61-g, 2)+Math.pow(101-b, 2));
+        orangesq = Math.sqrt(Math.pow(247-r, 2)+Math.pow(103-g, 2)+Math.pow(67-b, 2));
+        yellowsq = Math.sqrt(Math.pow(255-r, 2)+Math.pow(177-g, 2)+Math.pow(81-b, 2));
+        greensq = Math.sqrt(Math.pow(74-r, 2)+Math.pow(196-g, 2)+Math.pow(138-b, 2));
+        bluesq = Math.sqrt(Math.pow(64-r, 2)+Math.pow(127-g, 2)+Math.pow(214-b, 2));
+        purplesq = Math.sqrt(Math.pow(143-r, 2)+Math.pow(101-g, 2)+Math.pow(228-b, 2));
+        brownsq = Math.sqrt(Math.pow(129-r, 2)+Math.pow(82-g, 2)+Math.pow(88-b, 2));
+        blacksq = Math.sqrt(Math.pow(66-r, 2)+Math.pow(60-g, 2)+Math.pow(72-b, 2));
+        whitesq = Math.sqrt(Math.pow(216-r, 2)+Math.pow(197-g, 2)+Math.pow(232-b, 2));
+      }
+      let square = "🟥";
+      let minimum = redsq;
+      if (orangesq < minimum) {square = "🟧"; minimum = orangesq;}
+      if (yellowsq < minimum) {square = "🟨"; minimum = yellowsq;}
+      if (greensq < minimum) {square = "🟩"; minimum = greensq;}
+      if (bluesq < minimum) {square = "🟦"; minimum = bluesq;}
+      if (purplesq < minimum) {square = "🟪"; minimum = purplesq;}
+      if (brownsq < minimum) {square = "🟫"; minimum = brownsq;}
+      if (blacksq < minimum) {square = "⬛"; minimum = blacksq;}
+      if (whitesq < minimum) {square = "⬜"; minimum = whitesq;}
       document.querySelector("#stats").insertAdjacentHTML("beforeend", `
-        <button class="large mono" id="share" style="animation: appear 0.5s; font-size: 1rem;" onclick="navigator.clipboard.writeText('Creulette 🟨 ${color}\\n${percentile}${ordinal} percentile, ${chrto} Chroma\\n${saturation.toFixed(3)}sp, ${brightness.toFixed(0)}bp\\nhttps://prototypestudios.neocities.org/creulette?color=${color.replace(/[^0-9a-f]/gi, "")}&type=hex\\nhttps://prototypestudios.neocities.org/creulette')">SHARE YOUR ROLL</p>
+        <button class="large mono" id="share" style="animation: appear 0.5s; font-size: 1rem;" onclick="navigator.clipboard.writeText('Creulette ${square} ${color}\\n${percentile}${ordinal} percentile, ${chrto} Chroma\\n${saturation.toFixed(3)}sp, ${brightness.toFixed(0)}bp\\nhttps://prototypestudios.neocities.org/creulette?color=${color.replace(/[^0-9a-f,]/gi, "")}&type=${type}\\nhttps://prototypestudios.neocities.org/creulette')">SHARE YOUR ROLL</p>
       `);
       await sleep(556);
       document.querySelector("#stats").insertAdjacentHTML("beforeend", `
