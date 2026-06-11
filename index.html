@@ -18,6 +18,7 @@
         <p class="large title">RNGdle Sandbox</p>
         <h6 class="small">Find out how much EP a number might earn.</h6>
       </div></button>
+      <hr><a class="medium mono" href="https://docs.google.com/spreadsheets/d/1YMs7aei-l5lOZu3yVG_5xdsBzfqzOB_zFAv5gudGrGk">Link to RNGdle Badges. Shift-click to copy the link.</a>
       <hr><footer class="small">© 2026 Milo the Protogen. All rights reserved.</footer>
     </center>
     <script>
@@ -36,6 +37,19 @@
       document.querySelector("#rngdle").onclick = () => {
         window.location.href = "https://prototypestudios.neocities.org/rngdle";
       }
+      document.querySelector('a').addEventListener('click', function(event) {
+        if (event.shiftKey) {
+          event.preventDefault();
+          const url = this.href;
+          navigator.clipboard.writeText(url).then(() => {
+            const og = this.textContent;
+            this.textContent = "✅ Copied :3";
+            setTimeout(() => {this.textContent = og}, 1000);
+          }).catch(err => {
+            console.error('Failed to copy: ', err);
+          });
+        }
+      });
     </script>
   </body>
 </html>
