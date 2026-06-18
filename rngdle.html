@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="description" content="Find out how much EP a number might earn.">
     <meta property="og:description" content="Find out how much EP a number might earn.">
-    <meta name="keywords" content="rngdle, sandbox, sand, box, ep, entropy, points, point">
+    <meta name="keywords" content="rngdle, game, online, sandbox, sand, box, answers, answer, ep, entropy, points, point, dle">
     <meta name="author" content="ProtoType Studios">
     <meta property="og:title" content="RNGdle Sandbox by ProtoType Studios">
     <meta property="og:url" content="https://prototypestudios.neocities.org/rngdle">
     <meta name="theme-color" content="#0a0a0a">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RNGdle Sandbox</title>
-    <link href="/style.css" rel="stylesheet" type="text/css" media="all">
+    <link rel="preload" href="/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/style.css"></noscript>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
       @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
@@ -34,7 +35,7 @@
         padding-inline: 1.75rem;
         padding-block: 1rem;
         width: 16.25rem;
-        color: #fafafa;
+        color: oklch(87.2% 0.01 258.338);
         text-shadow: 0 1px 2px #fff3;
         font-size: 2.75rem;
         text-align: center;
@@ -60,7 +61,7 @@
         color: #c4c4c4;
         font-size: 1rem;
       }
-      #ep3 {
+      #ep3, #badges {
         color: #9a9a9a;
         margin-top: 0;
         margin-bottom: 1rem;
@@ -77,7 +78,7 @@
         border: 1px solid oklch(44.2% 0.017 285.786);
         width: fit-content;
         margin-right: 0.25rem;
-        padding-inline: 0.75rem;
+        padding-inline: 0.5rem;
         padding-block: 0.125rem;
         transition: all 0.75s ease;
       }
@@ -133,31 +134,31 @@
         appearance: textfield;
       }
       input.trash {
-        background: linear-gradient(135deg, #fff3 0%, #ffffff09 33%, transparent 60%, #ffffff07 100%),
+        background: linear-gradient(135deg, #ffffff09 0%, #ffffff09 33%, transparent 60%, #ffffff07 100%),
           linear-gradient(to bottom right in oklab, #7b330699 0%, #ffffff1a 50%, #7b330699 100%);
         border: 3px solid oklch(47.3% 0.137 46.201);
         color: oklch(87.9% 0.169 91.605);
       }
       input.uncommon {
-        background: linear-gradient(135deg, #fff3 0%, #ffffff09 33%, transparent 60%, #ffffff07 100%),
+        background: linear-gradient(135deg, #ffffff09 0%, #ffffff09 33%, transparent 60%, #ffffff07 100%),
           linear-gradient(to bottom right in oklab, color-mix(in oklab, oklch(37.8% 0.077 168.94) 60%,transparent) 0%, oklch(27.4% 0.006 286.033) 50%, color-mix(in oklab, oklch(37.8% 0.077 168.94) 60%,transparent) 100%);
         border: 3px solid oklch(43.2% 0.095 166.913);
         color: oklch(76.5% 0.177 163.223);
       }
       input.rare {
-        background: linear-gradient(135deg, #fff3 0%, #ffffff09 33%, transparent 60%, #ffffff07 100%),
+        background: linear-gradient(135deg, #ffffff09 0%, #ffffff09 33%, transparent 60%, #ffffff07 100%),
           linear-gradient(to bottom right in oklab, color-mix(in oklab, oklch(37.9% 0.146 265.522) 60%,transparent) 0%, oklch(27.4% 0.006 286.033) 50%, color-mix(in oklab, oklch(37.9% 0.146 265.522) 60%,transparent) 100%);
         border: 3px solid oklch(42.4% 0.199 265.638);
         color: oklch(70.7% 0.165 254.624);
       }
       input.epic {
-        background: linear-gradient(135deg, #fff3 0%, #ffffff09 33%, transparent 60%, #ffffff07 100%),
+        background: linear-gradient(135deg, #ffffff09 0%, #ffffff09 33%, transparent 60%, #ffffff07 100%),
           linear-gradient(to bottom right in oklab, color-mix(in oklab, oklch(38.1% 0.176 304.987) 60%,transparent) 0%, oklch(27.4% 0.006 286.033) 50%, color-mix(in oklab, oklch(38.1% 0.176 304.987) 60%,transparent) 100%);
         border: 3px solid oklch(43.8% 0.218 303.724);
         color: oklch(71.4% 0.203 305.504);
       }
       input.anomaly {
-        background: linear-gradient(135deg, #fff3 0%, #ffffff09 33%, transparent 60%, #ffffff07 100%),
+        background: linear-gradient(135deg, #ffffff09 0%, #ffffff09 33%, transparent 60%, #ffffff07 100%),
           linear-gradient(to bottom right in oklab, color-mix(in oklab, oklch(40.8% 0.123 38.172) 60%,transparent) 0%, oklch(27.4% 0.006 286.033) 50%, color-mix(in oklab, oklch(40.8% 0.123 38.172) 60%,transparent) 100%), linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 100%);
         border: 3px solid oklch(47% 0.157 37.304);
         color: oklch(75% 0.183 55.934);
@@ -174,7 +175,7 @@
       #rarity.trash, #ep.trash {
         color: oklch(87.9% 0.169 91.605);
         background-color: color-mix(in oklab, oklch(27.9% 0.077 45.635) 40%, transparent);
-        border: 1px solid color-mix(in oklab, oklch(47.3% 0.137 46.201) 60%, transparent);;
+        border: 1px solid color-mix(in oklab, oklch(47.3% 0.137 46.201) 60%, transparent);
       }
       #rarity.uncommon, #ep.uncommon {
         color: oklch(76.5% 0.177 163.223);
@@ -226,6 +227,7 @@
         <p id="ep">??? EP</p>
         <span id="ep2">??? EP</span>
         <p id="ep3">YOUR LIFETIME EP</p>
+        <p id="badges">BADGES: ???</p>
         <button id="share"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share2 lucide-share-2 w-4 h-4" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg><span>SHARE</span></button>
       </b>
       <h6>Note: Not all badges have logic, and the percentile is an approximation that fits R²=0.9982.</h6>
@@ -236,63 +238,51 @@
     <script>
       function CNums() {
         // 4 consecutive numbers
-        if (s=="78910" || s=="10987" || s=="891011" || s=="111098") return 25000025;
-        if (s.includes("78910") || s.includes("10987")) return 2631582;
-        if (s.includes("7") && s.includes("8") && s.includes("9") && s.includes("10")) return 2272730;
-        if (s.includes("8") && s.includes("9") && s.includes("10") && s.includes("11") && length == 6) return 2272730;
+        if (s=="78910" || s=="10987" || s=="891011" || s=="111098") {badges.push("4 consecutive numbers"); return 25000025;}
+        if (s.includes("78910") || s.includes("10987")) {badges.push("4 consecutive numbers (contains)"); return 2631582;}
+        if (s.includes("7") && s.includes("8") && s.includes("9") && s.includes("10") && length == 5) {badges.push("4 consecutive numbers (scrambled)"); return 2272730;}
+        if (s.includes("8") && s.includes("9") && s.includes("10") && s.includes("11") && length == 6 && !(s.includes("110")&&!s.includes("1110"))) {badges.push("4 consecutive numbers (scrambled)"); return 2272730;}
         
         // 3 consecutive numbers
         // 2 digits
-        const a = s.slice(0,2);
-        const b = s.slice(2,4);
-        const c = s.slice(4,6);
-        if (Math.abs(a-b)==1 && Math.abs(a-c)==2) return 555556;
-        if ((Math.abs(a-b)==Math.abs(a-c)) || (Math.abs(a-b)==2 && Math.abs(a-c)==1)) return 277778;
-        // 1 digit
-        if (s=="8910" || s=="91011" || s=="11109" || s=="1098") {
-          return 555556;
-        }
-        if (s=="8109" || s=="9810" || s=="9108" || s=="1089" || s=="91110" || s=="10911" || s=="10119" || s=="11910") {
-          return 277778;
-        }
-        if (s.includes("8910") || s.includes("91011") || s.includes("11109") || s.includes("1098")){
-          return 157978;
-        }
-        
-         
-        // 2 consecutive numbers
-        // 3 digits
-        if (Math.abs(s.slice(0,3)-s.slice(3,6)) == 1) return 50505;
-        // 2 digits
-        for (i in s) {
-          if (length - i < 2) break;
-          if (s[i]=="0") continue;
-          if (Math.abs((s[Number(i)+2]+s[Number(i)+3])-(s[i]+s[Number(i)+1])) == 1) {
-            if (length == 4) return 50505;
-            return 1659;
-          } else if (s.includes(Number(s[i]+s[Number(i)+1])+1)) {
-            if (Math.abs(s.indexOf(Number(s[i]+s[Number(i)+1]))-s.indexOf(Number(s[i]+s[Number(i)+1])+1))==1) continue;
-            return 1575;
+        if (length == 6) {
+          const a = s.slice(0,2);
+          const b = s.slice(2,4);
+          const c = s.slice(4,6);
+          const sorted = [a,b,c].sort();
+          if (sorted[1]-sorted[0]==1 && sorted[2]-sorted[1]==1 && sorted[0][0]!="0" && sorted[1][0]!="0" && sorted[2][0]!="0") {
+            if ([a,b,c].join(",") == sorted.join(",") || [a,b,c].reverse().join(",") == sorted.join(",")) {badges.push("3 consecutive numbers"); return 555556;}
+            else {badges.push("3 consecutive numbers (scrambled)"); return 277778;}
           }
         }
         // 1 digit
-        if (s=="910" || s=="109" || s=="99100" || s=="10099"){
-          return 50505; 
-        } else if (s.includes("910") || s.includes("109")) {
-          return 1659;
-        } else if (s.includes("9") && s.includes("10")) {
-          return 1575;
-        }
+        if (s=="8910" || s=="91011" || s=="11109" || s=="1098") {badges.push("3 consecutive numbers"); return 555556;}
+        if (s=="8109" || s=="9810" || s=="9108" || s=="1089" || s=="91110" || s=="10911" || s=="10119" || s=="11910") {badges.push("3 consecutive numbers (scrambled)"); return 277778;}
+        if (s.includes("8910") || s.includes("91011") || s.includes("11109") || s.includes("1098")) {badges.push("3 consecutive numbers (contains)"); return 157978;}
+        
+        // 2 consecutive numbers
+        // exact
+        if ((Math.abs(s.slice(0,3)-s.slice(3,6)) == 1) && s[0] != "0" && s[3] != "0" && length == 6) {badges.push("2 consecutive numbers"); return 50505;}
+        if ((Math.abs(s.slice(0,2)-s.slice(2,4)) == 1) && s[0] != "0" && s[2] != "0" && length == 4) {badges.push("2 consecutive numbers"); return 50505;}
+        if (s=="910" || s=="109" || s=="99100" || s=="10099"){badges.push("2 consecutive numbers"); return 50505;}
+        // adjacent
+        if (((Math.abs(s.slice(0,2)-s.slice(2,4)) == 1 && s[0] != "0" && s[2] != "0") || (Math.abs(s.slice(1,3)-s.slice(3,5)) == 1 && s[1] != "0" && s[3] != "0") || (Math.abs(s.slice(2,4)-s.slice(4,6)) == 1 && s[2] != "0" && s[4] != "0")) && length > 4) {badges.push("2 consecutive numbers (contains)"); return 1659;}
+        if (s.includes("99100") || s.includes("10099")) {badges.push("2 consecutive numbers (contains)"); return 1659;}
+        if (s.includes("910") || s.includes("109")) {badges.push("2 consecutive numbers (contains)"); return 1659;}
+        // nearby
+        if (((Math.abs(s.slice(0,2)-s.slice(3,5)) == 1 && s[3] != "0" && length > 4) || (Math.abs(s.slice(0,2)-s.slice(4,6)) == 1 && s[4] != "0" && length == 6) || (Math.abs(s.slice(1,3)-s.slice(4,6)) == 1 && s[4] != "0") && length == 6)) {badges.push("2 consecutive numbers (nearby)"); return 1575;}
+        if (s.includes("99") && s.includes("100")) {badges.push("2 consecutive numbers (nearby)"); return 1575;}
+        if (s.includes("9") && s.includes("10")) {badges.push("2 consecutive numbers (nearby)"); return 1575;}
         return 0;
       }
       function Prime() {
         if (num < 2) return 0;
-        if (num < 4) return 1274;
+        if (num < 4) {badges.push("prime number"); return 1274;}
         if (num%2==0 || num%3==0) return 0;
         for (let i = 5; i * i <= num; i += 6) {
           if (num % i === 0 || num % (i + 2) === 0) return 0;
         }
-        return 1274;
+        badges.push("prime number"); return 1274;
       }
       function MountainValley() {
         let d = [...s];
@@ -302,8 +292,8 @@
         d.splice(-1, 1);
         if (!(d.includes(-1) && d.includes(1))) return 0;
         if (d.includes(null)) return 0;
-        if (d.join(",") == [...d].sort().join(",")) return 4199;
-        if (d.join(",") == [...d].sort().reverse().join(",")) return 5885;
+        if (d.join(",") == [...d].sort().join(",")) {badges.push("valley"); return 4199;}
+        if (d.join(",") == [...d].sort().reverse().join(",")) {badges.push("mountain"); return 5885;}
         return 0;
       }
       function update() {
@@ -330,34 +320,27 @@
           document.querySelector("#percentile").textContent = "TOP <1%";
         }
       }
-      let num = "??????";
-      let s = "??????";
-      let ep = 0;
-      let epdisp = 0;
-      let length = "??????";
-      let sum = -1;
-      let product = -2;
-      let sum1 = -696969;
-      let sum2 = -420420;
-      setInterval(update, 16);
-      document.querySelector("#num").oninput = () => {
+      function analyze(number) {
         document.querySelector("#num").value = document.querySelector("#num").value.replaceAll(".", "");
         ep = 0;
-        if (document.querySelector("#num").value > 1000000) {
-          document.querySelector("#num").value = 1000000;
-        }
-        if (document.querySelector("#num").value < 0) {
-          document.querySelector("#num").value = 0;
-        }
-        if (document.querySelector("#num").value[0] == 0) {
-          document.querySelector("#num").value = 0;
-        }
-        if (!document.querySelector("#num").value) {
-          document.querySelector("#num").style.width = "15.5rem";
-          document.querySelector("#num").style.fontSize = "2.75rem";
-          return;
-        }
-        num = Number(document.querySelector("#num").value);
+        if (typeof(number)!="number") {
+          if (document.querySelector("#num").value > 1000000) {
+            document.querySelector("#num").value = 1000000;
+          }
+          if (document.querySelector("#num").value < 0) {
+            document.querySelector("#num").value = 0;
+          }
+          if (document.querySelector("#num").value[0] == 0) {
+            document.querySelector("#num").value = 0;
+          }
+          if (!document.querySelector("#num").value) {
+            document.querySelector("#num").style.width = "15.5rem";
+            document.querySelector("#num").style.fontSize = "2.75rem";
+            document.querySelector("#badges").textContent = `BADGES: ???`;
+            return;
+          }
+          num = Number(document.querySelector("#num").value);
+        } else {num = number;}
         s = String(num);
         length = s.length;
         sum = [...s].reduce((acc, digit) => acc + Number(digit), 0);
@@ -369,183 +352,221 @@
         for (const d of digits) {
         	counts[d] = (counts[d] || 0) + 1;
         }
-        const maxCount = Math.max(...Object.values(counts));
-        document.querySelector("#num").style.fontSize = length < 6 ? "3.75rem" : "2.75rem";
-        document.querySelector("#num").style.width = length == 6 ? "15.5rem" : `${5.5+14*length/6}rem`;
-        document.querySelector("#num").style.paddingBlock = length < 6 ? "0.75rem" : "1rem";
+        const counts2 = Object.values(counts)
+        const maxCount = Math.max(...counts2);
+        const minCount = Math.min(...counts2);
         if (length % 2 == 0) {
           sum1 = [...s].slice(0,length/2).reduce((acc, digit) => acc + Number(digit), 0);
           sum2 = [...s].slice(length/2,length).reduce((acc, digit) => acc + Number(digit), 0);
         }
         let u = [...new Set([...s])];
-        if (length == 6) ep+=111;
-        if (u.length == length - 1) ep += 120;
-        if ((/01|10|12|21|23|32|34|43|45|54|56|65|67|76|78|87|89|98/gi).test(s)) ep+=161;
-        if (!s.includes("0")) ep+=167;
-        if (s[0] > s.at(-1)) ep+=200;
-        ep+=200;
-        if (s.includes("7")) ep+=213;
-        if ((/(.)\1/gi).test(s)) ep+=249;
-        if (s[0] < s.at(-1)) ep+=250;
-        if ((s.match(/1/gi) || []).length == 1) ep+=282;
-        if ((s.match(/2/gi) || []).length == 1) ep+=282;
-        if ((s.match(/3/gi) || []).length == 1) ep+=282;
-        if ((s.match(/4/gi) || []).length == 1) ep+=282;
-        if ((s.match(/5/gi) || []).length == 1) ep+=282;
-        if ((s.match(/6/gi) || []).length == 1) ep+=282;
-        if ((s.match(/7/gi) || []).length == 1) ep+=282;
-        if ((s.match(/8/gi) || []).length == 1) ep+=282;
-        if ((s.match(/9/gi) || []).length == 1) ep+=282;
-        if (u.length == 4) ep+=290;
-        if ((s.match(/0/gi) || []).length == 1) ep+=309;
-        if ((/(.).\1/gi).test(s)) ep+=312;
-        if (u.length == length - 2 && maxCount == 2) ep+=447;
-        if (Math.abs(s[0] - s.at(-1)) == 1) ep+=529;
-        if (u.length == length) ep+=593;
-        if (num % 7 == 0) ep+=700;
-        if (maxCount == 3) ep+=724;
-        if ([...s].every((d, i, a) => i == a.length-1 || (i % 2 == 0 ? a[i+1] > d : a[i+1] < d)) || [...s].every((d, i, a) => i == a.length-1 || (i % 2 == 0 ? a[i+1] < d : a[i+1] > d))) ep+=733;
-        if (s[0] == s.at(-1) && length > 2) ep+=1000;
-        if (s[0] == s.at(-1)) ep+=1000;
-        if (s.at(-1) == 5) ep+=1000;
-        if (s.at(-1) == 0) ep+=1000;
-        if (num % sum == 0) ep+=1048;
-        if (num % 11 == 0) ep+=1100;
-        if (length == 5) ep+=1111;
-        if (num % 12 == 0) ep+=1200;
-        if (u.length == 3) ep+=1265;
+        badges = [];
+        if (length == 6) {ep+=111; badges.push("six digits");}
+        if ((/01|10|12|21|23|32|34|43|45|54|56|65|67|76|78|87|89|98/gi).test(s)) {ep+=161; badges.push("neighbors");}
+        if (!s.includes("0")) {ep+=167; badges.push("void");}
+        if (s[0] > s.at(-1)) {ep+=200; badges.push("liftoff");}
+        ep+=200; badges.push("even/odd");
+        if (s.includes("7")) {ep+=213; badges.push("lucky seven");}
+        if (s[0] < s.at(-1)) {ep+=250; badges.push("grounded");}
+        if ((s.match(/1/gi) || []).length == 1) {ep+=282; badges.push("hydrogen (1)");}
+        if ((s.match(/2/gi) || []).length == 1) {ep+=282; badges.push("helium (2)");}
+        if ((s.match(/3/gi) || []).length == 1) {ep+=282; badges.push("lithium (3)");}
+        if ((s.match(/4/gi) || []).length == 1) {ep+=282; badges.push("beryllium (4)");}
+        if ((s.match(/5/gi) || []).length == 1) {ep+=282; badges.push("boron (5)");}
+        if ((s.match(/6/gi) || []).length == 1) {ep+=282; badges.push("carbon (6)");}
+        if ((s.match(/7/gi) || []).length == 1) {ep+=282; badges.push("nitrogen (7)");}
+        if ((s.match(/8/gi) || []).length == 1) {ep+=282; badges.push("oxygen (8)");}
+        if ((s.match(/9/gi) || []).length == 1) {ep+=282; badges.push("fluorine (9)");}
+        if (u.length == 4) {ep+=290; badges.push("quartet");}
+        if ((s.match(/0/gi) || []).length == 1) {ep+=309; badges.push("ghost (0)");}
+        if (Math.abs(s[0] - s.at(-1)) == 1) {ep+=529; badges.push("gap one");}
+        if (u.length == length) {ep+=593; badges.push("heterogeneous");}
+        if (num % 7 == 0 && num > 0) {ep+=700; badges.push("lucky seven (divisible)");}
+        if (([...s].every((d, i, a) => i == a.length-1 || (i % 2 == 0 ? a[i+1] > d : a[i+1] < d)) || [...s].every((d, i, a) => i == a.length-1 || (i % 2 == 0 ? a[i+1] < d : a[i+1] > d))) && length > 3) {ep+=733; badges.push("hills");}
+        // sandwich badge is never counted. if (s[0] == s.at(-1) && length > 1) {ep+=1000; badges.push("sandwich");}
+        if (s[0] == s.at(-1) && length > 1) {ep+=1000; badges.push("equilibrium");}
+        if (s.at(-1) == 5) {ep+=1000; badges.push("semi-clean");}
+        if (s.at(-1) == 0) {ep+=1000; badges.push("clean");}
+        if (num % sum == 0) {ep+=1048; badges.push("harshad number");}
+        if (num % 11 == 0 && num > 0) {ep+=1100; badges.push("eleven");}
+        if (length == 5) {ep+=1111; badges.push("five digits");}
+        if (num % 12 == 0 && num > 0) {ep+=1200; badges.push("dozen");}
+        if (u.length == 3) {ep+=1265; badges.push("trinity");}
         ep += Prime();
         ep += CNums();
         ep += MountainValley();
-        if ((/012|123|234|345|456|567|678|789|987|876|765|654|543|432|321|210/gi).test(s)) ep+=1716;
-        if ((/(.{2,3}).*\1/gi).test(s)) ep+=1872;
-        if (sum1 == sum2) ep+=1959;
-        if (s.includes("42")) ep+=2024;
-        if (s.includes("67")) ep+=2024;
-        if (s.includes("69")) ep+=2024;
-        if (s.includes("86")) ep+=2024;
-        if ((u.length == length - 1) && ((s.match(/1/gi) || []).length == 2)) ep+=2121;
-        // full house ep+=2397;
-        if (sum == 21) ep+=2521;
-        if (sum < 15) ep+=2667;
-        if (s.includes("00")) ep+=2784;
-        if ((/(.)\1\1/gi).test(s)) ep+=2784;
-        if ([...s].every(d => d % 2 == 0) || [...s].every(d => d % 2 == 1)) ep+=2845;
-        if ((/^([86420](?![86420])|[97531](?![97531]))+$/gmi).test(s)) ep+=2845;
-        if ((/(.)(?!\1)(.)\1\2/gi).test(s)) ep+=3704;
-        if ([...s].every(d => d >= 5)) ep+=5120;
-        if ((/(.)(?!\1).\1(?!\1).\1/gi).test(s)) ep+=5321;
-        if ((/(.)\1(?!\1)(.)\2/gi).test(s)) ep+=6142;
-        if ([...s].every(d => d < 5)) ep+=6400;
-        if (maxCount == 4) ep+=8436;
-        if (s.endsWith("50")) ep+=10000;
-        if (s.endsWith("99")) ep+=10000;
-        if (s.endsWith("00")) ep+=10000;
-        if (s[0] == s.at(-1) && s[1] == s.at(-2)) ep+=10010;
-        if (s[0] == s.at(-2) && s[1] == s.at(-1)) ep+=10010;
-        // three pair ep+=10288;
-        if (length == 4) ep+=11111;
-        if ((/^(.)\1.*(?!\1)(.)\2$/gmi).test(s)) ep+=11122;
-        if ((/(.)(.)\2(?!\2)(.)\3(?!\1)./gi).test(s)) ep+=15242;
-        if (u.length == 2) ep+=21654;
-        if ("0123456789".includes([...s].sort().join(""))) ep+=22722;
-        if ([...s].every(d => "0369".includes(d))) ep+=24414;
-        if (s.includes("271")) ep+=25006;
-        if (s.includes("314")) ep+=25006;
-        if (s.includes("350")) ep+=25006;
-        if (s.includes("365")) ep+=25006;
-        if (s.includes("420")) ep+=25006;
-        if (s.includes("911")) ep+=25006;
-        if (s.includes("101")) ep+=25132;
-        if (s.includes("404")) ep+=25132;
-        if ((/0123|1234|2345|3456|4567|5678|6789|9876|8765|7654|6543|5432|4321|3210/gi).test(s)) ep+=25907;
-        if (s.includes("666")) ep+=27027;
-        if (s.includes("777")) ep+=27027;
-        if ((/(.)\1\1(?!\1)(.)\2/gi).test(s)) ep+=30111;
-        if (sum > 45) ep+=33300;
-        if (s.includes("007")) ep+=34614;
-        if ([...s].every((d, i, a) => i == 0 || Math.abs(d-a[i-1])<2)) ep+=36049;
-        if (s.includes("000")) ep+=37023;
-        if ((/(.)\1\1\1/gi).test(s)) ep+=37023;
-        if ([...s] == [...s].reverse()) ep+=50025;
-        if (u.length === 2 && (s.split(u[0]).length - 1 === 1 || s.split(u[1]).length - 1 === 1)) ep+=82237;
-        // even spacing absolute ep+=90992;
-        if (Math.sqrt(num) % 1 == 0) ep+=99900;
-        if (num > 999000) ep+=100000;
-        if (s.endsWith("500")) ep+=100000;
-        if (s.endsWith("999")) ep+=100000;
-        if (s.endsWith("000")) ep+=100000;
-        if (Math.floor(Math.sqrt(num))*Math.ceil(Math.sqrt(num))==num) ep+=100000;
-        if ((/(...)\1/gi).test(s)) ep+=100100;
-        if (length == 3) ep+=111111;
-        if ([...s].every((d, i, a) => i == 0 || a[i-1] > d)) ep+=119474;
-        if ((/^(.)(?!\1)(.)\2\2(?!\1).$/gmi).test(s)) ep+=137174;
-        if ((/^(.)(?!\1)(.)\2(?!\2).$/gmi).test(s)) ep+=137174;
-        if ((/(.)\1(?!\1)(.)\2(?!\1)(?!\2)(.)\3/gi).test(s)) ep+=154321;
-        if (([...s].every((d, i, a) => i == 0 || a[i-1] < d))) ep+=219298;
-        if ((/^(.)(?!\1)(.)((?!\2)\1((?!\1)\2((?!\2)\1((?!\1)\2)?)?)?)?$/gmi).test(s)) ep+=246914;
-        if (s.includes("1337")) ep+=333334;
-        if (s.includes("1984")) ep+=333334;
-        if (s.includes("2718")) ep+=333334;
-        if (s.includes("3141")) ep+=333334;
-        if (s.includes("1337")) ep+=333334;
-        if (s.includes("7734")) ep+=333334;
-        if (s.includes("8008")) ep+=333334;
-        if (s.includes("4242")) ep+=334448;
-        if (s.includes("6767")) ep+=334448;
-        if (s.includes("6969")) ep+=334448;
-        if (s.includes("7777")) ep+=357143;
-        if ((/01234|12345|23456|34567|45678|56789|98765|87654|76543|65432|54321|43210/gi).test(s)) ep+=454546;
-        // strobogrammatic ep+=502513;
-        if (s.includes("0000")) ep+=552487;
-        // even spacing ep+=862070;
-        if (Math.cbrt(num) % 1 == 0) ep+=990100;
-        if (s.endsWith("5000")) ep+=1000001;
-        if (s.endsWith("9999")) ep+=1000001;
-        if (sum == product) ep+=1030929;
-        if (length == 2) ep+=1111111;
-        if ((/02468|86420|13579|97531/gi).test(s)) ep+=1449277;
-        if ([...s].every(d => d < 2)) ep+=1538463;
-        if (u.length == 1) ep+=2222224;
-        if ("9876543210".includes(s)) ep+=2857146;
-        if ((num ** (1/4)).toFixed(10) % 1 == 0) ep+=3125003;
-        if ("0123456789".includes(s)) ep+=3333337;
-        if (s.includes("27182")) ep+=5000005;
-        if (s.includes("31415")) ep+=5000005;
-        if (s.includes("56789")) ep+=5000005;
-        if (s.includes("58008")) ep+=5000005;
-        if (s.includes("80085")) ep+=5000005;
-        if (Math.log2(num) % 1 == 0) ep+=5000005;
-        if (s.includes("77777")) ep+=5263163;
-        if ((num ** (1/5)).toFixed(10) % 1 == 0) ep+=6250006;
-        if (Math.log(num)/Math.log(3) % 1 == 0) ep+=7692315;
-        if ((num ** (1/6)).toFixed(10) % 1 == 0) ep+=9090918;
-        if (s.endsWith("99999")) ep+=10000010;
-        if (s.includes("00000")) ep+=10000010;
-        if ((/(.)\1\1\1\1\1/gi).test(s)) ep+=10000010;
-        if (("0123456789".includes(s) || "9876543210".includes(s)) && length == 6) ep+=11111122;
-        if (s.includes("07734")) ep+=11111122;
-        if ([1,2,6,24,120,720,5040,40320,362880].includes(num)) ep+=11111122;
-        if ((num ** (1/7)).toFixed(10) % 1 == 0) ep+=12500013;
-        if ((num ** (1/8)).toFixed(10) % 1 == 0) ep+=16666683;
-        if ((num ** (1/9)).toFixed(10) % 1 == 0) ep+=20000020;
-        if ([271,2718,27182,271828].includes(num)) ep+=25000025;
-        if ([314,3141,31415,314159].includes(num)) ep+=25000025;
-        if ((num ** (1/10)).toFixed(10) % 1 == 0) ep+=25000025;
-        if ((num ** (1/11)).toFixed(10) % 1 == 0) ep+=25000025;
-        if ((num ** (1/13)).toFixed(10) % 1 == 0) ep+=33333367;
-        if ((num ** (1/17)).toFixed(10) % 1 == 0) ep+=33333367;
-        if ((num ** (1/19)).toFixed(10) % 1 == 0) ep+=33333367;
-        if (s=="8008"||s=="58008") ep+=50000050;
-        if (length == 1) ep+=100000100;
-        if ([42,67,69,86,101,350,365,420,666,777,911,1337,1984,7734,80085,365365,420420,424242,676767,696969,777777,911911].includes(num)) ep+=100000100;
+        if (sum1 == sum2) {ep+=1959; badges.push("balanced");}
+        if ((u.length == length - 1) && ((s.match(/1/gi) || []).length == 2)) {ep+=2121; badges.push("snake eyes");}
+        if (sum == 21) {ep+=2521; badges.push("blackjack");}
+        if (sum < 15) {ep+=2667; badges.push("feather");}
+        if ([...s].every(d => d % 2 == 0) || [...s].every(d => d % 2 == 1)) {ep+=2845; badges.push("flush");}
+        if ((/^([86420](?![86420])|[97531](?![97531]))+$/gmi).test(s) && length > 1) {ep+=2845; badges.push("alternator");}
+        if ((/(..)\1/gi).test(s)) {ep+=3704; badges.push("mini echo");}
+        else if ((/(.{2,3}).*\1/gi).test(s)) {ep+=1872; badges.push("rhyme");}
+        if ([...s].every(d => d >= 5)) {ep+=5120; badges.push("high roller");}
+        if ((/(.).\1.\1/gi).test(s) && u.length > 1) {ep+=5321; badges.push("double hop");}
+        else if ((/(.).\1/gi).test(s) && u.length > 1) {ep+=312; badges.push("hopscotch");}
+        if ([...s].every(d => d < 5)) {ep+=6400; badges.push("low ball");}
+        if (s.endsWith("50")) {ep+=10000; badges.push("semi-century");}
+        if (s.endsWith("00")) {ep+=10000; badges.push("century");}
+        if (length == 4) {ep+=11111; badges.push("four digits");}
+        if ((/^(.)\1.*(?!\1)(.)\2$/gmi).test(s)) {ep+=11122; badges.push("paired bookends");}
+        else if (s[0] == s.at(-2) && s[1] == s.at(-1) && length > 3) {ep+=10010; badges.push("bookends");}
+        else if (s[0] == s.at(-1) && s[1] == s.at(-2) && length > 3) {ep+=10010; badges.push("mirror bookends");}
+        if ([...s].every(d => "0369".includes(d))) {ep+=24414; badges.push("divisible by 3");}
+        if ((/(.)\1\1(?!\1)(.)\2|(.)\3(?!\3)(.)\4\4/gi).test(s)) {ep+=30111; badges.push("contiguous full house");}
+        else if (maxCount > 2 && counts2.filter(c => c >= 2).length > 1) {ep+=2397; badges.push("full house");}
+        if (sum > 45) {ep+=33300; badges.push("heavy");}
+        if (s.includes("007")) {ep+=34614; badges.push("secret agent");}
+        if ([...s].join(",") == [...s].reverse().join(",")) {ep+=50025; badges.push("palindrome");}
+        if (u.length === 2 && (s.split(u[0]).length - 1 === 1 || s.split(u[1]).length - 1 === 1) && length > 3) {ep+=82237; badges.push("firefly");}
+        else if (u.length == 2) {ep+=21654; badges.push("duality");}
+        if (num > 999000) {ep+=100000; badges.push("colossal");}
+        if (s.endsWith("500")) {ep+=100000; badges.push("semi-millenium");}
+        if (s.endsWith("000")) {ep+=100000; badges.push("millenium");}
+        if (Math.floor(Math.sqrt(num))*Math.ceil(Math.sqrt(num))==num && Math.floor(Math.sqrt(num))-Math.ceil(Math.sqrt(num))==-1 || num==0) {ep+=100000; badges.push("pronic number");}
+        if ((/^(.{1,3})\1$/gmi).test(s)) {ep+=100100; badges.push("echo");}
+        if (length == 3) {ep+=111111; badges.push("three digits");}
+        if ([...s].every((d, i, a) => i == 0 || a[i-1] > d) && length > 1) {ep+=119474; badges.push("decay");}
+        if ((/^(.)(?!\1)(.)\2\2(?!\2).$/gmi).test(s)) {ep+=137174; badges.push("framed triple");}
+        else if (maxCount > 3) {ep+=8436; badges.push("four of a kind");}
+        else if (maxCount == 3) {ep+=724; badges.push("three of a kind");}
+        if ((/(.)\1(?!\1)(.)\2(?!\1)(?!\2)(.)\3/gi).test(s) && length > 5) {ep+=154321; badges.push("contiguous three pair");}
+        else if ((/^(.)(?!\1)(.)\2(?!\2).$/gmi).test(s)) {ep+=137174; badges.push("framed pair");}
+        else if ((/(.)(?!\1)(.)\2(?!\2)(.)\3(?!\3)./gi).test(s)) {ep+=15242; badges.push("framed double");}
+        else if (u.length == 3 && maxCount == 2 && length > 5) {ep+=10288; badges.push("three pair");}
+        else if ((/(.)\1(?!\1)(.)\2/gi).test(s) && maxCount == 2) {ep+=6142; badges.push("contiguous two pair");}
+        else if (u.length == length - 2 && maxCount == 2) {ep+=447; badges.push("two pair");}
+        else if ((/(.)\1/gi).test(s)) {ep+=249; badges.push("contiguous pair");}
+        else if (u.length < length) {ep+=120; badges.push("pair");}
+        if (([...s].every((d, i, a) => i == 0 || a[i-1] < d)) && length > 1) {ep+=219298; badges.push("ascension");}
+        if ((/^(.)(?!\1)(.)((?!\2)\1((?!\1)\2((?!\2)\1((?!\1)\2)?)?)?)?$/gmi).test(s)) {ep+=246914; badges.push("zipper");}
+        if (s.split("").reverse().map(n => ({"0":"0","1":"1","2":"-","3":"-","4":"-","5":"-","6":"9","7":"-","8":"8","9":"6"})[n]).join("") == s) {ep+=502513; badges.push("strobogrammatic");}
+        if (s.endsWith("5000")) {ep+=1000001; badges.push("semi-epoch");}
+        if (sum == product && num != 1 && num != 2) {ep+=1030929; badges.push("spy number");}
+        if (length == 2) {ep+=1111112; badges.push("two digits");}
+        if ([...s].every(d => d < 2)) {ep+=1538463; badges.push("binary soul");}
+        if (u.length == 1 && length > 1) {ep+=2222224; badges.push("homogeneous");}
+        if (Math.sqrt(5*num**2+4)%1==0 || Math.sqrt(5*num**2-4)%1==0) {ep+=3333337; badges.push("fibonacci number");}
+        if (s.includes("56789")) {ep+=5000005; badges.push("royal flush");}
+        else if ((/02468|86420|13579|97531/gi).test(s)) {ep+=1449277; badges.push("straight flush");}
+        else if ((/01234|12345|23456|34567|45678|56789|98765|87654|76543|65432|54321|43210/gi).test(s)) {ep+=454546; badges.push("straight");}
+        if (("0123456789".includes(s) || "9876543210".includes(s)) && length == 6) {ep+=11111122; badges.push("sequence (6)");}
+        else if ("0123456789".includes(s) && length > 1) {ep+=3333337; badges.push("cascade");}
+        else if ("9876543210".includes(s) && length > 1) {ep+=2857146; badges.push("waterfall");}
+        else if (s.split("").every((d, i, a) => i < 2 || d-a[i-1] == a[1]-a[0]) && length > 2) {ep+=862070; badges.push("even spacing");}
+        else if (s.split("").every((d, i, a) => i < 2 || Math.abs(d-a[i-1]) == Math.abs(a[1]-a[0])) && length > 2) {ep+=90992; badges.push("even spacing (absolute)");}
+        else if ([...s].every((d, i, a) => i == 0 || Math.abs(d-a[i-1])<2) && length > 1) {ep+=36049; badges.push("turtle");}
+        else if ((/0123|1234|2345|3456|4567|5678|6789|9876|8765|7654|6543|5432|4321|3210/gi).test(s)) {ep+=25907; badges.push("sequence (4)");}
+        else if ("0123456789".includes([...s].sort().join("")) && length > 1) {ep+=22722; badges.push("scramble");}
+        else if ((/012|123|234|345|456|567|678|789|987|876|765|654|543|432|321|210/gi).test(s)) {ep+=1716; badges.push("sequence (3)");}
+        if (Math.log2(num) % 1 == 0) {ep+=5000005; badges.push("power of two");}
+        if ((Math.log(num)/Math.log(3)).toFixed(10) % 1 == 0) {ep+=7692315; badges.push("power of three");}
+        if (s.endsWith("99999")) {ep+=10000010; badges.push("quint nine");}
+        else if (s.endsWith("9999")) {ep+=1000001; badges.push("quad nine");}
+        else if (s.endsWith("999")) {ep+=100000; badges.push("triple nine");}
+        else if (s.endsWith("99")) {ep+=10000; badges.push("double nine");}
+        if (s.includes("00000")) {ep+=10000010; badges.push("deep void (5)");}
+        else if (s.includes("0000")) {ep+=552487; badges.push("deep void (4)");}
+        else if (s.includes("000")) {ep+=37023; badges.push("deep void (3)");}
+        else if (s.includes("00")) {ep+=2784; badges.push("deep void");}
+        if ((/(.)\1\1\1\1\1/gi).test(s)) {ep+=10000010; badges.push("contiguous sixes");}
+        else if ((/(.)\1\1\1\1/gi).test(s)) {ep+=552487; badges.push("contiguous fives");}
+        else if ((/(.)\1\1\1/gi).test(s)) {ep+=37023; badges.push("contiguous quads");}
+        else if ((/(.)\1\1/gi).test(s)) {ep+=2784; badges.push("contiguous trips");}
+        if ([1,2,6,24,120,720,5040,40320,362880].includes(num)) {ep+=11111122; badges.push("factorial");}
+        if ((num ** (1/13)).toFixed(10) % 1 == 0) {ep+=33333367; badges.push("13th power");}
+        else if ((num ** (1/17)).toFixed(10) % 1 == 0) {ep+=33333367; badges.push("17th power");}
+        else if ((num ** (1/19)).toFixed(10) % 1 == 0) {ep+=33333367; badges.push("19th power");}
+        else if ((num ** (1/10)).toFixed(10) % 1 == 0) {ep+=25000025; badges.push("10th power");}
+        else if ((num ** (1/11)).toFixed(10) % 1 == 0) {ep+=25000025; badges.push("11th power");}
+        else if ((num ** (1/9)).toFixed(10) % 1 == 0) {ep+=20000020; badges.push("9th power");}
+        else if ((num ** (1/8)).toFixed(10) % 1 == 0) {ep+=16666683; badges.push("8th power");}
+        else if ((num ** (1/7)).toFixed(10) % 1 == 0) {ep+=12500013; badges.push("7th power");}
+        else if ((num ** (1/6)).toFixed(10) % 1 == 0) {ep+=9090918; badges.push("6th power");}
+        else if ((num ** (1/5)).toFixed(10) % 1 == 0) {ep+=6250006; badges.push("5th power");}
+        else if ((num ** (1/4)).toFixed(10) % 1 == 0) {ep+=3125003; badges.push("4th power");}
+        else if (Math.cbrt(num) % 1 == 0) {ep+=990100; badges.push("3rd power");}
+        else if (Math.sqrt(num) % 1 == 0) {ep+=99900; badges.push("2nd power");}
+        if (length == 1) {ep+=100000100; badges.push("0/1/2/3/4/5/6/7/8/9");}
+        if ([42,67,69,86,101,350,365,420,666,777,911,1337,1984,7734,80085,365365,420420,424242,676767,696969,777777,911911].includes(num)) {ep+=100000100; badges.push("exact number");}
+        else if (s=="8008"||s=="58008") {ep+=50000050; badges.push("exact boob/boobs");}
+        else {
+          if (s.includes("77777")) {ep+=5263163; badges.push("jackpot five");}
+          else if (s.includes("7777")) {ep+=357143; badges.push("jackpot four");}
+          else if (s.includes("777")) {ep+=27027; badges.push("jackpot");}
+          if ([271,2718,27182,271828].includes(num)) {ep+=25000025; badges.push("euler's number");}
+          else if (s.includes("27182")) {ep+=5000005; badges.push("e slice (5)");}
+          else if (s.includes("2718")) {ep+=333334; badges.push("e slice (4)");}
+          else if (s.includes("271")) {ep+=25006; badges.push("e slice (3)");}
+          if ([314,3141,31415,314159].includes(num)) {ep+=25000025; badges.push("pi");}
+          else if (s.includes("31415")) {ep+=5000005; badges.push("pi slice (5)");}
+          else if (s.includes("3141")) {ep+=333334; badges.push("pi slice (4)");}
+          else if (s.includes("314")) {ep+=25006; badges.push("pi slice (3)");}
+          if (s.includes("58008")) {ep+=5000005; badges.push("58008");}
+          else if (s.includes("80085")) {ep+=5000005; badges.push("80085");}
+          else if (s.includes("8008")) {ep+=333334; badges.push("8008");}
+          if (s.includes("420")) {ep+=25006; badges.push("botanist");}
+          else if (s.includes("42")) {ep+=2024; badges.push("meaning of life");}
+          if (s.includes("07734")) {ep+=11111122; badges.push("hello");}
+          if (s.includes("6767")) {ep+=334448; badges.push("6767");}
+          else if (s.includes("67")) {ep+=2024; badges.push("six-seven");}
+          if (s.includes("6969")) {ep+=334448; badges.push("very nice");}
+          else if (s.includes("69")) {ep+=2024; badges.push("nice");}
+          if (s.includes("4242")) {ep+=334448; badges.push("deeper meaning");}
+          if (s.includes("1337")) {ep+=333334; badges.push("leet");}
+          if (s.includes("1984")) {ep+=333334; badges.push("big brother");}
+          if (s.includes("7734")) {ep+=333334; badges.push("hell");}
+          if (s.includes("101")) {ep+=25132; badges.push("orientation");}
+          if (s.includes("350")) {ep+=25006; badges.push("tree fiddy");}
+          if (s.includes("365")) {ep+=25006; badges.push("calendar");}
+          if (s.includes("404")) {ep+=25132; badges.push("error 404");}
+          if (s.includes("666")) {ep+=27027; badges.push("devil");}
+          if (s.includes("911")) {ep+=25006; badges.push("emergency");}
+          if (s.includes("86")) {ep+=2024; badges.push("eighty-six");}
+        }
+        if (num==424242) {ep+=2024; badges.push("meaning of life");}
+        if (typeof(number)=="number") return ep;
         const rarity = ep < 2050 ? "trash" : ep < 5349 ? "common" : ep < 8642 ? "uncommon" : ep < 20245 ? "rare" : ep < 33971 ? "epic" : ep < 150679 ? "anomaly" : "mythic";
+        document.querySelector("#num").style.fontSize = length < 6 ? "3.75rem" : "2.75rem";
+        document.querySelector("#num").style.width = length > 5 ? "15.5rem" : `${5+14*length/6}rem`;
+        document.querySelector("#num").style.paddingBlock = length < 6 ? "0.75rem" : "1rem";
         document.querySelector("#num").classList = rarity;
         document.querySelector("#rarity").classList = rarity;
         document.querySelector("#rarity").textContent = rarity.toUpperCase();
         document.querySelector("#percentile").classList = rarity;
         document.querySelector("#ep").classList = rarity;
+        document.querySelector("#badges").textContent = `BADGES: ${badges.join(", ")}`;
       }
+      function analyzeAll() {
+        const start = Date.now();
+        let content = "";
+        for (let num = 0; num <= 1000000; num++) {
+          content += `${num}, ${analyze(num)}\n`;
+        }
+        const blob = new Blob([content], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = "allNumbers.txt";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        return `took ${(Date.now()-start)/1000}s`;
+      }
+      let num = "??????";
+      let s = "??????";
+      let ep = 0;
+      let epdisp = 0;
+      let length = "??????";
+      let sum = -1;
+      let product = -2;
+      let badges = [];
+      let sum1 = -696969;
+      let sum2 = -420420;
+      setInterval(update, 16);
+      document.querySelector("#num").oninput = () => {analyze()};
     </script>
   </body>
 </html>
