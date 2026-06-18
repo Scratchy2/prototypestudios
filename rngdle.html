@@ -64,10 +64,12 @@
       #ep3, #badges {
         color: #9a9a9a;
         margin-top: 0;
-        margin-bottom: 1rem;
         font-size: 0.75rem;
         font-family: "Inter", sans-serif;
         font-weight: normal;
+      }
+      #ep3 {
+        margin-bottom: 0.25rem;
       }
       #rarity {
         background-color: oklch(27.4% 0.006 286.033);
@@ -100,13 +102,20 @@
         color: #c4c4c4;
         border-radius: 0.5rem;
         padding-inline: 0.75rem;
-        padding-block: 0.375rem;
+        padding-block: 0.5rem;
+        margin-right: 0;
         width: fit-content;
         font-family: "Inter", sans-serif;
         font-weight: bold;
         letter-spacing: 0.1em;
         font-size: 0.875rem;
         animation: border 3s infinite;
+      }
+      #countdown {
+        font-size: 0.875rem;
+        font-family: "Inter", sans-serif;
+        margin-left: 0.125rem;
+        color: #c4c4c4;
       }
       svg {
         width: 0.875rem;
@@ -227,15 +236,92 @@
         <p id="ep">??? EP</p>
         <span id="ep2">??? EP</span>
         <p id="ep3">YOUR LIFETIME EP</p>
-        <p id="badges">BADGES: ???</p>
         <button id="share"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share2 lucide-share-2 w-4 h-4" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg><span>SHARE</span></button>
+        <span style="font-family: 'Inter', 'sans-serif'; font-size: 0.75rem; color: #9a9a9a; font-weight: normal; margin-left: 0.375rem; margin-right: 0;">NEXT ROLL IN </span>
+        <span id="countdown">6H 21M 42S</span>
+        <div id="badges">BADGES: ???</div>
       </b>
-      <h6>Note: Not all badges have logic, and the percentile is an approximation that fits R²=0.9982.</h6>
-      <h6>Play the game for the actual values!</h6>
+      <h6>All EP values are accurate. WARNING: This has the potential to spoil the whole thing; be cautious.</h6>
+      <h6>The percentile is an approximation that fits R²=0.9982. Go play the game!</h6>
       <hr><footer>© 2026 ProtoType Studios. All rights reserved.</footer>
       <footer>This project and its owner are not affiliated with RNGdle or its owner.</footer>
     </center>
     <script>
+      const badgesList = {
+        "exact number": 100000100,
+        "0/1/2/3/4/5/6/7/8/9": 100000100,
+        "exact boob": 50000050,
+        "19th power": 33333367,
+        "17th power": 33333367,
+        "13th power": 33333367,
+        "pi": 25000025,
+        "euler's number": 25000025,
+        "4 consecutive numbers": 25000025,
+        "11th power": 25000025,
+        "10th power": 25000025,
+        "9th power": 20000020,
+        "8th power": 16666683,
+        "7th power": 12500013,
+        "sequence (6)": 11111122,
+        "hello": 11111122,
+        "factorial": 11111122,
+        "quint nine": 10000010,
+        "deep void (5)": 10000010,
+        "contiguous sixes": 10000010,
+        "6th power": 9090918,
+        "power of three": 7692315,
+        "5th power": 6250006,
+        "jackpot five": 5263163,
+        "royal flush": 5000005,
+        "power of two": 5000005,
+        "pi slice (5)": 5000005,
+        "e slice (5)": 5000005,
+        "80085": 5000005,
+        "58008": 5000005,
+        "fibonacci number": 3333337,
+        "cascade": 3333337,
+        "4th power": 3125003,
+        "waterfall": 2857146,
+        "4 consecutive numbers (contains)": 2631582,
+        "4 consecutive numbers (scrambled)": 2272730,
+        "homogeneous": 2222224,
+        "binary soul": 1538463,
+        "straight flush": 1449277,
+        "two digits": 1111112,
+        "spy number": 1030929,
+        "semi-epoch": 1000001,
+        "quad nine": 1000001,
+        "3rd power": 990100,
+        "even spacing": 862070,
+        "3 consecutive numbers": 555556,
+        "deep void (4)": 552487,
+        "contiguous fives": 552487,
+        "strobogrammatic": 502513,
+        "straight": 454546,
+        "jackpot four": 357143,
+        "very nice": 334448,
+        "deeper meaning": 334448,
+        "6767": 334448,
+        "pi slice (4)": 333334,
+        "leet": 333334,
+        "hell": 333334,
+        "e slice (4)": 333334,
+        "big brother": 333334,
+        "8008": 333334,
+        "3 consecutive numbers (scrambled)": 277778,
+        "zipper": 246914,
+        "ascension": 219298,
+        "3 consecutive numbers (contains)": 157978,
+        "contiguous three pair": 154321,
+        "framed triple": 137174,
+        "framed pair": 137174,
+        "decay": 119474,
+        "three digits": 111111,
+        "echo": 100100,
+        "triple nine": 100000,
+        "semi-millenium": 100000,
+        "pronic number": 100000,
+      }
       function CNums() {
         // 4 consecutive numbers
         if (s=="78910" || s=="10987" || s=="891011" || s=="111098") {badges.push("4 consecutive numbers"); return 25000025;}
@@ -301,6 +387,11 @@
         percentile = 100 * (1 - (1 + ((epdisp-1758.99) / 1971.49729) ** 2.55098212) ** -0.411708664) || -1;
         document.querySelector("#ep").textContent = `${Math.round(epdisp).toLocaleString()} EP`;
         document.querySelector("#ep2").textContent = `${Math.round(epdisp).toLocaleString()} EP`;
+        const now = new Date();
+        const hours = String(23-now.getUTCHours());
+        const minutes = String(59-now.getUTCMinutes());
+        const seconds = String(59-now.getUTCSeconds());
+        document.querySelector("#countdown").textContent = `${hours}H ${minutes.padStart(2,"0")}M ${seconds.padStart(2,"0")}S`;
         if (ep == 0) {
           document.querySelector("#ep").textContent = `??? EP`;
           document.querySelector("#ep2").textContent = `??? EP`;
@@ -313,9 +404,9 @@
         } else if (ep < 2050) {
           document.querySelector("#percentile").textContent = "BOTTOM <1%";
         } else if (percentile < 50) {
-          document.querySelector("#percentile").textContent = `BOTTOM ${Math.round(percentile)}%`;
+          document.querySelector("#percentile").textContent = `BOTTOM ${Math.max(Math.round(percentile), 1)}%`;
         } else if (percentile < 99.5) {
-          document.querySelector("#percentile").textContent = `TOP ${Math.round(100-percentile)}%`;
+          document.querySelector("#percentile").textContent = `TOP ${Math.max(Math.round(100-percentile), 1)}%`;
         } else {
           document.querySelector("#percentile").textContent = "TOP <1%";
         }
