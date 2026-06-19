@@ -181,35 +181,51 @@
         box-shadow: 0 0 24px color-mix(in oklab,color-mix(in oklab, oklch(40.8% 0.153 2.432) 30%,transparent) 100%,transparent),0 0 42px color-mix(in oklab,color-mix(in oklab, oklch(40.8% 0.153 2.432) 30%,transparent) 100%,transparent);
       }
       
-      #rarity.trash, #ep.trash {
+      #rarity.trash, #ep.trash, .badge.trash {
         color: oklch(87.9% 0.169 91.605);
         background-color: color-mix(in oklab, oklch(27.9% 0.077 45.635) 40%, transparent);
         border: 1px solid color-mix(in oklab, oklch(47.3% 0.137 46.201) 60%, transparent);
       }
-      #rarity.uncommon, #ep.uncommon {
+      .badge.common {
+        background-color: oklch(27.4% 0.006 286.033);
+        border: 1px solid oklch(44.2% 0.017 285.786);
+        color: oklch(87.2% 0.01 258.338);
+      }
+      #rarity.uncommon, #ep.uncommon, .badge.uncommon {
         color: oklch(76.5% 0.177 163.223);
         background-color: color-mix(in oklab, oklch(26.2% 0.051 172.552) 40%, transparent);
         border: 1px solid color-mix(in oklab, oklch(43.2% 0.095 166.913) 60%, transparent);
       }
-      #rarity.rare, #ep.rare {
+      #rarity.rare, #ep.rare, .badge.rare {
         color: oklch(70.7% 0.165 254.624);
         background-color: color-mix(in oklab, oklch(28.2% 0.091 267.935) 40%, transparent);
         border: 1px solid color-mix(in oklab, oklch(42.4% 0.199 265.638) 60%, transparent);
       }
-      #rarity.epic, #ep.epic {
+      #rarity.epic, #ep.epic, .badge.epic {
         color: oklch(71.4% 0.203 305.504);
         background-color: color-mix(in oklab, oklch(29.1% 0.149 302.717) 40%, transparent);
         border: 1px solid color-mix(in oklab, oklch(43.8% 0.218 303.724) 60%, transparent);
       }
-      #rarity.anomaly, #ep.anomaly {
+      #rarity.anomaly, #ep.anomaly, .badge.anomaly {
         color: oklch(75% 0.183 55.934);
         background-color: color-mix(in oklab, oklch(26.6% 0.079 36.259) 40%, transparent);
         border: 1px solid color-mix(in oklab, oklch(47% 0.157 37.304) 60%, transparent);
       }
-      #rarity.mythic, #ep.mythic {
+      #rarity.mythic, #ep.mythic, .badge.mythic {
         color: oklch(70.4% 0.191 22.216);
         background-color: color-mix(in oklab, oklch(25.8% 0.092 26.042) 40%, transparent);
         border: 1px solid color-mix(in oklab, oklch(45.9% 0.187 3.815) 60%, transparent);
+      }
+      
+      .badge {
+        border-radius: 999px;
+        padding-inline: 0.5rem;
+        padding-block: 0.125rem;
+        display: inline-flex;
+        flex-wrap: wrap;
+        margin-right: 0.375rem;
+        margin-bottom: 0.375rem;
+        width: fit-content;
       }
       
       #percentile.uncommon, #percentile.rare {
@@ -241,8 +257,8 @@
         <span id="countdown">6H 21M 42S</span>
         <div id="badges">BADGES: ???</div>
       </b>
-      <h6>All EP values are accurate. WARNING: This has the potential to spoil the whole thing; be cautious.</h6>
-      <h6>The percentile is an approximation that fits R²=0.9982. Go play the game!</h6>
+      <h6>WARNING: This has the potential to spoil the whole thing; be cautious. Input a number and hover over the badges to see their EP values and probabilities!</h6>
+      <h6>The percentile is an approximation that fits R²=0.9982. Go play the real game!</h6>
       <hr><footer>© 2026 ProtoType Studios. All rights reserved.</footer>
       <footer>This project and its owner are not affiliated with RNGdle or its owner.</footer>
     </center>
@@ -321,6 +337,104 @@
         "triple nine": 100000,
         "semi-millenium": 100000,
         "pronic number": 100000,
+        "millenium": 100000,
+        "colossal": 100000,
+        "2nd power": 99900,
+        "even spacing (absolute)": 90992,
+        "firefly": 82237,
+        "2 consecutive numbers": 50505,
+        "palindrome": 50025,
+        "deep void (3)": 37023,
+        "contiguous quads": 37023,
+        "turtle": 36049,
+        "secret agent": 34614,
+        "heavy": 33300,
+        "contiguous full house": 30111,
+        "jackpot": 27027,
+        "devil": 27027,
+        "sequence (4)": 25907,
+        "orientation": 25132,
+        "error 404": 25132,
+        "tree fiddy": 25006,
+        "pi slice (3)": 25006,
+        "emergency": 25006,
+        "e slice (3)": 25006,
+        "calendar": 25006,
+        "botanist": 25006,
+        "divisible by three": 24414,
+        "scramble": 22722,
+        "duality": 21654,
+        "framed double": 15242,
+        "paired bookends": 11122,
+        "four digits": 11111,
+        "three pair": 10288,
+        "mirror bookends": 10010,
+        "bookends": 10010,
+        "semi-century": 10000,
+        "double nine": 10000,
+        "century": 10000,
+        "four of a kind": 8436,
+        "low ball": 6400,
+        "contiguous two pair": 6142,
+        "mountain": 5885,
+        "double hop": 5321,
+        "high roller": 5120,
+        "valley": 4199,
+        "mini echo": 3704,
+        "flush": 2845,
+        "alternator": 2845,
+        "deep void": 2784,
+        "contiguous trips": 2784,
+        "feather": 2667,
+        "blackjack": 2521,
+        "full house": 2397,
+        "snake eyes": 2121,
+        "six-seven": 2024,
+        "nice": 2024,
+        "meaning of life": 2024,
+        "eighty-six": 2024,
+        "balanced": 1959,
+        "rhyme": 1872,
+        "sequence (3)": 1716,
+        "2 consecutive numbers (contains)": 1659,
+        "2 consecutive numbers (nearby)": 1575,
+        "prime number": 1274,
+        "trinity": 1265,
+        "dozen": 1200,
+        "five digits": 1111,
+        "eleven": 1100,
+        "harshad number": 1048,
+        "semi-clean": 1000,
+        "sandwich": 1000,
+        "equilibrium": 1000,
+        "clean": 1000,
+        "hills": 733,
+        "three of a kind": 724,
+        "lucky seven (divisible)": 700,
+        "heterogeneous": 593,
+        "gap one": 529,
+        "two pair": 447,
+        "hopscotch": 312,
+        "ghost (0)": 309,
+        "quartet": 290,
+        "oxygen (8)": 282,
+        "nitrogen (7)": 282,
+        "lithium (3)": 282,
+        "hydrogen (1)": 282,
+        "helium (2)": 282,
+        "fluorine (9)": 282,
+        "carbon (6)": 282,
+        "boron (5)": 282,
+        "beryllium (4)": 282,
+        "grounded": 250,
+        "contiguous pair": 249,
+        "lucky seven": 213,
+        "liftoff": 200,
+        "even/odd": 200,
+        "void": 167,
+        "neighbors": 161,
+        "pair": 120,
+        "six digits": 111,
       }
       function CNums() {
         // 4 consecutive numbers
@@ -397,6 +511,7 @@
           document.querySelector("#ep2").textContent = `??? EP`;
           document.querySelector("#percentile").classList = "common";
           document.querySelector("#percentile").textContent = "TOP ???%";
+          document.querySelector("#badges").innerHTML = "BADGES: ???";
           document.querySelector("#num").classList = "common";
           document.querySelector("#rarity").classList = "common";
           document.querySelector("#rarity").textContent = "??????";
@@ -627,7 +742,14 @@
         document.querySelector("#rarity").textContent = rarity.toUpperCase();
         document.querySelector("#percentile").classList = rarity;
         document.querySelector("#ep").classList = rarity;
-        document.querySelector("#badges").textContent = `BADGES: ${badges.join(", ")}`;
+        document.querySelector("#badges").innerHTML = "";
+        let badgerarity = "mythic";
+        let badgeep = 100000100;
+        for (badge in badgesList) {
+          badgeep = badgesList[badge];
+          badgerarity = badgeep >= 10000000 ? "mythic" : badgeep >= 1000000 ? "anomaly" : badgeep >= 100000 ? "epic" : badgeep >= 10000 ? "rare" : badgeep >= 1000 ? "uncommon" : "common";
+          if (badges.includes(badge)) document.querySelector("#badges").insertAdjacentHTML("beforeend", `<span class="${badgerarity} badge" title="Adds ${badgeep} EP with 1 in ${badgeep/100} chance">${badge}</span>`);
+        }
       }
       function analyzeAll() {
         const start = Date.now();
