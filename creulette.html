@@ -1,22 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Get rewarded for a daily random color. Epilepsy warning!">
-    <meta property="og:description" content="Get rewarded for a daily random color. Epilepsy warning!">
-    <meta name="keywords" content="daily, random, color, creulette, prototype, studios">
+    <meta name="description" content="Get rewarded for a random color with infinite chances. Epilepsy warning!">
+    <meta property="og:description" content="Get rewarded for a random color with infinite chances. Epilepsy warning!">
+    <meta name="keywords" content="daily, random, color, creulette, roulette, rulet, online, game, free, endless, infinite, prototype, studios">
     <meta name="author" content="ProtoType Studios">
     <meta property="og:title" content="Creulette by ProtoType Studios">
     <meta property="og:url" content="https://prototypestudios.neocities.org/creulette">
     <meta name="theme-color" content="#303336">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Creulette</title>
-    <link href="/style.css" rel="stylesheet" type="text/css" media="all">
+    <link rel="preload" href="/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/style.css"></noscript>
     <style>
+      body {
+        --global-shake: 0px;
+        display: block;
+        transform: translateX(var(--global-shake)) translateY(calc(-1*var(--global-shake)));
+      }
       @keyframes appear {
         0% {scale:0;}
-        50% {scale:1.07;}
         100% {scale:1;}
+      }
+      @keyframes sizeup {
+        0% {scale: 1;}
+        100% {scale: 1.4; margin: 2em;}
       }
       @keyframes shake {
         0% {translate: 0 0;}
@@ -30,6 +39,16 @@
         height: 8em;
         background-color: #fafa00;
         border-radius: 13px;
+        scale: 1;
+        transition: all 0.2s ease;
+      }
+      .sizeup {
+        animation: sizeup 1s forwards;
+        animation-timing-function: linear(0, 0.11 5.1%, 0.177 7.8%, 0.252 10.2%, 0.341 12.4%, 0.455 14.6%, 0.589 16.7%, 0.754 18.9%, 0.998 21.8%, 0.764 24.7%, 0.632 26.7%, 0.587 27.6%, 0.554 28.5%, 0.535 29.4%, 0.53 29.8%, 0.529 30.2%, 0.531 30.6%, 0.536 31%, 0.555 31.8%, 0.586 32.6%, 0.634 33.5%, 0.76 35.2%, 1 37.8%, 0.849 39.5%, 0.758 40.8%, 0.703 42%, 0.689 42.6%, 0.683 43.2%, 0.688 43.8%, 0.701 44.4%, 0.753 45.6%, 0.842 46.9%, 1 48.8%, 0.896 50.1%, 0.828 51.2%, 0.79 52.2%, 0.781 52.7%, 0.778 53.1%, 0.781 53.6%, 0.79 54.1%, 0.828 55.1%, 0.886 56.1%, 0.998 57.7%, 0.918 59%, 0.878 59.8%, 0.853 60.6%, 0.846 61%, 0.843 61.4%, 0.845 61.8%, 0.851 62.2%, 0.877 63.1%, 0.998 65.5%, 0.918 67.2%, 0.898 68%, 0.893 68.4%, 0.891 68.7%, 0.892 69%, 0.896 69.4%, 0.914 70.2%, 0.999 72.4%, 0.964 73.3%, 0.943 74%, 0.931 74.7%, 0.927 75.3%, 0.93 75.9%, 0.941 76.6%, 0.999 78.7%, 0.965 80.1%, 0.956 80.8%, 0.954 81.4%, 0.957 82%, 0.964 82.6%, 1 84.5%, 0.98 85.8%, 0.976 86.4%, 0.974 86.9%, 0.975 87.4%, 0.979 88%, 1 90%, 0.991 91.1%, 0.989 92.1%, 0.99 93%, 1 95.1%, 0.997 96.6%, 1);
+      }
+      .sizeup2 {
+        animation: appear 1s forwards;
+        animation-timing-function: linear(0, 0.275 8.3%, 0.355 10.4%, 0.436 12.3%, 0.535 14.3%, 0.646 16.3%, 0.999 21.8%, 0.845 24.4%, 0.756 26.3%, 0.725 27.2%, 0.701 28.1%, 0.687 29%, 0.683 29.8%, 0.687 30.6%, 0.701 31.5%, 0.721 32.3%, 0.753 33.2%, 0.838 35%, 1 37.8%, 0.915 39.4%, 0.862 40.7%, 0.831 41.9%, 0.823 42.5%, 0.821 43.1%, 0.824 43.7%, 0.832 44.3%, 0.862 45.5%, 0.906 46.7%, 1 48.8%, 0.95 50%, 0.915 51.1%, 0.896 52.1%, 0.891 52.6%, 0.89 53%, 0.891 53.4%, 0.895 53.9%, 0.912 54.9%, 0.942 56%, 0.999 57.7%, 0.962 59%, 0.945 59.8%, 0.934 60.6%, 0.93 61.4%, 0.934 62.2%, 0.945 63%, 0.999 65.5%, 0.966 67.2%, 0.958 68%, 0.956 68.7%, 0.958 69.4%, 0.966 70.2%, 1 72.4%, 0.98 73.9%, 0.975 74.6%, 0.973 75.3%, 0.974 75.9%, 0.979 76.6%, 1 78.7%, 0.988 80.1%, 0.984 81.3%, 0.987 82.5%, 1 84.5%, 0.994 85.8%, 0.992 86.9%, 0.993 88%, 1 90%, 0.997 92%, 1 95.1%, 1);
       }
       #color2 {
         width: 40%;
@@ -48,6 +67,9 @@
         --shake: 0px;
         animation: shake 0.15s infinite;
       }
+      #percentile {
+        font-size: 2em;
+      }
       .name {
         font-size: 1.5em;
       }
@@ -59,7 +81,8 @@
         border-radius: 20px;
         margin: 1em;
         transition: scale 0.3s ease;
-        animation: appear 0.5s;
+        animation: appear 1.337s forwards;
+        animation-timing-function: linear(0, 0.002 0.2%, 0.01 0.5%, 0.025 0.8%, 0.046 1.1%, 0.106 1.7%, 0.184 2.3%, 0.364 3.4%, 0.899 6.3%, 1.041 7.2%, 1.148 8%, 1.233 8.8%, 1.295 9.6%, 1.318 10%, 1.335 10.4%, 1.346 10.8%, 1.353 11.2%, 1.353 11.7%, 1.351 12%, 1.345 12.3%, 1.328 12.9%, 1.299 13.6%, 1.232 14.8%, 1.031 17.9%, 0.981 18.8%, 0.944 19.6%, 0.915 20.4%, 0.896 21.1%, 0.882 21.9%, 0.875 22.7%, 0.875 23.3%, 0.878 23.9%, 0.885 24.5%, 0.896 25.2%, 0.92 26.4%, 0.989 29.4%, 1.006 30.3%, 1.02 31.1%, 1.03 31.9%, 1.037 32.6%, 1.041 33.3%, 1.044 34.1%, 1.043 35.3%, 1.038 36.6%, 1.004 40.9%, 0.993 42.6%, 0.987 44.1%, 0.984 45.6%, 0.986 47.8%, 1.001 53.6%, 1.005 57%, 0.998 68.3%, 1.001 79.6%, 1);
       }
       .prop:hover {
         scale: 1.042;
@@ -143,7 +166,7 @@
       <h1 class="large project">Creulette</h1>
     </div>
     <center>
-      <h6 class="medium">Get rewarded for a daily random color. Epilepsy warning!</h6><hr>
+      <h6 class="medium">Get rewarded for a random color with infinite chances. Epilepsy warning!</h6><hr>
       <div id="color"></div>
       <p class="small" id="color2">#fafa00</p>
       <div id="stats">
@@ -156,6 +179,24 @@
   </body>
   <script>
     const sleep = async (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    const Acommon = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/common.mp3");
+    const Auncommon = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/uncommon.mp3");
+    const Arare = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/rare.mp3");
+    const Aepic = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/epic.mp3");
+    const Alegendary = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/legendary.mp3");
+    const Amythic = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/mythic.mp3");
+    const A2rare = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/2rare.mp3");
+    const A3rare = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/3rare.mp3");
+    const A4rare = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/4rare.mp3");
+    const A5rare = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/5rare.mp3");
+    let badgeCount = 0;
+    let rareCount = 0;
+    Acommon.preservesPitch = false;
+    Auncommon.preservesPitch = false;
+    Arare.preservesPitch = false;
+    Aepic.preservesPitch = false;
+    Alegendary.preservesPitch = false;
+    Amythic.preservesPitch = false;
     const badges = {
       "Hexadecimal": "The color is in Hexadecimal format. + 16 Chroma",
       "Spotless": "The red channel is even (02468ace). + 20 Chroma",
@@ -170,12 +211,15 @@
       "Cool": "Blue is the most dominant channel. + 30 Chroma",
       "Half Numbers": "The first three digits are numbers. + 40 Chroma",
       "Half End Numbers": "The last three digits are numbers. + 40 Chroma",
+      "Firefly": "One letter among five numbers. + 46 Chroma",
+      "Quartet": "Has only four unique digits. + 59 Chroma",
       "Suspicious": "The first four digits are numbers. + 65 Chroma",
       "Suspicious End": "The last four digits are numbers. + 65 Chroma",
-      "Double Trouble": "Contains exactly one pair. + 69 Chroma",
+      "Double Trouble": "Contains a pair. + 69 Chroma",
       "Double Letter": "The first two digits are letters. + 71 Chroma",
       "Double End Letter": "The first two digits are letters. + 71 Chroma",
       "Grounded": "One channel is near midtone (84-8d). + 85 Chroma",
+      "Two Pair": "Has exactly two pairs. + 85 Chroma",
       "A1Z26": "Contains a1, b2, c3, d4, e5, f6, or a combination of that. + 85 Chroma",
       "So Close": "The first five digits are numbers. + 104 Chroma",
       "So Close End": "The last five digits are numbers. + 104 Chroma",
@@ -185,8 +229,8 @@
       "RNGdle Roll": "All digits are numbers. + 167 Chroma",
       "Half Letters": "The first three digits are letters. + 189 Chroma",
       "Half End Letters": "The last three digits are letters. + 189 Chroma",
-      "Quartet": "Has only four unique digits. + 240 Chroma",
-      "Firefly": "One letter among five numbers. + 279 Chroma",
+      "Triple Trouble": "Contains three of a kind. + 192 Chroma",
+      "Firefly+": "One number among five letters. + 359 Chroma",
       "Alternator": "Alternates strictly between numbers/letters or letters/numbers. + 388 Chroma",
       "Red A1Z26": "The red channel is a1, b2, c3, d4, e5, or f6. + 426 Chroma",
       "Green A1Z26": "The green channel is a1, b2, c3, d4, e5, or f6. + 426 Chroma",
@@ -200,18 +244,22 @@
       "Brainrot": "Contains 67. + 512 Chroma",
       "Nice": "Contains 69. + 512 Chroma",
       "Reverse Brainrot": "Contains 76. + 512 Chroma",
+      "Restaurant Fuck Shit Thing": "Contains 86. + 512 Chroma",
       "Reverse Nice": "Contains 96. + 512 Chroma",
       "Strong Guy": "Contains ab. + 512 Chroma",
       "Air Conditioner": "Contains ac. + 512 Chroma",
       "Advertisement": "Contains ad. + 512 Chroma",
-      "As Fuck": "Contains af. + 512 Chroma",
+      "As Fuck": "Yeah!!! + 512 Chroma",
       "Before":"Contains b4. + 512 Chroma",
       "Before Christ":"Contains bc. + 512 Chroma",
       "That Is The Question":"Contains be. + 512 Chroma",
       "Companionship": "Contains bf. + 512 Chroma",
+      "English Opening":"Contains c4. + 512 Chroma",
       "Compact Disc":"Contains cd. + 512 Chroma",
       "Database":"Contains db. + 512 Chroma",
       "Direct Current":"Contains dc. + 512 Chroma",
+      "Why does this show up more than it should?": "Contains e3. + 512 Chroma",
+      "King's Pawn": "Contains e4. + 512 Chroma",
       "Furry Slice (2)": "Contains e6. + 512 Chroma",
       "Safe Furry Slice (2)": "Contains e9. + 512 Chroma",
       "EA Sports":"Contains ea. + 512 Chroma",
@@ -222,23 +270,26 @@
       "Really Close": "The first five digits are letters. + 1 348 Chroma",
       "Really Close End": "The last five digits are letters. + 1 348 Chroma",
       "Trinity": "Has only three unique digits. + 1 849 Chroma",
-      "Two Pair": "Has exactly two pairs. + 1 920 Chroma",
-      "Firefly+": "One number among five letters. + 2 157 Chroma",
+      "Scientific Notation": "A number from 1-9, followed by e, followed by only numbers. + 1 864 Chroma",
       "Foundational": "Two channels are near midtone (84-8d). + 2 184 Chroma",
       "Yellow Submarine": "The red and green channels are equal. + 2 560 Chroma",
       "My Oh My": "The green and blue channels are equal. + 2 560 Chroma",
       "Hot Pink": "The red and blue channels are equal. + 2 560 Chroma",
       "This Looks Like Shit!": "Did you pull this color out of your ass? + 2 947 Chroma",
       "It's a Letters Game": "All digits are letters. + 3 595 Chroma",
-      "Triple Trouble": "Contains three of a kind. + 3 840 Chroma",
       "Battery-powered": "Every channel is greater than 220 (dc in hex). + 3 913 Chroma",
       "Three Pair": "Has exactly three pairs. + 8 322 Chroma",
       "Michael Jackson": "Contains bad. + 10 240 Chroma",
       "Watch Your Language": "Contains a55. + 10 240 Chroma",
       "Asexual": "Contains ace. + 10 240 Chroma",
+      "Baldi's Basics": "Contains add. + 10 240 Chroma",
+      "Milo the Protogen :3": "Contains bee. + 10 240 Chroma",
       "Taxi!!! Taxi!!!": "Contains cab. + 10 240 Chroma",
+      "Dab on it": "Contains dab. + 10 240 Chroma",
+      "Bad Parenting": "Contains dad. + 10 240 Chroma",
       "Furry Slice (3)": "Contains e62. + 10 240 Chroma",
       "Safe Furry Slice (3)": "Contains e92. + 10 240 Chroma",
+      "Fed Up": "Contains fed. + 10 240 Chroma",
       "Double A1Z26": "Two channels are a1, b2, c3, d4, e5, or f6. + 18 204 Chroma",
       "Deep Void": "Every channel is less than 20 (14 in hex). + 20 971 Chroma",
       "Palindrome": "Reads the same forwards and backwards without the #. + 40 960 Chroma",
@@ -247,6 +298,7 @@
       "Midtone": "All channels are near midtone (84-8d). + 167 772 Chroma",
       "Pure Signal": "Only one nonzero channel. + 218 453 Chroma",
       "Rated R": "Contains b00b. + 218 453 Chroma",
+      "Café": "Contains cafe. + 218 453 Chroma",
       "Count Your Days": "Contains dead. + 218 453 Chroma",
       "Furry Color": "Contains e621. + 218 453 Chroma",
       "Safe Furry Color": "Contains e926. + 218 453 Chroma",
@@ -260,6 +312,7 @@
       "Rated X": "Contains b00b5. + 5 242 880 Chroma",
       "Homogeneous": "All digits are the same. + 10 485 760 Chroma",
       "Funny Hex": "#bada55, #c0ffee, #deadbf, or #b00b69. + 41 943 040 Chroma",
+      "Perfect Sequence": "#abcdef or #fedcba. + 83 886 080 Chroma",
       "Rebecca's Blessing": "The CSS color rebeccapurple. + 167 772 160 Chroma",
       "What You Started With": "It's like you never even rolled! + 167 772 160 Chroma",
       // above: hex badges -- below: rgb badges
@@ -282,7 +335,7 @@
       "Answer to Everything in RGB": "One of the channels is 42. + 365 Chroma",
       "RGB Brainrot": "One of the channels is 67. + 365 Chroma",
       "Nice RGB": "One of the channels is 69. + 365 Chroma",
-      "Restaurant Fuck Shit Thing": "One of the channels is 86. + 365 Chroma",
+      "Restaurant Fuck Shit RGB": "One of the channels is 86. + 365 Chroma",
       "Orientation": "One of the channels is 101. + 365 Chroma",
       "Prime Color": "Every channel is a prime number. + 1 065 Chroma",
       "Shadowborn": "The sum of the channels is below 50. + 7 591 Chroma",
@@ -306,7 +359,7 @@
       if (chroma >= 1000000) {
         rarity = "mythic";
       } else {
-        rarity = ["common", "uncommon", "rare", "epic", "legendary"][Math.floor(Math.log10(chroma))-1];
+        rarity = ["common", "uncommon", "rare", "epic", "legendary", "mythic", "mythic"][Math.floor(Math.log10(chroma))-1];
       }
       document.querySelector("#props").insertAdjacentHTML("afterbegin", `
         <div class="prop ${rarity}">
@@ -316,12 +369,25 @@
         </div>
       `);
       chrto += chroma;
-      await sleep(Math.log10(chroma)*400);
+      shake = 1;
+      if (rareCount == 2) {A2rare.play(); shake = 2;}
+      if (rareCount == 3) {A3rare.play(); shake = 4;}
+      if (rareCount == 4) {A4rare.play(); shake = 6;}
+      if (rareCount > 4) {A5rare.play(); shake = 8;}
+      if (rarity == "common") {Acommon.playbackRate = 1+0.05*badgeCount; badgeCount += 1; Acommon.play(); shake *= 1.5;}
+      if (rarity == "uncommon") {Auncommon.playbackRate = 1+0.05*badgeCount; badgeCount += 1; Auncommon.play(); shake *= 2.5;}
+      if (rarity == "rare") {Arare.playbackRate = 1+0.025*rareCount; rareCount += 1; Arare.play(); shake *= 4.5;}
+      if (rarity == "epic") {Aepic.playbackRate = 1+0.025*rareCount; rareCount += 1; Aepic.play(); shake *= 6.5;}
+      if (rarity == "legendary") {Alegendary.playbackRate = 1+0.025*rareCount; rareCount += 1; Alegendary.play(); shake *= 10.5;}
+      if (rarity == "mythic") {Amythic.playbackRate = 1+0.025*rareCount; rareCount += 1; Amythic.play(); shake *= 15.5;}
+      await sleep(500+Math.log10(chroma)*337);
     }
     
     async function analyzeNumber(type, rh, gs, bl, a) {
       const full=`${rh}${gs}${bl}${a=="-1"?"":a}`;
       const unique = new Set(full);
+      document.querySelector("#color").classList.add("sizeup");
+      document.querySelector("#color2").style.rotate = `0deg`;
       await sleep(1000+Math.random()*1000);
       if (type === "hex") {
         const unique = new Set(full.split(""));
@@ -353,12 +419,15 @@
         if (b > r && b > g) await createProperty("Cool");
         if (digits.slice(0, 3).every(isNumber)) await createProperty("Half Numbers");
         if (digits.slice(3, 6).every(isNumber)) await createProperty("Half End Numbers");
+        if (digits.filter(isLetter).length === 1) await createProperty("Firefly");
+        if (unique.size === 4) await createProperty("Quartet");
         if (digits.slice(0, 4).every(isNumber)) await createProperty("Suspicious");
         if (digits.slice(2, 6).every(isNumber)) await createProperty("Suspicious End");
         if (Object.values(counts).filter(c => c === 2).length === 1) await createProperty("Double Trouble");
         if (isLetter(digits[0]) && isLetter(digits[1])) await createProperty("Double Letter");
         if (isLetter(digits[4]) && isLetter(digits[5])) await createProperty("Double End Letter");
         if ([r, g, b].some(midtone)) await createProperty("Grounded");
+        if (unique.size === 4 && maxCount === 2) await createProperty("Two Pair");
         if (full.includes("a1") || full.includes("b2") || full.includes("c3") || full.includes("d4") || full.includes("e5") || full.includes("f6")) await createProperty("A1Z26");
         if (digits.slice(0, 5).every(isNumber)) await createProperty("So Close");
         if (digits.slice(1, 6).every(isNumber)) await createProperty("So Close End");
@@ -368,8 +437,8 @@
         if (digits.every(isNumber)) await createProperty("RNGdle Roll");
         if (digits.slice(0, 3).every(isLetter)) await createProperty("Half Letters");
         if (digits.slice(3, 6).every(isLetter)) await createProperty("Half End Letters");
-        if (unique.size === 4) await createProperty("Quartet");
-        if (digits.filter(isLetter).length === 1) await createProperty("Firefly");
+        if (maxCount >= 3) await createProperty("Triple Trouble");
+        if (digits.filter(isNumber).length === 1) await createProperty("Firefly+");
         if (isNumber(full[0]) && isNumber(full[2]) && isNumber(full[4]) && isLetter(full[1]) && isLetter(full[3]) && isLetter(full[5])) await createProperty("Alternator");
         if (isLetter(full[0]) && isLetter(full[2]) && isLetter(full[4]) && isNumber(full[1]) && isNumber(full[3]) && isNumber(full[5])) await createProperty("Alternator");
         if (a1z26(rh)) await createProperty("Red A1Z26");
@@ -384,6 +453,7 @@
         if (full.includes("67")) await createProperty("Brainrot");
         if (full.includes("69")) await createProperty("Nice");
         if (full.includes("76")) await createProperty("Reverse Brainrot");
+        if (full.includes("86")) await createProperty("Restaurant Fuck Shit Thing");
         if (full.includes("96")) await createProperty("Reverse Nice");
         if (full.includes("ab")) await createProperty("Strong Guy");
         if (full.includes("ac")) await createProperty("Air Conditioner");
@@ -393,9 +463,12 @@
         if (full.includes("bc")) await createProperty("Before Christ");
         if (full.includes("be")) await createProperty("That Is The Question");
         if (full.includes("bf")) await createProperty("Companionship");
+        if (full.includes("c4")) await createProperty("English Opening");
         if (full.includes("cd")) await createProperty("Compact Disc");
         if (full.includes("db")) await createProperty("Database");
         if (full.includes("dc")) await createProperty("Direct Current");
+        if (full.includes("e3")) await createProperty("Why does this show up more than it should?");
+        if (full.includes("e4")) await createProperty("King's Pawn");
         if (full.includes("e6")) await createProperty("Furry Slice (2)");
         if (full.includes("e9")) await createProperty("Safe Furry Slice (2)");
         if (full.includes("ea")) await createProperty("EA Sports");
@@ -406,23 +479,26 @@
         if (digits.slice(0, 5).every(isLetter)) await createProperty("Really Close");
         if (digits.slice(1, 6).every(isLetter)) await createProperty("Really Close End");
         if (unique.size === 3) await createProperty("Trinity");
-        if (unique.size === 4 && maxCount === 2) await createProperty("Two Pair");
-        if (digits.filter(isNumber).length === 1) await createProperty("Firefly+");
+        if (isNumber(digits[0]) && digits[0] > 0 && digits[1] == "e" && digits.slice(2, 6).every(isNumber)) await createProperty("Scientific Notation");
         if ([r, g, b].filter(midtone).length >= 2) await createProperty("Foundational");
         if (r === g) await createProperty("Yellow Submarine");
         if (g === b) await createProperty("My Oh My");
         if (r === b) await createProperty("Hot Pink");
         if (r >= 95 && r <= 130 && g >= 70 && g <= 100 && b <= 50) await createProperty("This Looks Like Shit!");
         if (digits.every(isLetter)) await createProperty("It's a Letters Game");
-        if (maxCount >= 3) await createProperty("Triple Trouble");
         if (r > 220 && g > 220 && b > 220) await createProperty("Battery-powered");
         if (unique.size === 3 && maxCount === 2) await createProperty("Three Pair");
         if (full.includes("bad")) await createProperty("Michael Jackson");
         if (full.includes("ace")) await createProperty("Asexual");
         if (full.includes("a55")) await createProperty("Watch Your Language");
+        if (full.includes("add")) await createProperty("Baldi's Basics");
+        if (full.includes("bee")) await createProperty("Milo the Protogen :3");
         if (full.includes("cab")) await createProperty("Taxi!!! Taxi!!!");
+        if (full.includes("dab")) await createProperty("Dab on it");
+        if (full.includes("dad")) await createProperty("Bad Parenting");
         if (full.includes("e62")) await createProperty("Furry Slice (3)");
         if (full.includes("e92")) await createProperty("Safe Furry Slice (3)");
+        if (full.includes("fed")) await createProperty("Fed Up");
         if ([r, g, b].filter(a1z26).length >= 2) await createProperty("Double A1Z26");
         if (r < 20 && g < 20 && b < 20) await createProperty("Deep Void");
         if (full === [...full].reverse().join("")) await createProperty("Palindrome");
@@ -431,8 +507,9 @@
         if ([r, g, b].every(midtone)) await createProperty("Midtone");
         if ([r, g, b].filter(x => x !== 0).length === 1) await createProperty("Pure Signal");
         if (full.includes("1337")) await createProperty("Leetspeak");
-        if (full.includes("7731")) await createProperty("Reverse Leetspeak");
+        if (full.includes("7331")) await createProperty("Reverse Leetspeak");
         if (full.includes("b00b")) await createProperty("Rated R");
+        if (full.includes("cafe")) await createProperty("Café");
         if (full.includes("dead")) await createProperty("Count Your Days");
         if (full.includes("e621")) await createProperty("Furry Color");
         if (full.includes("e926")) await createProperty("Safe Furry Color");
@@ -444,6 +521,7 @@
         if (full.includes("b00b5")) await createProperty("Rated X");
         if (unique.size === 1) await createProperty("Homogeneous");
         if (["bada55", "c0ffee", "deadbf", "b00b69"].includes(full)) await createProperty("Funny Hex");
+        if (["abcdef", "fedcba"].includes(full)) await createProperty("Perfect Sequence");
         if (full === "663399") await createProperty("Rebecca's Blessing");
         if (full === "fafa00") await createProperty("What You Started With");
         await sleep(500+Math.random()*2500);
@@ -481,7 +559,7 @@
         if (sp >= 10000000) {
           rarity = "mythic";
         } else {
-          rarity = ["common", "uncommon", "rare", "epic", "legendary"][Math.floor(Math.log10(sp))-1];
+          rarity = ["common", "uncommon", "rare", "epic", "legendary", "mythic", "mythic"][Math.floor(Math.log10(sp))-1];
         }
         document.querySelector("#props").insertAdjacentHTML("afterbegin", `
           <div class="prop ${rarity}">
@@ -491,6 +569,13 @@
           </div>
         `);
         chrto += sp;
+        shake = 0.75;
+        if (rarity == "common") {Acommon.playbackRate = 1+0.05*badgeCount; badgeCount += 1; Acommon.play(); shake *= 1.5;}
+        if (rarity == "uncommon") {Auncommon.playbackRate = 1+0.05*badgeCount; badgeCount += 1; Auncommon.play(); shake *= 2.5;}
+        if (rarity == "rare") {Arare.playbackRate = 1+0.025*rareCount; rareCount += 1; Arare.play(); shake *= 4.5;}
+        if (rarity == "epic") {Aepic.playbackRate = 1+0.025*rareCount; rareCount += 1; Aepic.play(); shake *= 6.5;}
+        if (rarity == "legendary") {Alegendary.playbackRate = 1+0.025*rareCount; rareCount += 1; Alegendary.play(); shake *= 10.5;}
+        if (rarity == "mythic") {Amythic.playbackRate = 1+0.025*rareCount; rareCount += 1; Amythic.play(); shake *= 15.5;}
         await sleep(1000);
         let brightness = [r, g, b].reduce((a, b) => a + b);
         // Scepthan on Discord
@@ -502,7 +587,7 @@
         if (bpchr >= 10000000) {
           rarity = "mythic";
         } else {
-          rarity = ["common", "uncommon", "rare", "epic", "legendary"][Math.floor(Math.log10(bpchr))-1];
+          rarity = ["common", "uncommon", "rare", "epic", "legendary", "mythic", "mythic"][Math.floor(Math.log10(bpchr))-1];
         }
         document.querySelector("#props").insertAdjacentHTML("afterbegin", `
           <div class="prop ${rarity}">
@@ -512,19 +597,26 @@
           </div>
         `);
         chrto += bpchr;
-        await sleep(1500);
-        const redbeauty = 1.5*r*(1/(1+Math.pow((g+1)/(r**4/16581375), 3)))*Math.pow(1+b/(r+1), 2.5);
-        const greenbeauty = 1.3333*g*(1/(1+Math.pow((r+1)/(g/1.4), 3)))*Math.pow(g/125+b/(g+1), 1.5);
-        const bluebeauty = 100*Math.cbrt(b/175)*Math.pow(0.8+b/(g+1), 2);
-        const beauty = Math.min([redbeauty, greenbeauty, bluebeauty].reduce((a, b) => a + b) / 3, 900);
-        let ap = Math.round(10/(1-Math.pow(beauty/901, 0.1))+0.0001*beauty**2-40);
+        shake = 0.56;
+        if (rarity == "common") {Acommon.playbackRate = 1+0.05*badgeCount; badgeCount += 1; Acommon.play(); shake *= 1.5;}
+        if (rarity == "uncommon") {Auncommon.playbackRate = 1+0.05*badgeCount; badgeCount += 1; Auncommon.play(); shake *= 2.5;}
+        if (rarity == "rare") {Arare.playbackRate = 1+0.025*rareCount; rareCount += 1; Arare.play(); shake *= 4.5;}
+        if (rarity == "epic") {Aepic.playbackRate = 1+0.025*rareCount; rareCount += 1; Aepic.play(); shake *= 6.5;}
+        if (rarity == "legendary") {Alegendary.playbackRate = 1+0.025*rareCount; rareCount += 1; Alegendary.play(); shake *= 10.5;}
+        if (rarity == "mythic") {Amythic.playbackRate = 1+0.025*rareCount; rareCount += 1; Amythic.play(); shake *= 15.5;}
+        await sleep(1257);
+        const redbeauty = 1.5*r*(1/(1+Math.pow((g+7)/(r**4/16581375), 3)))*Math.pow(1+b/(r+7), 2.5);
+        const greenbeauty = 1.3333*g*(1/(1+Math.pow((r+7)/(g/1.4), 3)))*Math.pow(g/125+b/(g+7), 1.5);
+        const bluebeauty = 100*Math.cbrt(b/175)*Math.pow(0.8+b/(g+25), 2);
+        const beauty = Math.min([redbeauty, greenbeauty, bluebeauty].reduce((a, b) => a + b) / 5, 2000);
+        let ap = Math.round(10/(1-Math.pow(beauty/2010, 0.1))+0.0001*beauty**2-43);
         rarity = "common";
         if (ap >= 10000000) {
           rarity = "mythic";
         } else if (ap < 10) {
           rarity = "trash";
         } else {
-          rarity = ["common", "uncommon", "rare", "epic", "legendary"][Math.floor(Math.log10(ap))-1];
+          rarity = ["common", "uncommon", "rare", "epic", "legendary", "mythic", "mythic"][Math.floor(Math.log10(ap))-1];
         }
         document.querySelector("#props").insertAdjacentHTML("afterbegin", `
           <div class="prop ${rarity}">
@@ -534,6 +626,13 @@
           </div>
         `);
         chrto += ap;
+        shake = 1;
+        if (rarity == "common") {Acommon.playbackRate = 1+0.05*badgeCount; badgeCount += 1; Acommon.play(); shake *= 1.5;}
+        if (rarity == "uncommon") {Auncommon.playbackRate = 1+0.05*badgeCount; badgeCount += 1; Auncommon.play(); shake *= 2.5;}
+        if (rarity == "rare") {Arare.playbackRate = 1+0.025*rareCount; rareCount += 1; Arare.play(); shake *= 4.5;}
+        if (rarity == "epic") {Aepic.playbackRate = 1+0.025*rareCount; rareCount += 1; Aepic.play(); shake *= 6.5;}
+        if (rarity == "legendary") {Alegendary.playbackRate = 1+0.025*rareCount; rareCount += 1; Alegendary.play(); shake *= 10.5;}
+        if (rarity == "mythic") {Amythic.playbackRate = 1+0.025*rareCount; rareCount += 1; Amythic.play(); shake *= 15.5;}
         await sleep(800);
         return [saturation, brightness, beauty];
       } else if (type == "rgb") {
@@ -547,15 +646,18 @@
     function updateColor(txt) {
       document.querySelector("#color").style.backgroundColor = txt;
       document.querySelector("#color2").textContent = txt;
+      document.querySelector("#color2").style.rotate = `${8*Math.random()-4}deg`;
     }
     function update() {
       scale = parseFloat(document.querySelector("#color2").style.scale) || 1;
       document.querySelector("#color2").style.scale = `${scale + 0.1 * (1 - scale)}`;
       chr += 0.2 * (chrto - chr);
+      shake *= -0.9;
       document.querySelector("#chroma").textContent = `${Math.round(chr)} Chroma`;
       document.querySelector("#chroma").style.color = `hsl(${400/Math.PI*Math.atan(chrto/3333)}, 100%, 50%)`
       document.querySelector("#chroma").style.setProperty("--shake", `${3*Math.atan(chrto/33333)}px`);
       document.querySelector("#chroma").style.fontSize = `${1+3*Math.atan(chrto/70707)}em`;
+      document.body.style.setProperty("--global-shake", `${shake}px`);
     }
     async function roll() {
       chrto = 0;
@@ -593,6 +695,7 @@
           }
           clist.push(window.crypto.randomUUID().at(0));
           document.querySelector("#color2").style.scale = 2;
+          shake = 0.83*Math.random();
         }
         updateColor(color);
         const matches = hexregex.exec(color);
@@ -609,7 +712,7 @@
             await sleep(33 + 6 * clist.length);
           }
           clist.push(window.crypto.randomUUID().at(0));
-          if (clist.length % 2 == 0) document.querySelector("#color2").style.scale = 2;
+          if (clist.length % 2 == 0) {document.querySelector("#color2").style.scale = 2; shake = 0.83*Math.random();}
         }
       } else if (color == "hsl") {
         for (let i = 0; i < 7; i++) {
@@ -620,7 +723,7 @@
             await sleep(33 + 5 * clist.length);
           }
           clist.push(window.crypto.randomUUID().at(0));
-          if ("357".includes(clist.length)) document.querySelector("#color2").style.scale = 2;
+          if ("357".includes(clist.length)) {document.querySelector("#color2").style.scale = 2; shake = 0.83*Math.random();}
         }
       } else if (color == "rgba") {
         for (let i = 0; i < 8; i++) {
@@ -631,7 +734,7 @@
             await sleep(33 + 4 * clist.length);
           }
           clist.push(window.crypto.randomUUID().at(0));
-          if (clist.length % 2 == 0) document.querySelector("#color2").style.scale = 2;
+          if (clist.length % 2 == 0) {document.querySelector("#color2").style.scale = 2; shake = 0.83*Math.random();}
         }
       } else {
         for (let i = 0; i < 9; i++) {
@@ -642,10 +745,10 @@
             await sleep(33 + 5 * clist.length);
           }
           clist.push(window.crypto.randomUUID().at(0));
-          if ("3579".includes(clist.length)) document.querySelector("#color2").style.scale = 2;
+          if ("3579".includes(clist.length)) {document.querySelector("#color2").style.scale = 2; shake = 0.83*Math.random();}
         }
       }
-      let percentile = (200/Math.PI*Math.atan(chrto/1347)).toFixed(2);
+      let percentile = (200/Math.PI*Math.atan(chrto/1220)).toFixed(2);
       if (percentile <= 99) {
         percentile = String(Math.round(percentile));
       } else if (percentile <= 99.9) {
@@ -653,7 +756,7 @@
       }
       const ordinal = percentile.at(-2) == "1" ? "th" : percentile.endsWith("1") ? "st" : percentile.endsWith("2") ? "nd" : percentile.endsWith("3") ? "rd" : "th";
       document.querySelector("#stats").insertAdjacentHTML("beforeend", `
-        <p class="large mono" id="percentile" style="animation: appear 0.5s; font-size: 2em; color: hsl(${240/Math.PI*Math.atan(chrto/1347)}, 100%, 50%)">${percentile}${ordinal} percentile</p>
+        <p class="large mono sizeup2" id="percentile" style="color: hsl(${240/Math.PI*Math.atan(chrto/1220)}, 100%, 50%)">${percentile}${ordinal} percentile</p>
       `);
       await sleep(556);
       let redsq=[216,61,101];
@@ -690,16 +793,17 @@
       if (blacksq < minimum) {square = "⬛"; minimum = blacksq;}
       if (whitesq < minimum) {square = "⬜"; minimum = whitesq;}
       document.querySelector("#stats").insertAdjacentHTML("beforeend", `
-        <button class="large mono" id="share" style="animation: appear 0.5s; font-size: 1rem;" onclick="navigator.clipboard.writeText('Creulette ${square} ${color}\\n${percentile}${ordinal} percentile, ${chrto} Chroma\\n${saturation.toFixed(3)}sp, ${beauty.toFixed(3)}ap, ${brightness.toFixed(0)}bp\\nhttps://prototypestudios.neocities.org/creulette?color=${color.replace(/[^0-9a-f,]/gi, "")}&type=${type}')">SHARE YOUR ROLL</p>
+        <button class="large mono sizeup2" id="share" style="font-size: 1rem;" onclick="navigator.clipboard.writeText('Creulette ${square} ${color}\\n${percentile}${ordinal} percentile, ${chrto} Chroma\\n${saturation.toFixed(3)}sp, ${beauty.toFixed(3)}ap, ${brightness.toFixed(0)}bp\\nhttps://prototypestudios.neocities.org/creulette?color=${color.replace(/[^0-9a-f,]/gi, "")}&type=${type}')">SHARE YOUR ROLL</p>
       `);
       await sleep(556);
       document.querySelector("#stats").insertAdjacentHTML("beforeend", `
-        <button class="large mono" id="roll2" style="animation: appear 0.5s; font-size: 1rem;" onclick="document.querySelector('#percentile').remove(); document.querySelector('#share').remove(); document.querySelector('#props').innerHTML = ''; this.remove(); roll();">ROLL AGAIN</p>
+        <button class="large mono sizeup2" id="roll2" style="font-size: 1rem;" onclick="document.querySelector('#percentile').remove(); document.querySelector('#share').remove(); document.querySelector('#props').innerHTML = ''; document.querySelector('#color').classList.remove('sizeup'); badgeCount = 0; rareCount = 0; this.remove(); roll();">ROLL AGAIN</p>
       `);
     }
     setInterval(update, 16);
     let chrto = 0;
     let chr = 0;
+    let shake = 0;
     window.onload = async () => {
       const color = new URLSearchParams(document.location.search).get("color");
       const type = new URLSearchParams(document.location.search).get("type");
