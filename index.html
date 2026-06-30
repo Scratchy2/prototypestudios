@@ -1,18 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8">
+    <meta name="description" content="The list of projects created under the name ProtoType Studios.">
+    <meta property="og:description" content="The list of projects created under the name ProtoType Studios.">
+    <meta name="keywords" content="prototype, proto, type, studios, studio, projects, project, rngdle, sandbox, rollscapes, creulette">
+    <meta name="author" content="ProtoType Studios">
+    <meta property="og:title" content="Projects by ProtoType Studios">
+    <meta property="og:url" content="https://prototypestudios.neocities.org/">
+    <meta name="theme-color" content="#303336">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="jXNDldaCKQmiQbSrea1mugY53_URt1cWGRycDEcwEug" />
     <title>ProtoType Studios</title>
-    <link href="/style.css" rel="stylesheet" type="text/css" media="all">
+    <link rel="preload" href="/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/style.css"></noscript>
+    <style>
+      #world {
+        background: linear-gradient(to right, hsl(240, 100%, 65%), hsl(140, 100%, 60%));
+        color: transparent;
+        background-clip: text;
+        text-decoration: underline;
+        font-weight: bold;
+      }
+    </style>
   </head>
   <body>
     <center>
-      <h1 class="large">ProtoType Studios</h1>
-      <h6 class="medium">One person, making prototypes, bettering the world.</h6><hr>
+      <h1 class="large" id="pts">ProtoType Studios</h1>
+      <h6 class="medium">One protogen, making prototypes, bettering the <span id="world">world.</span></h6><hr>
       <button id="creulette"><div class="prototype">
         <p class="large title">Creulette</p>
-        <h6 class="small">Get rewarded for a daily random color.</h6>
+        <h6 class="small">Get rewarded for a random color with infinite chances. Epilepsy warning!</h6>
+      </div></button>
+      <button id="rollscapes"><div class="prototype">
+        <p class="large title">Rollscapes</p>
+        <h6 class="small">Roll 10 dice of 2-100 sides and analyze the probability.</h6>
       </div></button>
       <button id="rngdle"><div class="prototype">
         <p class="large title">RNGdle Sandbox</p>
@@ -25,7 +47,10 @@
       function gr() {
         g = (g + 0.3) % 360;
         document.querySelector("#creulette").style.background = `linear-gradient(to right, hsl(${g}, 100%, 50%), hsl(${g+36}, 100%, 50%))`;
+        document.querySelector("#pts").style.background = `linear-gradient(to right, hsl(${g+180}, 100%, 50%), hsl(${g+216}, 100%, 50%))`;
         document.querySelector("#creulette").style.color = `hsl(${g+180}, 100%, 50%)`;
+        document.querySelector("#pts").style.color = `transparent`;
+        document.querySelector("#pts").style.backgroundClip = `text`;
       }
       let g = 0;
       window.onload = () => {
@@ -33,6 +58,9 @@
       }
       document.querySelector("#creulette").onclick = () => {
         window.location.href = "https://prototypestudios.neocities.org/creulette";
+      }
+      document.querySelector("#rollscapes").onclick = () => {
+        window.location.href = "https://prototypestudios.neocities.org/rollscapes";
       }
       document.querySelector("#rngdle").onclick = () => {
         window.location.href = "https://prototypestudios.neocities.org/rngdle";
