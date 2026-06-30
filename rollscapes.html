@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Roll 10 dice of 2-100 sides and analyze the probability.">
+    <meta property="og:description" content="Roll 10 dice of 2-100 sides and analyze the probability.">
+    <meta name="keywords" content="rollscapes, rollscape, roll, scapes, scape, infinite, dice, rolling, roll, simulator, probability, chance, d20, random, number, generator">
+    <meta name="author" content="ProtoType Studios">
+    <meta property="og:title" content="Rollscapes by ProtoType Studios">
+    <meta property="og:url" content="https://prototypestudios.neocities.org/rollscapes">
+    <meta name="theme-color" content="#303336">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rollscapes</title>
+    <link href="/style.css" rel="stylesheet" type="text/css" media="all">
+    <style>
+      .dice {
+        width: 6vw;
+        height: 6vw;
+        line-height: 5.75vw;
+        border-radius: 0.25em;
+        font-size: 3vw;
+        background-color: #fafafa;
+        font-family: "Intel One Mono", sans-serif;
+        color: #000;
+      }
+      .undecided {
+        background-color: #aaaa;
+        color: #fafafafa;
+      }
+      h3 {
+        margin: 0;
+        font-size: 1.5em;
+        font-family: "Intel One Mono", sans-serif;
+      }
+      input {
+        width: 30em;
+        font-size: 2em;
+        text-align: center;
+        margin-top: 1em;
+        background-color: #000;
+        color: #fafafa;
+      }
+      #dice {
+        gap: 1vw;
+        display: inline-flex;
+        flex-wrap: wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <button class="back">← Back to ProtoType Studios</button>
+      <h1 class="large project">Rollscapes</h1>
+    </div>
+    <center>
+      <h6 class="medium">Roll 10 dice of 2-100 sides and analyze the probability.</h6><hr>
+      <div id="dice"><div id="dice1" class="dice">1</div><div id="dice2" class="dice">1</div><div id="dice3" class="dice">1</div><div id="dice4" class="dice">1</div><div id="dice5" class="dice">1</div><div id="dice6" class="dice">1</div><div id="dice7" class="dice">1</div><div id="dice8" class="dice">1</div><div id="dice9" class="dice">1</div><div id="dice10" class="dice">1</div></div>
+      <br><input id="sides" type="number" min="2" max="99" placeholder="number of sides, default 20">
+      <br><button class="large" id="roll">ROLL</button>
+      <hr><h2 class="large" id="sum">Sum of ??</h2><p class="medium">There is a<h3 id="prob">???%</h3><span class="medium">or</span><h3 id="prob2">1 in ???</h3><span class="medium">chance of rolling this sum.<br>With a baseline chance of</span><h3 id="prob3">1 in ???</h3><span class="medium">the sum you just rolled is</span><h3 id="prob4">???x</h3><span class="medium">as rare as the average.</span></p>
+      <br>
+    </center>
+    <script>
+      const sleep = async (ms) => new Promise(resolve => setTimeout(resolve, ms));
+      const Adice = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/dice.wav");
+      function random() {
+        document.querySelectorAll(".undecided").forEach((e) => {e.textContent = 1+Math.round((value-1)*Math.random())})
+      }
+      function diceProbability(n, s, x) {
+        if (x < n || x > n * s) return 0;
+        function nCr(n, k) {
+          if (k < 0 || k > n) return 0;
+          if (k === 0 || k === n) return 1;
+          if (k > n / 2) k = n - k;
+          let res = 1;
+          for (let i = 1; i <= k; i++) {
+            res = res * (n - k + i) / i;
+          }
+          return res;
+        }
+        let fav = 0;
+        const kMax = Math.floor((x - n) / s);
+        for (let k = 0; k <= kMax; k++) {
+          const sign = (k % 2 === 0) ? 1 : -1;
+          const term1 = nCr(n, k);
+          const term2 = nCr(x - (k * s) - 1, n - 1);
+          fav += sign * term1 * term2;
+        }
+        const total = Math.pow(s, n);
+        return fav / total;
+      }
+      value = 0;
+      document.querySelector("#roll").onclick = async () => {
+        value = document.querySelector("#sides").value;
+        if (!value) value = 20;
+        if (!(value > 1 && value <= 100 && Number(value) == Math.round(Number(value)))) return;
+        let nlist = new Uint32Array(10);
+        let sum = 0; // you can calculate mean and stdev from this
+        nlist = window.crypto.getRandomValues(nlist);
+        for (i in nlist) {
+          document.querySelector(`#dice${Number(i)+1}`).classList.add("undecided");
+        }
+        for (i in nlist) {
+          for (let j = 0; j < 10; j++) {
+            random();
+            await sleep(12);
+          }
+          document.querySelector(`#dice${Number(i)+1}`).classList.remove("undecided");
+          document.querySelector(`#dice${Number(i)+1}`).textContent = 1+Math.round((value-1)*nlist[i]/4294967296);
+          sum += 1+Math.round((value-1)*nlist[i]/4294967296);
+          Adice.play();
+        }
+        document.querySelector("#sum").textContent = `Sum of ${sum}`;
+        let prob = diceProbability(10, value, sum);
+        let base = 1/diceProbability(10, value, 5+5*value)
+        document.querySelector("#prob").textContent = `${100*prob}%`;
+        document.querySelector("#prob2").textContent = `1 in ${(1/prob).toFixed(5)}`;
+        document.querySelector("#prob3").textContent = `1 in ${base.toFixed(5)}`;
+        document.querySelector("#prob4").textContent = `${((1/prob)/base).toFixed(4)}x`;
+      }
+      document.querySelector(".back").onclick = () => {
+        window.location.href = "https://prototypestudios.neocities.org";
+      }
+    </script>
+  </body>
+</html>
