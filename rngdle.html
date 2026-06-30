@@ -4,18 +4,27 @@
     <meta charset="UTF-8">
     <meta name="description" content="Find out how much EP a number might earn.">
     <meta property="og:description" content="Find out how much EP a number might earn.">
-    <meta name="keywords" content="rngdle, game, online, sandbox, sand, box, answers, answer, ep, entropy, points, point, dle">
+    <meta name="keywords" content="rngdle, all, badges, calculator, simulator, infinite, unlimited, game, online, sandbox, sand, box, answers, answer, ep, entropy, points, point, dle">
     <meta name="author" content="ProtoType Studios">
     <meta property="og:title" content="RNGdle Sandbox by ProtoType Studios">
     <meta property="og:url" content="https://prototypestudios.neocities.org/rngdle">
     <meta name="theme-color" content="#0a0a0a">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="connect-src 'self' data: blob: https://rngdle.com/;">
     <title>RNGdle Sandbox</title>
     <link rel="preload" href="/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/style.css"></noscript>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
       @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+      @keyframes breathe {
+        0%, 100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.015);
+        }
+      }
       body {
         background-color: #0a0a0a;
         font-family: "Space Mono", monospace;
@@ -42,6 +51,7 @@
         font-family: "Space Mono", monospace;
         font-weight: 700;
         transition: all 0.75s ease;
+        animation: 3s ease-in-out infinite breathe;
         scale: 0.8;
         margin-bottom: 1rem;
       }
@@ -70,6 +80,9 @@
       }
       #ep3 {
         margin-bottom: 0.25rem;
+      }
+      #badges {
+        padding-inline: 20vw;
       }
       #rarity {
         background-color: oklch(27.4% 0.006 286.033);
@@ -102,8 +115,8 @@
         color: #c4c4c4;
         border-radius: 0.5rem;
         padding-inline: 0.75rem;
-        padding-block: 0.5rem;
-        margin-right: 0;
+        padding-block: 0.475rem;
+        margin-inline: 0;
         width: fit-content;
         font-family: "Inter", sans-serif;
         font-weight: bold;
@@ -227,7 +240,22 @@
         margin-bottom: 0.375rem;
         width: fit-content;
       }
-      
+      .tooltip {
+        position: fixed;
+        padding: 0.5rem;
+        display: none;
+        background-color: #000014;
+        color: #fafafa;
+        border: 2.7px solid #fafafa;
+        border-radius: 0.3rem;
+        pointer-events: none;
+        z-index: 999;
+      }
+      #share {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
       #percentile.uncommon, #percentile.rare {
         color: oklch(69.6% 0.17 162.48);
       }
@@ -245,25 +273,33 @@
       <h1 class="large project">RNGdle Sandbox</h1>
     </div>
     <center>
-      <h6>Find out how much EP a number might earn.</h6><hr><br>
+      <h6 id="description">Find out how much EP a number might earn.</h6><hr><br>
       <b>
         <input id="num" min="0" max="1000000" type="number" placeholder="??????">
         <p style="color: #606060; margin-bottom: 1rem;"><span id="rarity">??????</span> • <span id="percentile">TOP ???%</span></p>
         <p id="ep">??? EP</p>
         <span id="ep2">??? EP</span>
         <p id="ep3">YOUR LIFETIME EP</p>
-        <button id="share"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share2 lucide-share-2 w-4 h-4" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg><span>SHARE</span></button>
-        <span style="font-family: 'Inter', 'sans-serif'; font-size: 0.75rem; color: #9a9a9a; font-weight: normal; margin-left: 0.375rem; margin-right: 0;">NEXT ROLL IN </span>
-        <span id="countdown">6H 21M 42S</span>
+        <div style="gap: 0.375rem; display: flex; align-items: center; justify-content: center;">
+          <button id="share"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share2 lucide-share-2 w-4 h-4" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg><span>SHARE</span></button>
+          <span><span style="font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #9a9a9a; font-weight: normal;">NEXT ROLL IN </span><span id="countdown">6H 21M 42S</span></span>
+        </div>
         <div id="badges">BADGES: ???</div>
+        <div class="tooltip"></div>
       </b>
-      <h6>WARNING: This has the potential to spoil the whole thing; be cautious. Input a number and hover over the badges to see their EP values and probabilities!</h6>
-      <h6>The percentile is an approximation that fits R²=0.9982. Go play the real game!</h6>
+      <h6 id="warning">WARNING: This has the potential to spoil the whole thing; be cautious. Input a number and hover over the badges to see their EP values and probabilities!
+        <br>The percentile is an approximation that fits R²=0.9982. Go play the real game!</h6>
+      <hr><div id="tools">
+        <h2>Tools</h2>
+        <button id="rngbox">RNGbox<br>Challenge your knowledge of RNGdle!</button>
+        <button id="rnglo">RNGlo<br>Update your ranking based on your friends' rolls!</button>
+      </div>
       <hr><footer>© 2026 ProtoType Studios. All rights reserved.</footer>
       <footer>This project and its owner are not affiliated with RNGdle or its owner.</footer>
     </center>
     <script>
       const badgesList = {
+        "the fabled one million": 100000100,
         "exact number": 100000100,
         "0/1/2/3/4/5/6/7/8/9": 100000100,
         "exact boob": 50000050,
@@ -361,7 +397,7 @@
         "e slice (3)": 25006,
         "calendar": 25006,
         "botanist": 25006,
-        "divisible by three": 24414,
+        "divisible by 3": 24414,
         "scramble": 22722,
         "duality": 21654,
         "framed double": 15242,
@@ -540,9 +576,8 @@
             document.querySelector("#num").value = 0;
           }
           if (!document.querySelector("#num").value) {
-            document.querySelector("#num").style.width = "15.5rem";
-            document.querySelector("#num").style.fontSize = "2.75rem";
             document.querySelector("#badges").textContent = `BADGES: ???`;
+            s = "";
             return;
           }
           num = Number(document.querySelector("#num").value);
@@ -731,12 +766,10 @@
           if (s.includes("911")) {ep+=25006; badges.push("emergency");}
           if (s.includes("86")) {ep+=2024; badges.push("eighty-six");}
         }
+        if (num==1000000) {ep+=100000100; badges.push("the fabled one million");}
         if (num==424242) {ep+=2024; badges.push("meaning of life");}
         if (typeof(number)=="number") return ep;
         const rarity = ep < 2050 ? "trash" : ep < 5349 ? "common" : ep < 8642 ? "uncommon" : ep < 20245 ? "rare" : ep < 33971 ? "epic" : ep < 150679 ? "anomaly" : "mythic";
-        document.querySelector("#num").style.fontSize = length < 6 ? "3.75rem" : "2.75rem";
-        document.querySelector("#num").style.width = length > 5 ? "15.5rem" : `${5+14*length/6}rem`;
-        document.querySelector("#num").style.paddingBlock = length < 6 ? "0.75rem" : "1rem";
         document.querySelector("#num").classList = rarity;
         document.querySelector("#rarity").classList = rarity;
         document.querySelector("#rarity").textContent = rarity.toUpperCase();
@@ -748,8 +781,13 @@
         for (badge in badgesList) {
           badgeep = badgesList[badge];
           badgerarity = badgeep >= 10000000 ? "mythic" : badgeep >= 1000000 ? "anomaly" : badgeep >= 100000 ? "epic" : badgeep >= 10000 ? "rare" : badgeep >= 1000 ? "uncommon" : "common";
-          if (badges.includes(badge)) document.querySelector("#badges").insertAdjacentHTML("beforeend", `<span class="${badgerarity} badge" title="Adds ${badgeep} EP with 1 in ${badgeep/100} chance">${badge}</span>`);
+          if (badges.includes(badge)) document.querySelector("#badges").insertAdjacentHTML("beforeend",
+          `<span class="${badgerarity} badge" onmousemove="document.querySelector('.tooltip').innerHTML = this.textContent + ' - ${badgerarity.toUpperCase()}<br>+${badgeep.toLocaleString()} EP: ~${(10000/badgeep).toFixed(4)}% probability'" onmouseenter="document.querySelector('.tooltip').style.display = 'block'" onmouseleave="document.querySelector('.tooltip').style.display = 'none'">${badge}</span>`);
         }
+      }
+      document.onmousemove = (e) => {
+        document.querySelector(".tooltip").style.left = `${e.clientX}px`;
+        document.querySelector(".tooltip").style.top = `${e.clientY}px`;
       }
       function analyzeAll() {
         const start = Date.now();
@@ -778,8 +816,395 @@
       let badges = [];
       let sum1 = -696969;
       let sum2 = -420420;
+      let rngbox = false;
+      let level = 0;
       setInterval(update, 16);
-      document.querySelector("#num").oninput = () => {analyze()};
+      document.querySelector("#num").oninput = () => {
+        console.log("before function")
+        if (!rngbox) analyze();
+        if (document.querySelector("#num").value.length == 0) {
+          document.querySelector("#num").style.width = "15.5rem";
+          document.querySelector("#num").style.fontSize = "2.75rem";
+        } else {
+          const length = document.querySelector("#num").value.length;
+          document.querySelector("#num").style.fontSize = length < 6 ? "3.75rem" : "2.75rem";
+          document.querySelector("#num").style.width = length > 5 ? "15.5rem" : `${5+14*length/6}rem`;
+          document.querySelector("#num").style.paddingBlock = length < 6 ? "0.75rem" : "1rem";
+        }
+      }
+      document.querySelector("#share").onclick = () => {
+        analyze()
+        setTimeout(() => {
+          const rarity = ep < 2050 ? "trash" : ep < 5349 ? "common" : ep < 8642 ? "uncommon" : ep < 20245 ? "rare" : ep < 33971 ? "epic" : ep < 150679 ? "anomaly" : "mythic";
+          if (level == 1) {
+            if (rarity == "mythic") {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that is an ANOMALY.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 1. You should be ashamed of yourself.";
+            }
+          }
+          else if (level == 2) {
+            if (rarity == "anomaly") {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that is EPIC.";
+            } else {
+              document.querySelector("#obj").textContent = "You have faiwed wevew 2... You thought you wewe so smawt, didn't chu?";
+            }
+          }
+          else if (level == 3) {
+            if (rarity == "epic") {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that is RARE.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 3. Must not know RNGdle enough.";
+            }
+          }
+          else if (level == 4) {
+            if (rarity == "rare") {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that is UNCOMMON.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 4. Try again.";
+            }
+          }
+          else if (level == 5) {
+            if (rarity == "uncommon") {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that is COMMON.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 5. Oh, come on! You should've been able to do this.";
+            }
+          }
+          else if (level == 6) {
+            if (rarity == "common") {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns between 4000 and 12000 EP.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 6. What a pity, that was easy.";
+            }
+          }
+          else if (level == 7) {
+            if (ep >= 4000 && ep <= 12000) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns between 2000 and 3000 EP.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 7. Meh, just try again someday.";
+            }
+          }
+          else if (level == 8) {
+            if (ep >= 2000 && ep <= 3000) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns between 13000 and 26000 EP.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 8. You were meant to pass this level!";
+            }
+          }
+          else if (level == 9) {
+            if (ep >= 13000 && ep <= 26000) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns between 27000 and 54000 EP.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 9. You realize that includes almost all rares and epics, right?";
+            }
+          }
+          else if (level == 10) {
+            if (ep >= 27000 && ep <= 54000) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns between 55000 and 110000 EP.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 10. Bitch, please.";
+            }
+          }
+          else if (level == 11) {
+            if (ep >= 55000 && ep <= 110000) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns between 190000 and 200000 EP.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 11. This level was just find the anomaly.";
+            }
+          }
+          else if (level == 12) {
+            if (ep >= 190000 && ep <= 200000) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns between 1760 and 1986 EP.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 12. I don't blame you, this one was *sooo* difficult.";
+            }
+          }
+          else if (level == 13) {
+            if (ep > 1759 && ep <= 1986) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns exactly 1759 EP.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 13. Holy shit, you lost a guessing game!";
+            }
+          }
+          else if (level == 14) {
+            if (ep == 1759) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the most common badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 14. Didn't consult the worst numbers list? How unfortunate.";
+            }
+          }
+          else if (level == 15) {
+            if (num > 99999) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns Gap One.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 15. Are you fucking stupid?";
+            }
+          }
+          else if (level == 16) {
+            if (badges.includes("gap one")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Hills badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 16. The first and last digits differ by 1.";
+            }
+          }
+          else if (level == 17) {
+            if (badges.includes("hills")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Balanced badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 17. The digits rise and fall.";
+            }
+          }
+          else if (level == 18) {
+            if (badges.includes("balanced")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Blackjack badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 18. The sum of the first half equals the sum of the second half.";
+            }
+          }
+          else if (level == 19) {
+            if (badges.includes("blackjack")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Feather badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 19. The digits sum to 21.";
+            }
+          }
+          else if (level == 20) {
+            if (badges.includes("feather")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Alternator badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 20. The sum of the digits is less than 15.";
+            }
+          }
+          else if (level == 21) {
+            if (badges.includes("alternator")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Mountain badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 21. The digits alternate between even and odd.";
+            }
+          }
+          else if (level == 22) {
+            if (badges.includes("mountain")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Mirror Bookends badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 22. The digits ascend to a peak and then descend.";
+            }
+          }
+          else if (level == 23) {
+            if (badges.includes("mirror bookends")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Paired Bookends badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 23. The first 2 digits mirror the last 2.";
+            }
+          }
+          else if (level == 24) {
+            if (badges.includes("paired bookends")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Framed Double badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 24. The number starts with a pair and ends with a different one.";
+            }
+          }
+          else if (level == 25) {
+            if (badges.includes("framed double")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Scramble badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 25. The number is 2 pairs bookended by different digits.";
+            }
+          }
+          else if (level == 26) {
+            if (badges.includes("scramble")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Divisible by 3 badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 26. The number forms a sequence of 6 when sorted.";
+            }
+          }
+          else if (level == 27) {
+            if (badges.includes("divisible by 3")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Heavy badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 27. The digits are all divisible by 3.";
+            }
+          }
+          else if (level == 28) {
+            if (badges.includes("heavy")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Turtle badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 28. The digits are all 5-9.";
+            }
+          }
+          else if (level == 29) {
+            if (badges.includes("turtle")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Colossal badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 29. The digits differ by at most 1.";
+            }
+          }
+          else if (level == 30) {
+            if (badges.includes("colossal")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Framed Triple badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 30. The number is greater than 999000.";
+            }
+          }
+          else if (level == 31) {
+            if (badges.includes("framed triple")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Framed Pair badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 31. The number is a triple bookended by different digits.";
+            }
+          }
+          else if (level == 32) {
+            if (badges.includes("framed pair")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Zipper badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 32. The number is a pair bookended by different digits.";
+            }
+          }
+          else if (level == 33) {
+            if (badges.includes("zipper")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Big Brother badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 33. The number alternates between 2 digits.";
+            }
+          }
+          else if (level == 34) {
+            if (badges.includes("big brother")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Strobogrammatic badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 34. The number contains 1984.";
+            }
+          }
+          else if (level == 35) {
+            if (badges.includes("strobogrammatic")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Straight Flush badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 35. The number looks the same rotated 180 degrees.";
+            }
+          }
+          else if (level == 36) {
+            if (badges.includes("straight flush")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Sandwich badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 36. The number contains 13579, 97531, 02468, or 86420.";
+            }
+          }
+          else if (level == 37) {
+            if (s=="") {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Harshad Number badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 37. Here's a hint: nothing earns Sandwich.";
+            }
+          }
+          else if (level == 38) {
+            if (badges.includes("harshad number")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Eleven badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 38. The number is divisible by the sum of its digits.";
+            }
+          }
+          else if (level == 39) {
+            if (badges.includes("eleven")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Dozen badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 39. The number is divisible by 11.";
+            }
+          }
+          else if (level == 40) {
+            if (badges.includes("dozen")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Prime Number badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 40. The number is divisible by 12.";
+            }
+          }
+          else if (level == 41) {
+            if (badges.includes("prime number")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Pronic Number badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 41. The number is only divisible by 1 and itself.";
+            }
+          }
+          else if (level == 42) {
+            if (badges.includes("pronic number")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Spy Number badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 42. The number can be represented in the form n * n + n.";
+            }
+          }
+          else if (level == 43) {
+            if (badges.includes("spy number")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Fibonacci Number badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 43. The sum of the number's digits equals the product of its digits.";
+            }
+          }
+          else if (level == 44) {
+            if (badges.includes("fibonacci number")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Factorial badge.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 44. The number is found in the Fibonacci sequence.";
+            }
+          }
+          else if (level == 45) {
+            if (badges.includes("factorial")) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the 13th Power badge and is greater than 1.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 45. The number is a factorial number.";
+            }
+          }
+          else if (level == 46) {
+            if (badges.includes("13th power") && num > 1) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the 17th Power badge and is greater than 1.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 46. Pull up your calculator.";
+            }
+          }
+          else if (level == 47) {
+            if (badges.includes("17th power") && num > 1) {
+              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the 19th Power badge and is greater than 1.";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 47. Pull up your calculator.";
+            }
+          }
+          else if (level == 48) {
+            if (badges.includes("19th power") && num > 1) {
+              level += 1; document.querySelector("#obj").textContent = "How many badges were in this game on June 24, 2026?";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 48. Pull up your calculator.";
+            }
+          }
+          else if (level == 49) {
+            if (num == 203) {
+              level += 1; document.querySelector("#obj").textContent = "In what year did cam make an RNGdle account?";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 49. Find the link to the RNGdle badges.";
+            }
+          }
+          else if (level == 50) {
+            if (num == 2025) {
+              level += 1; document.querySelector("#obj").innerHTML = "And lastly, give me the 1 number that earns <b>EXACTLY 126931 EP.</b>";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 50. Pull up that profile on RNGdle.";
+            }
+          }
+          else if (level == 51) {
+            if (ep == 126931) {
+              level += 1; document.querySelector("#obj").textContent = "CONGRATULATIONS YOU'VE BEATEN THE GAME!!!";
+            } else {
+              document.querySelector("#obj").textContent = "You have failed level 51. you were so close lmao oh well oops try again maybe you'll get it next time haha";
+            }
+          }
+        }, 2225)
+      };
+      document.querySelector("#rngbox").onclick = () => {
+        document.querySelector("#rngbox").remove();
+        document.querySelector("#rnglo").remove();
+        document.querySelector("h1").textContent = "RNGbox";
+        document.querySelector("#description").textContent = "Challenge your RNGdle knowledge!";
+        document.querySelector("#warning").textContent = "Click the SHARE button to check your answer!";
+        document.querySelector("#tools").insertAdjacentHTML("beforeend", "<h6 id='obj'>Find a number that is MYTHIC.</h6>");
+        rngbox = true;
+        level = 1;
+      }
     </script>
   </body>
 </html>
