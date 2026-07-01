@@ -13,6 +13,43 @@
     <title>Rollscapes</title>
     <link href="/style.css" rel="stylesheet" type="text/css" media="all">
     <style>
+      @keyframes glow {
+        0% {box-shadow: 0 0 0 #0f0;}
+        100% {box-shadow: 0 0 100px #fffccc;}
+      }
+      @keyframes spin {
+        0% {rotate: 0deg; scale: 1.25; background-color: #fafafa;}
+        100% {rotate: 360deg; scale: 1; background-color: #00fa00;}
+      }
+      @keyframes spin2 {
+        0% {rotate: 0deg; scale: 1.25; background-color: #fafafa;}
+        100% {rotate: 360deg; scale: 1; background-color: #fa0000;}
+      }
+      @keyframes spin3 {
+        0% {rotate: 0deg; scale: 1.25; background-color: #fafafa;}
+        100% {rotate: 360deg; scale: 1; background-color: #fafa00;}
+      }
+      @keyframes spin4 {
+        0% {rotate: 0deg; scale: 1.25; background-color: #fafafa;}
+        100% {rotate: 360deg; scale: 1; background-color: #0000fa; color: #fafafa;}
+      }
+      @keyframes spin5 {
+        0% {rotate: 0deg; scale: 1.25; background-color: #fafafa;}
+        100% {rotate: 360deg; scale: 1; background-color: #faaa00;}
+      }
+      @keyframes spin6 {
+        0% {rotate: 0deg; scale: 1.25; background-color: #fafafa;}
+        100% {rotate: 360deg; scale: 1; background-color: #6900ff; color: #fafafa;}
+      }
+      @keyframes spin7 {
+        0% {rotate: 0deg; scale: 1.25; background: #fafafa;}
+        100% {rotate: 360deg; scale: 1; background: linear-gradient(to bottom right, #dccfff, #fccfff);}
+      }
+      body {
+        --global-shake: 0px;
+        display: block;
+        transform: translateX(var(--global-shake)) translateY(calc(-1*var(--global-shake)));
+      }
       .dice {
         width: 6vw;
         height: 6vw;
@@ -22,6 +59,54 @@
         background-color: #fafafa;
         font-family: "Intel One Mono", sans-serif;
         color: #000;
+      }
+      .glow {
+        animation: 0.6s glow forwards ease;
+      }
+      .spin {
+        animation: 0.4s spin forwards ease;
+      }
+      .spin2 {
+        animation: 0.4s spin2 forwards ease;
+      }
+      .spin3 {
+        animation: 0.4s spin3 forwards ease;
+      }
+      .spin4 {
+        animation: 0.4s spin4 forwards ease;
+      }
+      .spin5 {
+        animation: 0.4s spin5 forwards ease;
+      }
+      .spin6 {
+        animation: 0.4s spin6 forwards ease;
+      }
+      .spin7 {
+        animation: 0.4s spin7 forwards ease;
+      }
+      .redyellow {
+        border: 0.5vw solid #fafa00;
+        background: linear-gradient(to bottom right, #fafa00, #fa0000);
+      }
+      .yellowgreen {
+        border: 0.5vw solid #fafa00;
+        background: linear-gradient(to bottom right, #fafa00, #00fa00);
+      }
+      .yellowblue {
+        border: 0.5vw solid #fafa00;
+        background: linear-gradient(to bottom right, #fafa00, #0000fa);
+      }
+      .redorange {
+        border: 0.5vw solid #faaa00;
+        background: linear-gradient(to bottom right, #faaa00, #fa0000);
+      }
+      .orangegreen {
+        border: 0.5vw solid #faaa00;
+        background: linear-gradient(to bottom right, #faaa00, #00fa00);
+      }
+      .orangeblue {
+        border: 0.5vw solid #faaa00;
+        background: linear-gradient(to bottom right, #faaa00, #0000fa);
       }
       .undecided {
         background-color: #aaaa;
@@ -33,10 +118,11 @@
         font-family: "Intel One Mono", sans-serif;
       }
       input {
-        width: 30em;
-        font-size: 2em;
+        width: 60vw;
+        font-size: 2vw;
         text-align: center;
         margin-top: 1em;
+        font-family: "Intel One Mono", sans-serif;
         background-color: #000;
         color: #fafafa;
       }
@@ -55,16 +141,25 @@
     <center>
       <h6 class="medium">Roll 10 dice of 2-100 sides and analyze the probability.</h6><hr>
       <div id="dice"><div id="dice1" class="dice">1</div><div id="dice2" class="dice">1</div><div id="dice3" class="dice">1</div><div id="dice4" class="dice">1</div><div id="dice5" class="dice">1</div><div id="dice6" class="dice">1</div><div id="dice7" class="dice">1</div><div id="dice8" class="dice">1</div><div id="dice9" class="dice">1</div><div id="dice10" class="dice">1</div></div>
-      <br><input id="sides" type="number" min="2" max="99" placeholder="number of sides, default 20">
+      <br><input id="sides" type="number" min="2" max="100" placeholder="number of sides, default 20">
       <br><button class="large" id="roll">ROLL</button>
+      <br><button class="large" id="share">SHARE YOUR ROLL</button>
       <hr><h2 class="large" id="sum">Sum of ??</h2><p class="medium">There is a<h3 id="prob">???%</h3><span class="medium">or</span><h3 id="prob2">1 in ???</h3><span class="medium">chance of rolling this sum.<br>With a baseline chance of</span><h3 id="prob3">1 in ???</h3><span class="medium">the sum you just rolled is</span><h3 id="prob4">???x</h3><span class="medium">as rare as the average.</span></p>
       <br>
     </center>
     <script>
       const sleep = async (ms) => new Promise(resolve => setTimeout(resolve, ms));
-      const Adice = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/dice.wav");
+      const Adice = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/dice2.wav");
+      const A2rare = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/2rare.mp3");
+      const A3rare = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/3rare.mp3");
+      const A4rare = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/4rare.mp3");
+      const A5rare = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/5rare.mp3");
+      const Areveal = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/reveal.wav");
+      const Anewrecord = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/newrecord.wav");
       function random() {
-        document.querySelectorAll(".undecided").forEach((e) => {e.textContent = 1+Math.round((value-1)*Math.random())})
+        document.querySelectorAll(".undecided").forEach((e) => {e.textContent = 1+Math.round((value-1)*Math.random())});
+        shake *= -0.9;
+        document.body.style.setProperty("--global-shake", `${shake}px`);
       }
       function diceProbability(n, s, x) {
         if (x < n || x > n * s) return 0;
@@ -89,34 +184,100 @@
         const total = Math.pow(s, n);
         return fav / total;
       }
-      value = 0;
+      let value = 0;
+      let nlist = [];
+      let shake = 0;
+      let sum = 0;
+      let roll = false;
+      let low = 105;
+      let high = 105;
+      setInterval(random, 12);
       document.querySelector("#roll").onclick = async () => {
+        if (roll) return;
+        roll = true;
         value = document.querySelector("#sides").value;
+        sum = 0; // you can calculate mean and stdev from this
         if (!value) value = 20;
         if (!(value > 1 && value <= 100 && Number(value) == Math.round(Number(value)))) return;
-        let nlist = new Uint32Array(10);
-        let sum = 0; // you can calculate mean and stdev from this
+        nlist = new Uint32Array(10);
         nlist = window.crypto.getRandomValues(nlist);
         for (i in nlist) {
-          document.querySelector(`#dice${Number(i)+1}`).classList.add("undecided");
+          document.querySelector(`#dice${Number(i)+1}`).classList = "undecided dice";
+          nlist[i] = 1+Math.round((value-1)*nlist[i]/4294967296);
         }
         for (i in nlist) {
-          for (let j = 0; j < 10; j++) {
-            random();
-            await sleep(12);
-          }
+          await sleep(120);
           document.querySelector(`#dice${Number(i)+1}`).classList.remove("undecided");
-          document.querySelector(`#dice${Number(i)+1}`).textContent = 1+Math.round((value-1)*nlist[i]/4294967296);
-          sum += 1+Math.round((value-1)*nlist[i]/4294967296);
-          Adice.play();
+          document.querySelector(`#dice${Number(i)+1}`).textContent = nlist[i];
+          sum += nlist[i];
+          shake = 0.25+0.25*Math.random();
+          if (i % 2 == 1) Adice.play();
+          if (value >= 8 && (nlist[i] == value || nlist[i] == value - 1)) {Areveal.play(); document.querySelector(`#dice${Number(i)+1}`).classList.add("spin");}
+          if (value >= 8 && (nlist[i] == 1 || nlist[i] == 2)) {Areveal.play(); document.querySelector(`#dice${Number(i)+1}`).classList.add("spin2");}
+          if (value >= 8 && (nlist[i] == Math.floor(value/2) || nlist[i] == Math.ceil(value/2))) {Areveal.play(); document.querySelector(`#dice${Number(i)+1}`).classList.add("spin4");}
+          if (nlist[i] == nlist[Number(i)-1]) {
+            Areveal.play();
+            document.querySelector(`#dice${i}`).classList.add("spin3");
+            document.querySelector(`#dice${Number(i)+1}`).classList.add("spin3");
+            if (document.querySelector(`#dice${i}`).classList.contains("spin")) document.querySelector(`#dice${i}`).classList.add("yellowgreen");
+            if (document.querySelector(`#dice${i}`).classList.contains("spin2")) document.querySelector(`#dice${i}`).classList.add("redyellow");
+            if (document.querySelector(`#dice${i}`).classList.contains("spin4")) document.querySelector(`#dice${i}`).classList.add("yellowblue");
+            if (document.querySelector(`#dice${Number(i)+1}`).classList.contains("spin")) document.querySelector(`#dice${Number(i)+1}`).classList.add("yellowgreen");
+            if (document.querySelector(`#dice${Number(i)+1}`).classList.contains("spin2")) document.querySelector(`#dice${Number(i)+1}`).classList.add("redyellow");
+            if (document.querySelector(`#dice${Number(i)+1}`).classList.contains("spin4")) document.querySelector(`#dice${Number(i)+1}`).classList.add("yellowblue");
+          }
+          if (Math.abs(nlist[i] - nlist[Number(i)-1]) == 1 && Math.abs(nlist[Number(i)-1] - nlist[Number(i)-2]) == 1) {
+            Areveal.play();
+            document.querySelector(`#dice${Number(i)-1}`).classList.add("spin5");
+            document.querySelector(`#dice${i}`).classList.add("spin5");
+            document.querySelector(`#dice${Number(i)+1}`).classList.add("spin5");
+            if (document.querySelector(`#dice${Number(i)-1}`).classList.contains("spin")) document.querySelector(`#dice${Number(i)-1}`).classList.add("orangegreen");
+            if (document.querySelector(`#dice${Number(i)-1}`).classList.contains("spin2")) document.querySelector(`#dice${Number(i)-1}`).classList.add("redorange");
+            if (document.querySelector(`#dice${Number(i)-1}`).classList.contains("spin4")) document.querySelector(`#dice${Number(i)-1}`).classList.add("orangeblue");
+            if (document.querySelector(`#dice${i}`).classList.contains("spin")) document.querySelector(`#dice${i}`).classList.add("orangegreen");
+            if (document.querySelector(`#dice${i}`).classList.contains("spin2")) document.querySelector(`#dice${i}`).classList.add("redorange");
+            if (document.querySelector(`#dice${i}`).classList.contains("spin4")) document.querySelector(`#dice${i}`).classList.add("orangeblue");
+            if (document.querySelector(`#dice${Number(i)+1}`).classList.contains("spin")) document.querySelector(`#dice${Number(i)+1}`).classList.add("orangegreen");
+            if (document.querySelector(`#dice${Number(i)+1}`).classList.contains("spin2")) document.querySelector(`#dice${Number(i)+1}`).classList.add("redorange");
+            if (document.querySelector(`#dice${Number(i)+1}`).classList.contains("spin4")) document.querySelector(`#dice${Number(i)+1}`).classList.add("orangeblue");
+          }
+          if (Math.abs(nlist[i] / nlist[Number(i)-1]) == 3) {document.querySelector(`#dice${i}`).classList.add("spin6"); document.querySelector(`#dice${Number(i)+1}`).classList.add("spin6");}
+          if (nlist.slice(0, 5).every((n) => n >= value / 2) && i > 4) {
+            document.querySelector(`#dice1`).classList.add("spin7");
+            document.querySelector(`#dice2`).classList.add("spin7");
+            document.querySelector(`#dice3`).classList.add("spin7");
+            document.querySelector(`#dice4`).classList.add("spin7");
+            document.querySelector(`#dice5`).classList.add("spin7");
+          }
+          if (nlist.slice(5, 10).every((n) => n >= value / 2) && i == 9) {
+            document.querySelector(`#dice6`).classList.add("spin7");
+            document.querySelector(`#dice7`).classList.add("spin7");
+            document.querySelector(`#dice8`).classList.add("spin7");
+            document.querySelector(`#dice9`).classList.add("spin7");
+            document.querySelector(`#dice10`).classList.add("spin7");
+          }
         }
         document.querySelector("#sum").textContent = `Sum of ${sum}`;
         let prob = diceProbability(10, value, sum);
-        let base = 1/diceProbability(10, value, 5+5*value)
+        let base = 1/diceProbability(10, value, 5+5*value);
+        let mult = (1/prob)/base;
         document.querySelector("#prob").textContent = `${100*prob}%`;
         document.querySelector("#prob2").textContent = `1 in ${(1/prob).toFixed(5)}`;
         document.querySelector("#prob3").textContent = `1 in ${base.toFixed(5)}`;
-        document.querySelector("#prob4").textContent = `${((1/prob)/base).toFixed(4)}x`;
+        document.querySelector("#prob4").textContent = `${mult.toFixed(4)}x`;
+        shake = mult;
+        if (value == 20) {
+          if (sum < low) {low = sum; shake*=1.5; document.querySelectorAll(".dice").forEach((e) => {e.classList.add("glow"); Anewrecord.play();}); document.querySelector("#sum").textContent += " (new lowest!)";}
+          if (sum > high) {high = sum; shake*=1.5; document.querySelectorAll(".dice").forEach((e) => {e.classList.add("glow"); Anewrecord.play();}); document.querySelector("#sum").textContent += " (new highest!)";}
+        }
+        if (mult > 25) A5rare.play();
+        else if (mult > 20)A4rare.play();
+        else if (mult > 15)A3rare.play();
+        else if (mult > 7) A2rare.play();
+        roll = false;
+      }
+      document.querySelector("#share").onclick = () => {
+        navigator.clipboard.writeText(`I rolled 10 D${value} and got ${sum}!\n🎲 ${nlist[0]} 🎲 ${nlist[1]} 🎲 ${nlist[2]} 🎲 ${nlist[3]} 🎲 ${nlist[4]} 🎲 ${nlist[5]} 🎲 ${nlist[6]} 🎲 ${nlist[7]} 🎲 ${nlist[8]} 🎲 ${nlist[9]}\nhttps://prototypestudios.neocities.org/rollscapes`);
       }
       document.querySelector(".back").onclick = () => {
         window.location.href = "https://prototypestudios.neocities.org";
