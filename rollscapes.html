@@ -13,6 +13,7 @@
     <title>Rollscapes</title>
     <link href="/style.css" rel="stylesheet" type="text/css" media="all">
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Bitcount+Single:wght@100..900&display=swap');
       @keyframes glow {
         0% {box-shadow: 0 0 0 #0f0;}
         100% {box-shadow: 0 0 100px #fffccc;}
@@ -45,16 +46,25 @@
         0% {rotate: 0deg; scale: 1.25; background: #fafafa;}
         100% {rotate: 360deg; scale: 1; background: linear-gradient(to bottom right, #dccfff, #fccfff);}
       }
+      @keyframes spin8 {
+        0% {rotate: 0deg; scale: 1.25; background: #fafafa;}
+        100% {rotate: 360deg; scale: 1; background: linear-gradient(to bottom right, #ffbfbf, #ffddbf);}
+      }
       body {
         --global-shake: 0px;
         display: block;
         transform: translateX(var(--global-shake)) translateY(calc(-1*var(--global-shake)));
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      ::-webkit-scrollbar {
+        display: none;
       }
       .dice {
         width: 6vw;
         height: 6vw;
         line-height: 5.75vw;
-        border-radius: 0.25em;
+        border-radius: 0.33em;
         font-size: 3vw;
         background-color: #fafafa;
         font-family: "Intel One Mono", sans-serif;
@@ -83,34 +93,47 @@
       }
       .spin7 {
         animation: 0.4s spin7 forwards ease;
+        box-shadow: 0 0 34px #eccfff;
+      }
+      .spin8 {
+        animation: 0.4s spin8 forwards ease;
+        box-shadow: 0 0 34px #ffcebf;
       }
       .redyellow {
-        border: 0.5vw solid #fafa00;
+        border: 0.25vw solid #fafa00;
         background: linear-gradient(to bottom right, #fafa00, #fa0000);
       }
       .yellowgreen {
-        border: 0.5vw solid #fafa00;
+        border: 0.25vw solid #fafa00;
         background: linear-gradient(to bottom right, #fafa00, #00fa00);
       }
       .yellowblue {
-        border: 0.5vw solid #fafa00;
+        border: 0.25vw solid #fafa00;
         background: linear-gradient(to bottom right, #fafa00, #0000fa);
       }
       .redorange {
-        border: 0.5vw solid #faaa00;
+        border: 0.25vw solid #faaa00;
         background: linear-gradient(to bottom right, #faaa00, #fa0000);
       }
       .orangegreen {
-        border: 0.5vw solid #faaa00;
+        border: 0.25vw solid #faaa00;
         background: linear-gradient(to bottom right, #faaa00, #00fa00);
       }
       .orangeblue {
-        border: 0.5vw solid #faaa00;
+        border: 0.25vw solid #faaa00;
         background: linear-gradient(to bottom right, #faaa00, #0000fa);
       }
       .undecided {
         background-color: #aaaa;
         color: #fafafafa;
+      }
+      .square {
+        font-family: "Bitcount Single", system-ui;
+        font-optical-sizing: auto;
+        font-style: normal;
+        border-radius: 0;
+        line-height: calc(5.75vw + 0.14em);
+        border: 0.15em solid #000007;
       }
       h3 {
         margin: 0;
@@ -131,12 +154,39 @@
         display: inline-flex;
         flex-wrap: wrap;
       }
+      .container {
+        display: inline-flex;
+        align-items: center;
+        gap: 1vw;
+      }
+      #lvl {
+        font-weight: bold;
+        text-decoration: underline;
+      }
+      #progress {
+        display: grid;
+        place-items: left;
+        width: 30vw;
+        height: 3vw;
+        border: 0.4vw solid white;
+        border-radius: 999px;
+        background: linear-gradient(to right, #000, #000007);
+      }
+      #bar {
+        background: linear-gradient(to right, #0b0, #0c0);
+        color: #fafafa;
+        border-radius: 999px;
+        width: 0%;
+        height: 100%;
+        line-height: 2.8vw;
+      }
     </style>
   </head>
   <body>
     <div class="header">
       <button class="back">← Back to ProtoType Studios</button>
       <h1 class="large project">Rollscapes</h1>
+      <button class="large" id="google">Sign in with Google</button>
     </div>
     <center>
       <h6 class="medium">Roll 10 dice of 2-100 sides and analyze the probability.</h6><hr>
@@ -144,9 +194,19 @@
       <br><input id="sides" type="number" min="2" max="100" placeholder="number of sides, default 20">
       <br><button class="large" id="roll">ROLL</button>
       <br><button class="large" id="share">SHARE YOUR ROLL</button>
+      <br><div class="container">
+        <span class="medium" id="lvl">Lvl 0</span>
+        <div id="progress">
+          <div class="medium" id="bar"></div>
+        </div>
+        <span class="small" id="xp">0 XP</span>
+      </div>
       <hr><h2 class="large" id="sum">Sum of ??</h2><p class="medium">There is a<h3 id="prob">???%</h3><span class="medium">or</span><h3 id="prob2">1 in ???</h3><span class="medium">chance of rolling this sum.<br>With a baseline chance of</span><h3 id="prob3">1 in ???</h3><span class="medium">the sum you just rolled is</span><h3 id="prob4">???x</h3><span class="medium">as rare as the average.</span></p>
+      <hr><footer>© 2026 ProtoType Studios. All rights reserved.</footer>
       <br>
     </center>
+    <script src="https://accounts.google.com/gsi/client" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
     <script>
       const sleep = async (ms) => new Promise(resolve => setTimeout(resolve, ms));
       const Adice = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/dice2.wav");
@@ -154,12 +214,38 @@
       const A3rare = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/3rare.mp3");
       const A4rare = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/4rare.mp3");
       const A5rare = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/5rare.mp3");
-      const Areveal = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/reveal.wav");
+      const Ainteresting = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/interesting.wav");
+      const Alevelup = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/levelup.mp3");
       const Anewrecord = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/newrecord.wav");
+      Adice.volume = 0.4;
+      Ainteresting.volume = 0.4;
+      Alevelup.volume = 0.2;
       function random() {
         document.querySelectorAll(".undecided").forEach((e) => {e.textContent = 1+Math.round((value-1)*Math.random())});
+        scale += 0.09895 * (1 - scale);
+        document.querySelector(".container").style.scale = scale;
         shake *= -0.9;
         document.body.style.setProperty("--global-shake", `${shake}px`);
+        let req = 1000;
+        let exp = 1.07;
+        let lvl = Math.max(Math.floor(Math.log(xp / req) / Math.log(exp)), 0);
+        let lvl2 = Math.floor(req * exp ** lvl);
+        let lvl3 = Math.floor(req * exp ** (lvl+1));
+        let proc = 100 * ((xp - lvl2) / (lvl3 - lvl2));
+        width += 0.12121212 * (proc - width);
+        document.querySelector("#bar").style.width = `${width}%`;
+        if (lvl > lvl4) {document.querySelector("#bar").style.width = 0; Alevelup.play(); scale = 1.3; shake*=2;}
+        lvl4 = Math.max(Math.floor(Math.log(xp / req) / Math.log(exp)), 0);
+        if (lvl == 0) proc = 100 * (xp / req / exp);
+        document.querySelector("#lvl").textContent = `Lvl ${lvl}`;
+        document.querySelector("#xp").textContent = `${xp} XP`;
+        document.querySelector("#bar").textContent = `${Math.floor(proc)}%`;
+      }
+      function fire(multi) {
+        if (Math.random() > multi * 0.5) return 0;
+        if (multi < 3) return 10 * (multi - 1);
+        if (multi < 10) return multi ** 2 + 11;
+        return 500*Math.atan((multi - 10) / 10) + 111;
       }
       function diceProbability(n, s, x) {
         if (x < n || x > n * s) return 0;
@@ -189,8 +275,23 @@
       let shake = 0;
       let sum = 0;
       let roll = false;
+      let data = localStorage.getItem("data");
       let low = 105;
       let high = 105;
+      let lvl4 = 0;
+      let xp = 0;
+      let width = 0;
+      let scale = 1;
+      if (data) {
+        let psed = JSON.parse(data);
+        if (psed.low) low = psed.low;
+        if (psed.high) high = psed.high;
+        if (psed.xp) xp = psed.xp;
+      } else {
+        low = 105;
+        high = 105;
+        xp = 0;
+      }
       setInterval(random, 12);
       document.querySelector("#roll").onclick = async () => {
         if (roll) return;
@@ -212,67 +313,150 @@
           sum += nlist[i];
           shake = 0.25+0.25*Math.random();
           if (i % 2 == 1) Adice.play();
-          if (value >= 8 && (nlist[i] == value || nlist[i] == value - 1)) {Areveal.play(); document.querySelector(`#dice${Number(i)+1}`).classList.add("spin");}
-          if (value >= 8 && (nlist[i] == 1 || nlist[i] == 2)) {Areveal.play(); document.querySelector(`#dice${Number(i)+1}`).classList.add("spin2");}
-          if (value >= 8 && (nlist[i] == Math.floor(value/2) || nlist[i] == Math.ceil(value/2))) {Areveal.play(); document.querySelector(`#dice${Number(i)+1}`).classList.add("spin4");}
+          if ([1,4,9,16,25,36,49,64,81,100].includes(nlist[i])) {document.querySelector(`#dice${Number(i)+1}`).classList.add("square"); xp+=10;}
+          if (value >= 8 && (nlist[i] == value || nlist[i] == value - 1)) {Ainteresting.play(); document.querySelector(`#dice${Number(i)+1}`).classList.add("spin"); xp+=25;}
+          if (value >= 8 && (nlist[i] == 1 || nlist[i] == 2)) {Ainteresting.play(); document.querySelector(`#dice${Number(i)+1}`).classList.add("spin2"); xp+=25;}
+          if (value >= 8 && (nlist[i] == Math.floor(value/2) || nlist[i] == Math.ceil(value/2))) {Ainteresting.play(); document.querySelector(`#dice${Number(i)+1}`).classList.add("spin4"); xp+=25;}
           if (nlist[i] == nlist[Number(i)-1]) {
-            Areveal.play();
+            Ainteresting.play();
+            xp+=5;
             document.querySelector(`#dice${i}`).classList.add("spin3");
             document.querySelector(`#dice${Number(i)+1}`).classList.add("spin3");
-            if (document.querySelector(`#dice${i}`).classList.contains("spin")) document.querySelector(`#dice${i}`).classList.add("yellowgreen");
-            if (document.querySelector(`#dice${i}`).classList.contains("spin2")) document.querySelector(`#dice${i}`).classList.add("redyellow");
-            if (document.querySelector(`#dice${i}`).classList.contains("spin4")) document.querySelector(`#dice${i}`).classList.add("yellowblue");
-            if (document.querySelector(`#dice${Number(i)+1}`).classList.contains("spin")) document.querySelector(`#dice${Number(i)+1}`).classList.add("yellowgreen");
-            if (document.querySelector(`#dice${Number(i)+1}`).classList.contains("spin2")) document.querySelector(`#dice${Number(i)+1}`).classList.add("redyellow");
-            if (document.querySelector(`#dice${Number(i)+1}`).classList.contains("spin4")) document.querySelector(`#dice${Number(i)+1}`).classList.add("yellowblue");
+            if (document.querySelector(`#dice${i}`).classList.contains("spin")) {document.querySelector(`#dice${i}`).classList.add("yellowgreen"); xp+=50;}
+            if (document.querySelector(`#dice${i}`).classList.contains("spin2")) {document.querySelector(`#dice${i}`).classList.add("redyellow"); xp+=50;}
+            if (document.querySelector(`#dice${i}`).classList.contains("spin4")) {document.querySelector(`#dice${i}`).classList.add("yellowblue"); xp+=50;}
+            if (document.querySelector(`#dice${Number(i)+1}`).classList.contains("spin")) {document.querySelector(`#dice${Number(i)+1}`).classList.add("yellowgreen"); xp+=50;}
+            if (document.querySelector(`#dice${Number(i)+1}`).classList.contains("spin2")) {document.querySelector(`#dice${Number(i)+1}`).classList.add("redyellow"); xp+=50;}
+            if (document.querySelector(`#dice${Number(i)+1}`).classList.contains("spin4")) {document.querySelector(`#dice${Number(i)+1}`).classList.add("yellowblue"); xp+=70;}
           }
           if (Math.abs(nlist[i] - nlist[Number(i)-1]) == 1 && Math.abs(nlist[Number(i)-1] - nlist[Number(i)-2]) == 1) {
-            Areveal.play();
+            Ainteresting.play();
+            xp+=7;
             document.querySelector(`#dice${Number(i)-1}`).classList.add("spin5");
             document.querySelector(`#dice${i}`).classList.add("spin5");
             document.querySelector(`#dice${Number(i)+1}`).classList.add("spin5");
-            if (document.querySelector(`#dice${Number(i)-1}`).classList.contains("spin")) document.querySelector(`#dice${Number(i)-1}`).classList.add("orangegreen");
-            if (document.querySelector(`#dice${Number(i)-1}`).classList.contains("spin2")) document.querySelector(`#dice${Number(i)-1}`).classList.add("redorange");
-            if (document.querySelector(`#dice${Number(i)-1}`).classList.contains("spin4")) document.querySelector(`#dice${Number(i)-1}`).classList.add("orangeblue");
-            if (document.querySelector(`#dice${i}`).classList.contains("spin")) document.querySelector(`#dice${i}`).classList.add("orangegreen");
-            if (document.querySelector(`#dice${i}`).classList.contains("spin2")) document.querySelector(`#dice${i}`).classList.add("redorange");
-            if (document.querySelector(`#dice${i}`).classList.contains("spin4")) document.querySelector(`#dice${i}`).classList.add("orangeblue");
-            if (document.querySelector(`#dice${Number(i)+1}`).classList.contains("spin")) document.querySelector(`#dice${Number(i)+1}`).classList.add("orangegreen");
-            if (document.querySelector(`#dice${Number(i)+1}`).classList.contains("spin2")) document.querySelector(`#dice${Number(i)+1}`).classList.add("redorange");
-            if (document.querySelector(`#dice${Number(i)+1}`).classList.contains("spin4")) document.querySelector(`#dice${Number(i)+1}`).classList.add("orangeblue");
+            if (document.querySelector(`#dice${Number(i)-1}`).classList.contains("spin")) {document.querySelector(`#dice${Number(i)-1}`).classList.add("orangegreen"); xp+=23;}
+            if (document.querySelector(`#dice${Number(i)-1}`).classList.contains("spin2")) {document.querySelector(`#dice${Number(i)-1}`).classList.add("redorange"); xp+=23;}
+            if (document.querySelector(`#dice${Number(i)-1}`).classList.contains("spin4")) {document.querySelector(`#dice${Number(i)-1}`).classList.add("orangeblue"); xp+=46;}
+            if (document.querySelector(`#dice${i}`).classList.contains("spin")) {document.querySelector(`#dice${i}`).classList.add("orangegreen"); xp+=23;}
+            if (document.querySelector(`#dice${i}`).classList.contains("spin2")) {document.querySelector(`#dice${i}`).classList.add("redorange"); xp+=23;}
+            if (document.querySelector(`#dice${i}`).classList.contains("spin4")) {document.querySelector(`#dice${i}`).classList.add("orangeblue"); xp+=46;}
+            if (document.querySelector(`#dice${Number(i)+1}`).classList.contains("spin")) {document.querySelector(`#dice${Number(i)+1}`).classList.add("orangegreen"); xp+=23;}
+            if (document.querySelector(`#dice${Number(i)+1}`).classList.contains("spin2")) {document.querySelector(`#dice${Number(i)+1}`).classList.add("redorange"); xp+=23;}
+            if (document.querySelector(`#dice${Number(i)+1}`).classList.contains("spin4")) {document.querySelector(`#dice${Number(i)+1}`).classList.add("orangeblue"); xp+=46;}
           }
-          if (Math.abs(nlist[i] / nlist[Number(i)-1]) == 3) {document.querySelector(`#dice${i}`).classList.add("spin6"); document.querySelector(`#dice${Number(i)+1}`).classList.add("spin6");}
-          if (nlist.slice(0, 5).every((n) => n >= value / 2) && i > 4) {
+          if (Math.abs(nlist[i] / nlist[Number(i)-1]) == 3 || Math.abs(nlist[Number(i)-1] / nlist[i]) == 3) {document.querySelector(`#dice${i}`).classList.add("spin6"); document.querySelector(`#dice${Number(i)+1}`).classList.add("spin6");}
+          if (nlist.slice(0, 5).every((n) => n >= value / 2) && value >= 8 && i > 4) {
             document.querySelector(`#dice1`).classList.add("spin7");
             document.querySelector(`#dice2`).classList.add("spin7");
             document.querySelector(`#dice3`).classList.add("spin7");
             document.querySelector(`#dice4`).classList.add("spin7");
             document.querySelector(`#dice5`).classList.add("spin7");
+            xp+=40;
           }
-          if (nlist.slice(5, 10).every((n) => n >= value / 2) && i == 9) {
+          if (nlist.slice(5, 10).every((n) => n >= value / 2) && value >= 8 && i == 9) {
             document.querySelector(`#dice6`).classList.add("spin7");
             document.querySelector(`#dice7`).classList.add("spin7");
             document.querySelector(`#dice8`).classList.add("spin7");
             document.querySelector(`#dice9`).classList.add("spin7");
             document.querySelector(`#dice10`).classList.add("spin7");
+            xp+=40;
+          }
+          if (nlist.slice(0, 5).every((n) => n < value / 2) && value >= 8 && i > 4) {
+            document.querySelector(`#dice1`).classList.add("spin8");
+            document.querySelector(`#dice2`).classList.add("spin8");
+            document.querySelector(`#dice3`).classList.add("spin8");
+            document.querySelector(`#dice4`).classList.add("spin8");
+            document.querySelector(`#dice5`).classList.add("spin8");
+            xp+=40;
+          }
+          if (nlist.slice(5, 10).every((n) => n < value / 2) && value >= 8 && i == 9) {
+            document.querySelector(`#dice6`).classList.add("spin8");
+            document.querySelector(`#dice7`).classList.add("spin8");
+            document.querySelector(`#dice8`).classList.add("spin8");
+            document.querySelector(`#dice9`).classList.add("spin8");
+            document.querySelector(`#dice10`).classList.add("spin8");
+            xp+=40;
+          }
+          if (/(.)\1\1\1\1.{5}/.test(nlist.join("")) && value < 8 && i > 4) {
+            document.querySelector(`#dice1`).classList.add("spin7");
+            document.querySelector(`#dice2`).classList.add("spin7");
+            document.querySelector(`#dice3`).classList.add("spin7");
+            document.querySelector(`#dice4`).classList.add("spin7");
+            document.querySelector(`#dice5`).classList.add("spin7");
+            xp+=25;
+          }
+          if (/.{5}(.)\1\1\1\1/.test(nlist.join("")) && value < 8 && i == 9) {
+            document.querySelector(`#dice6`).classList.add("spin7");
+            document.querySelector(`#dice7`).classList.add("spin7");
+            document.querySelector(`#dice8`).classList.add("spin7");
+            document.querySelector(`#dice9`).classList.add("spin7");
+            document.querySelector(`#dice10`).classList.add("spin7");
+            xp+=25;
           }
         }
         document.querySelector("#sum").textContent = `Sum of ${sum}`;
         let prob = diceProbability(10, value, sum);
         let base = 1/diceProbability(10, value, 5+5*value);
         let mult = (1/prob)/base;
+        xp+=Math.floor(10*mult);
         document.querySelector("#prob").textContent = `${100*prob}%`;
         document.querySelector("#prob2").textContent = `1 in ${(1/prob).toFixed(5)}`;
         document.querySelector("#prob3").textContent = `1 in ${base.toFixed(5)}`;
         document.querySelector("#prob4").textContent = `${mult.toFixed(4)}x`;
         shake = mult;
-        if (value == 20) {
-          if (sum < low) {low = sum; shake*=1.5; document.querySelectorAll(".dice").forEach((e) => {e.classList.add("glow"); Anewrecord.play();}); document.querySelector("#sum").textContent += " (new lowest!)";}
-          if (sum > high) {high = sum; shake*=1.5; document.querySelectorAll(".dice").forEach((e) => {e.classList.add("glow"); Anewrecord.play();}); document.querySelector("#sum").textContent += " (new highest!)";}
+        let parts = fire(mult);
+        let n;
+        if (parts) {
+          confetti({
+            particleCount: parts,
+            startVelocity: 40,
+            spread: 360,
+            origin: {y: 0.15},
+          });
+          if (mult > 10) {
+            let start = Date.now();
+            let interval = setInterval(() => {
+              if (Date.now() - start < 5000) {
+                confetti({startVelocity: 25, spread: 360, particleCount: 50, origin: {x: Math.random(), y: Math.random() - 0.14}});
+                confetti({startVelocity: 25, spread: 360, particleCount: 50, origin: {x: Math.random(), y: Math.random() - 0.14}});
+              } else {
+                clearInterval(interval);
+              }
+            }, 250);
+          }
         }
-        if (mult > 25) A5rare.play();
-        else if (mult > 20)A4rare.play();
-        else if (mult > 15)A3rare.play();
+        if (value == 20) {
+          if (sum < low) {
+            low = sum;
+            shake*=1.5;
+            document.querySelectorAll(".dice").forEach((e) => {e.classList.add("glow"); Anewrecord.play();});
+            document.querySelector("#sum").textContent += " (new lowest!)";
+            xp+=250;
+            confetti({
+              particleCount: 40,
+              startVelocity: 40,
+              spread: 360,
+              origin: {y:0.15},
+            });
+          }
+          if (sum > high) {
+            high = sum;
+            shake*=1.5;
+            document.querySelectorAll(".dice").forEach((e) => {e.classList.add("glow"); Anewrecord.play();});
+            document.querySelector("#sum").textContent += " (new highest!)";
+            xp+=250;
+            confetti({
+              particleCount: 40,
+              startVelocity: 40,
+              spread: 360,
+              origin: {y:0.15},
+            });
+          }
+        }
+        if (mult > 300) A5rare.play();
+        else if (mult > 100)A4rare.play();
+        else if (mult > 20)A3rare.play();
         else if (mult > 7) A2rare.play();
         roll = false;
       }
@@ -281,6 +465,56 @@
       }
       document.querySelector(".back").onclick = () => {
         window.location.href = "https://prototypestudios.neocities.org";
+      }
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') {
+          localStorage.setItem("data", JSON.stringify({"low": low, "high": high, "xp": xp}));
+        }
+      });
+      class GoogleSync {
+      	token = "";
+      	file = localStorage.getItem("file");
+      	async signIn() {
+      		// Open Google's sign-in popup
+      		// Store the returned access token in this.token
+      	}
+      	async findFile() {
+      		// Search for rollscapes-save-v1.json
+      		// Return its file ID or null
+      	}
+      	async createFile() {
+      		// Create rollscapes-save-v1.json
+      		// Return the new file ID
+      	}
+      	async load() {
+      		if (!this.file) this.file = await this.findFile();
+      		if (!this.file) return null;
+      		const response = await fetch(
+      			`https://www.googleapis.com/drive/v3/files/${this.file}?alt=media`,
+      			{headers: {Authorization: `Bearer ${this.token}`}}
+      		);
+      		return await response.json();
+      	}
+      	async save() {
+      		if (!this.file) this.file = await this.createFile();
+      		await fetch(
+      			`https://www.googleapis.com/upload/drive/v3/files/${this.file}?uploadType=media`,
+      			{method: "PATCH", headers: {Authorization: `Bearer ${this.token}`, "Content-Type": "application/json"}, body: localStorage.getItem("data")}
+      		);
+      	}
+      }
+      function onLogin(response) {
+        console.log(`JWT token: ${response}`);
+      }
+      document.querySelector("#google").onclick = () => {
+        const tokenClient = google.accounts.oauth2.initTokenClient({
+        	client_id: "429290688024-79mmt10k8ru492udcdrgdai8vilho1e6.apps.googleusercontent.com",
+        	scope: "https://www.googleapis.com/auth/drive.file",
+        	callback: onLogin
+        });
+        tokenClient.requestAccessToken({
+        	prompt: "consent"
+        });
       }
     </script>
   </body>
