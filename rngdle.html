@@ -2,18 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Find out how much EP a number might earn.">
-    <meta property="og:description" content="Find out how much EP a number might earn.">
-    <meta name="keywords" content="rngdle, all, badges, calculator, simulator, infinite, unlimited, game, online, sandbox, sand, box, answers, answer, ep, entropy, points, point, dle">
+    <meta name="description" content="An RNGdle calculator. Find out how much EP a number might earn.">
+    <meta property="og:description" content="An RNGdle calculator. Find out how much EP a number might earn.">
     <meta name="author" content="ProtoType Studios">
     <meta property="og:title" content="RNGdle Sandbox by ProtoType Studios">
     <meta property="og:url" content="https://prototypestudios.neocities.org/rngdle">
     <meta name="theme-color" content="#0a0a0a">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="connect-src 'self' data: blob: https://rngdle.com/;">
     <title>RNGdle Sandbox</title>
-    <link rel="preload" href="/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/style.css"></noscript>
+    <link rel="stylesheet" href="/style.css">
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
       @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
@@ -271,9 +268,10 @@
     <div class="header">
       <button class="back" onclick="window.location.href = 'https://prototypestudios.neocities.org';">← Back to ProtoType Studios</button>
       <h1 class="large project">RNGdle Sandbox</h1>
+      <button class="large" id="personalize">Personalize Account</button>
     </div>
     <center>
-      <h6 id="description">Find out how much EP a number might earn.</h6><hr><br>
+      <h6 id="description">An RNGdle calculator. Find out how much EP a number might earn.</h6><hr><br>
       <b>
         <input id="num" min="0" max="1000000" type="number" placeholder="??????">
         <p style="color: #606060; margin-bottom: 1rem;"><span id="rarity">??????</span> • <span id="percentile">TOP ???%</span></p>
@@ -302,10 +300,14 @@
         "the fabled one million": 100000100,
         "exact number": 100000100,
         "0/1/2/3/4/5/6/7/8/9": 100000100,
+        "funny number": 50000050,
         "exact boob": 50000050,
+        "always": 50000050,
         "19th power": 33333367,
         "17th power": 33333367,
         "13th power": 33333367,
+        "tau": 33333367,
+        "golden ratio": 33333367,
         "pi": 25000025,
         "euler's number": 25000025,
         "4 consecutive numbers": 25000025,
@@ -313,8 +315,11 @@
         "10th power": 25000025,
         "9th power": 20000020,
         "8th power": 16666683,
+        "ouroboros": 14285729,
         "7th power": 12500013,
+        "power of seven": 12500013,
         "sequence (6)": 11111122,
+        "power of five": 11111122,
         "hello": 11111122,
         "factorial": 11111122,
         "quint nine": 10000010,
@@ -324,6 +329,7 @@
         "power of three": 7692315,
         "5th power": 6250006,
         "jackpot five": 5263163,
+        "tau slice (5)": 5000005,
         "royal flush": 5000005,
         "power of two": 5000005,
         "pi slice (5)": 5000005,
@@ -337,6 +343,7 @@
         "4 consecutive numbers (contains)": 2631582,
         "4 consecutive numbers (scrambled)": 2272730,
         "homogeneous": 2222224,
+        "funny numbers": 1666668,
         "binary soul": 1538463,
         "straight flush": 1449277,
         "two digits": 1111112,
@@ -354,6 +361,7 @@
         "very nice": 334448,
         "deeper meaning": 334448,
         "6767": 334448,
+        "tau slice (4)": 333334,
         "pi slice (4)": 333334,
         "leet": 333334,
         "hell": 333334,
@@ -363,8 +371,11 @@
         "3 consecutive numbers (scrambled)": 277778,
         "zipper": 246914,
         "ascension": 219298,
+        "crescendo": 208334,
+        "five of a kind": 198020,
         "3 consecutive numbers (contains)": 157978,
         "contiguous three pair": 154321,
+        "framed quad": 137174,
         "framed triple": 137174,
         "framed pair": 137174,
         "decay": 119474,
@@ -400,7 +411,10 @@
         "divisible by 3": 24414,
         "scramble": 22722,
         "duality": 21654,
+        "steps": 20202,
+        "metronome": 17784,
         "framed double": 15242,
+        "slopes": 12582,
         "paired bookends": 11122,
         "four digits": 11111,
         "three pair": 10288,
@@ -410,6 +424,7 @@
         "double nine": 10000,
         "century": 10000,
         "four of a kind": 8436,
+        "equation": 7720,
         "low ball": 6400,
         "contiguous two pair": 6142,
         "mountain": 5885,
@@ -424,6 +439,7 @@
         "feather": 2667,
         "blackjack": 2521,
         "full house": 2397,
+        "pocket mirror": 2124,
         "snake eyes": 2121,
         "six-seven": 2024,
         "nice": 2024,
@@ -434,9 +450,11 @@
         "sequence (3)": 1716,
         "2 consecutive numbers (contains)": 1659,
         "2 consecutive numbers (nearby)": 1575,
+        "mesa": 1568,
         "prime number": 1274,
         "trinity": 1265,
         "dozen": 1200,
+        "canyon": 1184,
         "five digits": 1111,
         "eleven": 1100,
         "harshad number": 1048,
@@ -447,9 +465,11 @@
         "hills": 733,
         "three of a kind": 724,
         "lucky seven (divisible)": 700,
+        "mini scramble": 579,
         "heterogeneous": 593,
         "gap one": 529,
         "two pair": 447,
+        "dunes": 364,
         "hopscotch": 312,
         "ghost (0)": 309,
         "quartet": 290,
@@ -473,18 +493,83 @@
         "six digits": 111,
       }
       function CNums() {
-        // 4 consecutive numbers
+        const a = s.slice(0,2);
+        const b = s.slice(2,4);
+        const c = s.slice(4,6);
+        function Crescendo() {
+          // 3/2/1 digits
+          if (s.slice(0,3)/s.slice(3,5)==s.slice(3,5)/s[5] && s.slice(0,3)/s.slice(3,5)==(s.slice(0,3)/s[5])*(s.slice(3,5)/s.slice(0,3)) && length == 6 && s.slice(0,3)/s.slice(3,5)!=1) {badges.push("crescendo"); return 208334;}
+          // 2/2/1/1 digits
+          if (a/b==b/s[4] && a/b==(a/s[4])*(b/a) && a/b==(a/s[5])*(s[4]/a) && length == 6 && a/b!=1) {badges.push("crescendo"); return 208334;}
+          // 2/2/2 digits
+          if (a/b==b/c && a/b==(a/c)*(b/a) && length == 6 && a/b!=1) {badges.push("crescendo"); return 208334;}
+          // 1/2/3 digits
+          if (s[0]/s.slice(1,3)==s.slice(1,3)/s.slice(3,6) && s[0]/s.slice(1,3)==(s[0]/s.slice(3,6))*(s.slice(1,3)/s[0]) && length == 6 && s[0]/s.slice(1,3)!=1) {badges.push("crescendo"); return 208334;}
+          // 1/1/2/2 digits
+          if (s[0]/s[1]==s[1]/b && s[0]/s[1]==(s[0]/b)*(s[1]/s[0]) && s[0]/s[1]==(s[0]/c)*(b/s[0]) && length == 6 && s[0]/s[1]!=1) {badges.push("crescendo"); return 208334;}
+          // 1/1/1/1/2 digits
+          if (s[0]/s[1]==s[1]/s[2] && s[0]/s[1]==(s[0]/s[2])*(s[1]/s[0]) && s[0]/s[1]==(s[0]/s[3])*(s[2]/s[0]) && s[0]/s[1]==(s[0]/s.slice(4,6))*(s[3]/s[0]) && length == 6 && s[0]/s[1]!=1) {badges.push("crescendo"); return 208334;}
+          // 2/2/1 digits
+          if (a/b==b/s[3] && a/b==(a/s[3])*(b/a) && length == 5 && a/b!=1) {badges.push("crescendo"); return 208334;}
+          // 2/1/1/1 digits
+          if (a/s[2]==s[2]/s[3] && a/s[2]==(a/s[3])*(s[2]/a) && a/s[2]==(a/s[4])*(s[3]/a) && length == 5 && a/s[2]!=1) {badges.push("crescendo"); return 208334;}
+          // 1/2/2 digits
+          if (s[0]/s.slice(1,3)==s.slice(1,3)/s.slice(3,5) && s[0]/s.slice(1,3)==(s[0]/s.slice(3,5))*(s.slice(1,3)/s[0]) && length == 5 && s[0]/s.slice(1,3)!=1) {badges.push("crescendo"); return 208334;}
+          // 1/1/1/2 digits
+          if (s[0]/s[1]==s[1]/s[2] && s[0]/s[1]==(s[0]/s[2])*(s[1]/s[0]) && s[0]/s[1]==(s[0]/s.slice(3,5))*(s[2]/s[0]) && length == 5 && s[0]/s[1]!=1) {badges.push("crescendo"); return 208334;}
+          // 2/1/1 digits
+          if (a/s[2]==s[2]/s[3] && a/s[2]==(a/s[3])*(s[2]/a) && length == 4 && a/s[2]!=1) {badges.push("crescendo"); return 208334;}
+          // 1/1/2 digits
+          if (s[0]/s[1]==s[1]/b && s[0]/s[1]==(s[0]/b)*(s[1]/s[0]) && length == 4 && s[0]/s[1]!=1) {badges.push("crescendo"); return 208334;}
+          // 1/1/1/1 digits
+          if (s[0]/s[1]==s[1]/s[2] && s[0]/s[1]==(s[0]/s[2])*(s[1]/s[0]) && s[0]/s[1]==(s[0]/s[3])*(s[2]/s[0]) && length == 4 && s[0]/s[1]!=1) {badges.push("crescendo"); return 208334;}
+          // 1/1/1 digits
+          if (s[0]/s[1]==s[1]/s[2] && s[0]/s[1]==(s[0]/s[2])*(s[1]/s[0]) && length == 3 && s[0]/s[1]!=1) {badges.push("crescendo"); return 208334;}
+          return 0;
+        }
+        function Metronome() {
+          // 3-2-1 digits
+          if (s.slice(0,3)-s.slice(3,5)==s.slice(3,5)-s[5] && s.slice(0,3)-s.slice(3,5)==(s.slice(0,3)-s[5])/2 && length == 6 && s.slice(0,3)-s.slice(3,5)!=0) {badges.push("metronome"); return 17784;}
+          // 2-2-1-1 digits
+          if (a-b==b-s[4] && a-b==(a-s[4])/2 && a-b==(a-s[5])/3 && length == 6 && a-b!=0) {badges.push("metronome"); return 17784;}
+          // 2-2-2 digits
+          if (a-b==b-c && a-b==(a-c)/2 && length == 6 && a-b!=0) {badges.push("metronome"); return 17784;}
+          // 2-1-1-1-1 digits
+          if (a-s[2]==s[2]-s[3] && a-s[2]==(a-s[3])/2 && a-s[2]==(a-s[4])/3 && a-s[2]==(a-s[5])/4 && length == 6 && s[0]/s[1]!=1) {badges.push("metronome"); return 17784;}
+          // 1-2-3 digits
+          if (s[0]-s.slice(1,3)==s.slice(1,3)-s.slice(3,6) && s[0]-s.slice(1,3)==(s[0]-s.slice(3,6))/2 && length == 6 && s[0]-s.slice(1,3)!=0) {badges.push("metronome"); return 17784;}
+          // 1-1-2-2 digits
+          if (s[0]-s[1]==s[1]-b && s[0]-s[1]==(s[0]-b)/2 && s[0]-s[1]==(s[0]-c)/3 && length == 6 && s[0]-s[1]!=0) {badges.push("metronome"); return 17784;}
+          // 1-1-1-1-2 digits
+          if (s[0]-s[1]==s[1]-s[2] && s[0]-s[1]==(s[0]-s[2])/2 && s[0]-s[1]==(s[0]-s[3])/3 && s[0]-s[1]==(s[0]-s.slice(4,6))/4 && length == 6 && s[0]/s[1]!=1) {badges.push("metronome"); return 17784;}
+          // 2-2-1 digits
+          if (a-b==b-s[3] && a-b==(a-s[3])/2 && length == 5 && a-b!=0) {badges.push("metronome"); return 17784;}
+          // 2-1-1-1 digits
+          if (a-s[2]==s[2]-s[3] && a-s[2]==(a-s[3])/2 && a-s[2]==(a-s[4])/3 && length == 5 && a-s[2]!=0) {badges.push("metronome"); return 17784;}
+          // 1-2-2 digits
+          if (s[0]-s.slice(1,3)==s.slice(1,3)-s.slice(3,5) && s[0]-s.slice(1,3)==(s[0]-s.slice(3,5))/2 && length == 5 && s[0]-s.slice(1,3)!=0) {badges.push("metronome"); return 17784;}
+          // 1-1-1-2 digits
+          if (s[0]-s[1]==s[1]-s[2] && s[0]-s[1]==(s[0]-s[2])/2 && s[0]-s[1]==(s[0]-s.slice(3,5))/3 && length == 5 && s[0]-s[1]!=0) {badges.push("metronome"); return 17784;}
+          // 2-1-1 digits
+          if (a-s[2]==s[2]-s[3] && a-s[2]==(a-s[3])/2 && length == 4 && a-s[2]!=0) {badges.push("metronome"); return 17784;}
+          // 1-1-2 digits
+          if (s[0]-s[1]==s[1]-b && s[0]-s[1]==(s[0]-b)/2 && length == 4 && s[0]-s[1]!=0) {badges.push("metronome"); return 17784;}
+          return 0;
+        }
+        
+        // 4 consecutive numbers + others
         if (s=="78910" || s=="10987" || s=="891011" || s=="111098") {badges.push("4 consecutive numbers"); return 25000025;}
+        if (("0123456789".includes(s) || "9876543210".includes(s)) && length == 6) {badges.push("sequence (6)"); return 11111122;}
+        if ("0123456789".includes(s) && length > 1) {badges.push("cascade"); return 3333337;}
+        if ("9876543210".includes(s) && length > 1) {badges.push("waterfall"); return 2857146;}
         if (s.includes("78910") || s.includes("10987")) {badges.push("4 consecutive numbers (contains)"); return 2631582;}
         if (s.includes("7") && s.includes("8") && s.includes("9") && s.includes("10") && length == 5) {badges.push("4 consecutive numbers (scrambled)"); return 2272730;}
         if (s.includes("8") && s.includes("9") && s.includes("10") && s.includes("11") && length == 6 && !(s.includes("110")&&!s.includes("1110"))) {badges.push("4 consecutive numbers (scrambled)"); return 2272730;}
+        if (s.split("").every((d, i, a) => i < 2 || d-a[i-1] == a[1]-a[0]) && length > 2) {badges.push("even spacing"); return 862070;}
         
         // 3 consecutive numbers
         // 2 digits
         if (length == 6) {
-          const a = s.slice(0,2);
-          const b = s.slice(2,4);
-          const c = s.slice(4,6);
           const sorted = [a,b,c].sort();
           if (sorted[1]-sorted[0]==1 && sorted[2]-sorted[1]==1 && sorted[0][0]!="0" && sorted[1][0]!="0" && sorted[2][0]!="0") {
             if ([a,b,c].join(",") == sorted.join(",") || [a,b,c].reverse().join(",") == sorted.join(",")) {badges.push("3 consecutive numbers"); return 555556;}
@@ -496,19 +581,71 @@
         if (s=="8109" || s=="9810" || s=="9108" || s=="1089" || s=="91110" || s=="10911" || s=="10119" || s=="11910") {badges.push("3 consecutive numbers (scrambled)"); return 277778;}
         if (s.includes("8910") || s.includes("91011") || s.includes("11109") || s.includes("1098")) {badges.push("3 consecutive numbers (contains)"); return 157978;}
         
-        // 2 consecutive numbers
+        // crescendo
+        if (Crescendo()) return 208334;
+        
+        // 2 consecutive numbers + others
+        if (s.split("").every((d, i, a) => i < 2 || Math.abs(d-a[i-1]) == Math.abs(a[1]-a[0])) && length > 2) {badges.push("even spacing (absolute)"); return 90992;}
         // exact
-        if ((Math.abs(s.slice(0,3)-s.slice(3,6)) == 1) && s[0] != "0" && s[3] != "0" && length == 6) {badges.push("2 consecutive numbers"); return 50505;}
-        if ((Math.abs(s.slice(0,2)-s.slice(2,4)) == 1) && s[0] != "0" && s[2] != "0" && length == 4) {badges.push("2 consecutive numbers"); return 50505;}
-        if (s=="910" || s=="109" || s=="99100" || s=="10099"){badges.push("2 consecutive numbers"); return 50505;}
-        // adjacent
-        if (((Math.abs(s.slice(0,2)-s.slice(2,4)) == 1 && s[0] != "0" && s[2] != "0") || (Math.abs(s.slice(1,3)-s.slice(3,5)) == 1 && s[1] != "0" && s[3] != "0") || (Math.abs(s.slice(2,4)-s.slice(4,6)) == 1 && s[2] != "0" && s[4] != "0")) && length > 4) {badges.push("2 consecutive numbers (contains)"); return 1659;}
-        if (s.includes("99100") || s.includes("10099")) {badges.push("2 consecutive numbers (contains)"); return 1659;}
-        if (s.includes("910") || s.includes("109")) {badges.push("2 consecutive numbers (contains)"); return 1659;}
+        let cnums = 0;
+        if ((Math.abs(s.slice(0,3)-s.slice(3,6)) == 1) && s[0] != "0" && s[3] != "0" && length == 6) {badges.push("2 consecutive numbers"); cnums = 50505;}
+        if ((Math.abs(s.slice(0,2)-s.slice(2,4)) == 1) && s[0] != "0" && s[2] != "0" && length == 4) {if (!badges.includes("2 consecutive numbers")) badges.push("2 consecutive numbers"); cnums = 50505;}
+        if (s=="910" || s=="109" || s=="99100" || s=="10099") {if (!badges.includes("2 consecutive numbers")) badges.push("2 consecutive numbers"); cnums = 50505;}
+        if ([...s].every((d, i, a) => i == 0 || Math.abs(d-a[i-1])<2) && length > 1) {badges.push("turtle"); cnums += 36049;}
+        if ((/0123|1234|2345|3456|4567|5678|6789|9876|8765|7654|6543|5432|4321|3210/gi).test(s)) {badges.push("sequence (4)"); cnums += 25907;}
+        if ("0123456789".includes(sorted.join("")) && length > 1) {badges.push("scramble"); cnums += 22722;}
+        // metronome
+        if (Metronome()) return 17784;
+        if ((/012|123|234|345|456|567|678|789|987|876|765|654|543|432|321|210/gi).test(s)) {if (!badges.includes("sequence (4)")) {badges.push("sequence (3)"); cnums += 1716;}}
+        // 2 consecutive numbers adjacent
+        if (((Math.abs(s.slice(0,2)-s.slice(2,4)) == 1 && s[0] != "0" && s[2] != "0") || (Math.abs(s.slice(1,3)-s.slice(3,5)) == 1 && s[1] != "0" && s[3] != "0") || (Math.abs(s.slice(2,4)-s.slice(4,6)) == 1 && s[2] != "0" && s[4] != "0")) && length > 4) {badges.push("2 consecutive numbers (contains)"); cnums += 1659;}
+        if ((s.includes("99100") || s.includes("10099")) && length == 6) {if (!badges.includes("2 consecutive numbers (contains)")) {badges.push("2 consecutive numbers (contains)"); cnums += 1659;}}
+        if ((s.includes("910") || s.includes("109")) && length > 3) {if (!badges.includes("2 consecutive numbers (contains)")) {badges.push("2 consecutive numbers (contains)"); cnums += 1659;}}
         // nearby
-        if (((Math.abs(s.slice(0,2)-s.slice(3,5)) == 1 && s[3] != "0" && length > 4) || (Math.abs(s.slice(0,2)-s.slice(4,6)) == 1 && s[4] != "0" && length == 6) || (Math.abs(s.slice(1,3)-s.slice(4,6)) == 1 && s[4] != "0") && length == 6)) {badges.push("2 consecutive numbers (nearby)"); return 1575;}
-        if (s.includes("99") && s.includes("100")) {badges.push("2 consecutive numbers (nearby)"); return 1575;}
-        if (s.includes("9") && s.includes("10")) {badges.push("2 consecutive numbers (nearby)"); return 1575;}
+        if (((Math.abs(s.slice(0,2)-s.slice(3,5)) == 1 && s[3] != "0" && length > 4) || (Math.abs(s.slice(0,2)-s.slice(4,6)) == 1 && s[4] != "0" && length == 6) || (Math.abs(s.slice(1,3)-s.slice(4,6)) == 1 && s[4] != "0") && length == 6)) {if (!badges.includes("2 consecutive numbers (contains)")) {badges.push("2 consecutive numbers (nearby)"); cnums += 1575;}}
+        if (s.includes("99") && s.includes("100") && length == 6) {if (!badges.includes("2 consecutive numbers (contains)") && !badges.includes("2 consecutive numbers (nearby)")) {badges.push("2 consecutive numbers (nearby)"); cnums += 1575;}}
+        if (s.includes("9") && s.includes("10") && length > 3) {if (!badges.includes("2 consecutive numbers (contains)") && !badges.includes("2 consecutive numbers (nearby)")) {badges.push("2 consecutive numbers (nearby)"); cnums += 1575;}}
+        if (cnums) return cnums;
+        return 0;
+      }
+      function Equation() {
+        // 1-1-1 digits
+        if (Number(s[0])+Number(s[1])==s[2] && length==3 && !s.includes(0)) {badges.push("equation"); return 7720;}
+        if (Number(s[0])-Number(s[1])==s[2] && length==3 && !s.includes(0)) {badges.push("equation"); return 7720;}
+        if (Number(s[0])*Number(s[1])==s[2] && length==3 && !s.includes(0)) {badges.push("equation"); return 7720;}
+        if (Number(s[0])/Number(s[1])==s[2] && length==3 && !s.includes(0)) {badges.push("equation"); return 7720;}
+        // 1-1-2 digits
+        if (Number(s[0])+Number(s[1])==s[2]+s[3] && length==4 && s[0]!=0 && s[1]!=0 && s[2]+s[3]!=0) {badges.push("equation"); return 7720;}
+        if (Number(s[0])*Number(s[1])==s[2]+s[3] && length==4 && s[0]!=0 && s[1]!=0 && s[2]+s[3]!=0) {badges.push("equation"); return 7720;}
+        // 2-1-1 digits
+        if (Number(s[0]+s[1])-Number(s[2])==s[3] && length==4 && s[0]+s[1]!=0 && s[2]!=0 && s[3]!=0) {badges.push("equation"); return 7720;}
+        if (Number(s[0]+s[1])/Number(s[2])==s[3] && length==4 && s[0]+s[1]!=0 && s[2]!=0 && s[3]!=0) {badges.push("equation"); return 7720;}
+        // 1-2-2 digits
+        if (Number(s[0])+Number(s[1]+s[2])==s[3]+s[4] && length==5 && s[0]!=0 && s[1]+s[2]!=0 && s[3]+s[4]!=0) {badges.push("equation"); return 7720;}
+        if (Number(s[0])*Number(s[1]+s[2])==s[3]+s[4] && length==5 && s[0]!=0 && s[1]+s[2]!=0 && s[3]+s[4]!=0) {badges.push("equation"); return 7720;}
+        // 2-1-2 digits
+        if (Number(s[0]+s[1])+Number(s[2])==s[3]+s[4] && length==5 && s[0]+s[1]!=0 && s[2]!=0 && s[3]+s[4]!=0) {badges.push("equation"); return 7720;}
+        if (Number(s[0]+s[1])-Number(s[2])==s[3]+s[4] && length==5 && s[0]+s[1]!=0 && s[2]!=0 && s[3]+s[4]!=0) {badges.push("equation"); return 7720;}
+        if (Number(s[0]+s[1])*Number(s[2])==s[3]+s[4] && length==5 && s[0]+s[1]!=0 && s[2]!=0 && s[3]+s[4]!=0) {badges.push("equation"); return 7720;}
+        if (Number(s[0]+s[1])/Number(s[2])==s[3]+s[4] && length==5 && s[0]+s[1]!=0 && s[2]!=0 && s[3]+s[4]!=0) {badges.push("equation"); return 7720;}
+        // 2-2-1 digits
+        if (Number(s[0]+s[1])-Number(s[2]+s[3])==s[4] && length==5 && s[0]+s[1]!=0 && s[2]+s[3]!=0 && s[4]!=0) {badges.push("equation"); return 7720;}
+        if (Number(s[0]+s[1])/Number(s[2]+s[3])==s[4] && length==5 && s[0]+s[1]!=0 && s[2]+s[3]!=0 && s[4]!=0) {badges.push("equation"); return 7720;}
+        // 1-2-3 digits
+        if (Number(s[0])+Number(s[1]+s[2])==s.slice(3,6) && length==6 && s[0]!=0 && s[1]+s[2]!=0 && s.slice(3,6)!=0) {badges.push("equation"); return 7720;}
+        if (Number(s[0])*Number(s[1]+s[2])==s.slice(3,6) && length==6 && s[0]!=0 && s[1]+s[2]!=0 && s.slice(3,6)!=0) {badges.push("equation"); return 7720;}
+        // 2-1-3 digits
+        if (Number(s[0]+s[1])+Number(s[2])==s.slice(3,6) && length==6 && s[0]+s[1]!=0 && s[2]!=0 && s.slice(3,6)!=0) {badges.push("equation"); return 7720;}
+        if (Number(s[0]+s[1])*Number(s[2])==s.slice(3,6) && length==6 && s[0]+s[1]!=0 && s[2]!=0 && s.slice(3,6)!=0) {badges.push("equation"); return 7720;}
+        // 3-1-2 digits
+        if (Number(s.slice(0,3))-Number(s[3])==s[4]+s[5] && length==6 && s.slice(0,3)!=0 && s[3]!=0 && s[4]+s[4]!=0) {badges.push("equation"); return 7720;}
+        if (Number(s.slice(0,3))/Number(s[3])==s[4]+s[5] && length==6 && s.slice(0,3)!=0 && s[3]!=0 && s[4]+s[4]!=0) {badges.push("equation"); return 7720;}
+        // 3-2-1 digits
+        if (Number(s.slice(0,3))-Number(s[3]+s[4])==s[5] && length==6 && s.slice(0,3)!=0 && s[3]+s[4]!=0 && s[5]!=0) {badges.push("equation"); return 7720;}
+        if (Number(s.slice(0,3))/Number(s[3]+s[4])==s[5] && length==6 && s.slice(0,3)!=0 && s[3]+s[4]!=0 && s[5]!=0) {badges.push("equation"); return 7720;}
+        // 2-2-2 digits
+        if (Number(s[0]+s[1])+Number(s[2]+s[3])==s[4]+s[5] && length==6 && s[0]+s[1]!=0 && s[2]+s[3]!=0 && s[4]+s[5]!=0) {badges.push("equation"); return 7720;}
+        if (Number(s[0]+s[1])-Number(s[2]+s[3])==s[4]+s[5] && length==6 && s[0]+s[1]!=0 && s[2]+s[3]!=0 && s[4]+s[5]!=0) {badges.push("equation"); return 7720;}
         return 0;
       }
       function Prime() {
@@ -520,17 +657,25 @@
         }
         badges.push("prime number"); return 1274;
       }
-      function MountainValley() {
-        let d = [...s];
-        for (i in d) {
-          d[i] = Math.sign(d[Number(i)+1]-d[i]) || null;
-        }
+      function MountainValleyMesaCanyon() {
         d.splice(-1, 1);
         if (!(d.includes(-1) && d.includes(1))) return 0;
-        if (d.includes(null)) return 0;
-        if (d.join(",") == [...d].sort().join(",")) {badges.push("valley"); return 4199;}
-        if (d.join(",") == [...d].sort().reverse().join(",")) {badges.push("mountain"); return 5885;}
+        if (d.join(",") == [...d].sort().join(",") && !d.includes(null)) {badges.push("valley"); return 4199;}
+        if (d.join(",") == [...d].sort().reverse().join(",") && !d.includes(null)) {badges.push("mountain"); return 5885;}
+        d = d.filter(item => item != null);
+        if (d.join(",") == [...d].sort().join(",")) {badges.push("canyon"); return 1184;}
+        if (d.join(",") == [...d].sort().reverse().join(",")) {badges.push("mesa"); return 1568;}
         return 0;
+      }
+      function MiniScramble() {
+        if ((/012|123|234|345|456|567|678|789|987|876|765|654|543|432|321|210/gi).test(s)) return 0;
+        let miniscramble = true;
+        for (let len = 3; len <= 5; len++) {
+      		for (let i = 0; i <= s.length - len; i++) {
+      			if (s.slice(i, i + len).split("").sort().every((d, i, a) => i == 0 || Math.abs(d - a[Number(i)-1]) == 1)) {badges.push("mini scramble"); return 579;}
+      		}
+      	}
+      	return 0;
       }
       function update() {
         epdisp += 0.1337 * (ep - epdisp);
@@ -563,9 +708,9 @@
         }
       }
       function analyze(number) {
-        document.querySelector("#num").value = document.querySelector("#num").value.replaceAll(".", "");
         ep = 0;
         if (typeof(number)!="number") {
+          document.querySelector("#num").value = document.querySelector("#num").value.replaceAll(".", "");
           if (document.querySelector("#num").value > 1000000) {
             document.querySelector("#num").value = 1000000;
           }
@@ -588,6 +733,11 @@
         product = [...s].reduce((acc, digit) => acc * Number(digit), 1);
         sum1 = -6969;
         sum2 = -420420;
+        sorted = [...s].sort();
+        d = [...s];
+        for (i in d) {
+          d[i] = Math.sign(d[Number(i)+1]-d[i]) || null;
+        }
         const counts = {};
         const digits = [...s];
         for (const d of digits) {
@@ -621,9 +771,11 @@
         if (u.length == 4) {ep+=290; badges.push("quartet");}
         if ((s.match(/0/gi) || []).length == 1) {ep+=309; badges.push("ghost (0)");}
         if (Math.abs(s[0] - s.at(-1)) == 1) {ep+=529; badges.push("gap one");}
+        ep += MiniScramble();
         if (u.length == length) {ep+=593; badges.push("heterogeneous");}
         if (num % 7 == 0 && num > 0) {ep+=700; badges.push("lucky seven (divisible)");}
         if (([...s].every((d, i, a) => i == a.length-1 || (i % 2 == 0 ? a[i+1] > d : a[i+1] < d)) || [...s].every((d, i, a) => i == a.length-1 || (i % 2 == 0 ? a[i+1] < d : a[i+1] > d))) && length > 3) {ep+=733; badges.push("hills");}
+        else if ([...s].every((d,i,a)=>i<2||(a[i]-a[i-1])*(a[i-1]-a[i-2])<=0)&&d.filter(Boolean).length>=3){ep+=364;badges.push("dunes");}
         // sandwich badge is never counted. if (s[0] == s.at(-1) && length > 1) {ep+=1000; badges.push("sandwich");}
         if (s[0] == s.at(-1) && length > 1) {ep+=1000; badges.push("equilibrium");}
         if (s.at(-1) == 5) {ep+=1000; badges.push("semi-clean");}
@@ -635,7 +787,7 @@
         if (u.length == 3) {ep+=1265; badges.push("trinity");}
         ep += Prime();
         ep += CNums();
-        ep += MountainValley();
+        ep += MountainValleyMesaCanyon();
         if (sum1 == sum2) {ep+=1959; badges.push("balanced");}
         if ((u.length == length - 1) && ((s.match(/1/gi) || []).length == 2)) {ep+=2121; badges.push("snake eyes");}
         if (sum == 21) {ep+=2521; badges.push("blackjack");}
@@ -648,6 +800,7 @@
         if ((/(.).\1.\1/gi).test(s) && u.length > 1) {ep+=5321; badges.push("double hop");}
         else if ((/(.).\1/gi).test(s) && u.length > 1) {ep+=312; badges.push("hopscotch");}
         if ([...s].every(d => d < 5)) {ep+=6400; badges.push("low ball");}
+        ep += Equation();
         if (s.endsWith("50")) {ep+=10000; badges.push("semi-century");}
         if (s.endsWith("00")) {ep+=10000; badges.push("century");}
         if (length == 4) {ep+=11111; badges.push("four digits");}
@@ -660,6 +813,7 @@
         if (sum > 45) {ep+=33300; badges.push("heavy");}
         if (s.includes("007")) {ep+=34614; badges.push("secret agent");}
         if ([...s].join(",") == [...s].reverse().join(",")) {ep+=50025; badges.push("palindrome");}
+        else if (([...s].slice(0, 5).join(",") == [...s].slice(0, 5).reverse().join(",") && length > 4) || ([...s].slice(1, 6).join(",") == [...s].slice(1, 6).reverse().join(",") && length > 5) || ([...s].slice(0, 4).join(",") == [...s].slice(0, 4).reverse().join(",") && length > 3) || ([...s].slice(1, 5).join(",") == [...s].slice(1, 5).reverse().join(",") && length > 4) || ([...s].slice(2, 6).join(",") == [...s].slice(2, 6).reverse().join(",") && length > 5)) {ep+=2124; badges.push("pocket mirror");}
         if (u.length === 2 && (s.split(u[0]).length - 1 === 1 || s.split(u[1]).length - 1 === 1) && length > 3) {ep+=82237; badges.push("firefly");}
         else if (u.length == 2) {ep+=21654; badges.push("duality");}
         if (num > 999000) {ep+=100000; badges.push("colossal");}
@@ -669,10 +823,13 @@
         if ((/^(.{1,3})\1$/gmi).test(s)) {ep+=100100; badges.push("echo");}
         if (length == 3) {ep+=111111; badges.push("three digits");}
         if ([...s].every((d, i, a) => i == 0 || a[i-1] > d) && length > 1) {ep+=119474; badges.push("decay");}
-        if ((/^(.)(?!\1)(.)\2\2(?!\2).$/gmi).test(s)) {ep+=137174; badges.push("framed triple");}
-        else if (maxCount > 3) {ep+=8436; badges.push("four of a kind");}
+        else if ([...s].every((d, i, a) => i == 0 || a[i-1] >= d) && length > 1 && u.length > 1) {ep+=12582; badges.push("slopes");}
+        if (maxCount > 4) {ep+=198020; badges.push("five of a kind");}
+        else if ((/^(.)(?!\1)(.)\2\2(?!\2).$/gmi).test(s)) {ep+=137174; badges.push("framed triple");}
+        else if (maxCount == 4) {ep+=8436; badges.push("four of a kind");}
         else if (maxCount == 3) {ep+=724; badges.push("three of a kind");}
         if ((/(.)\1(?!\1)(.)\2(?!\1)(?!\2)(.)\3/gi).test(s) && length > 5) {ep+=154321; badges.push("contiguous three pair");}
+        else if ((/^(.)(?!\1)(.)\2\2\2.$/gmi).test(s)) {ep+=137174; badges.push("framed quad");}
         else if ((/^(.)(?!\1)(.)\2(?!\2).$/gmi).test(s)) {ep+=137174; badges.push("framed pair");}
         else if ((/(.)(?!\1)(.)\2(?!\2)(.)\3(?!\3)./gi).test(s)) {ep+=15242; badges.push("framed double");}
         else if (u.length == 3 && maxCount == 2 && length > 5) {ep+=10288; badges.push("three pair");}
@@ -681,6 +838,7 @@
         else if ((/(.)\1/gi).test(s)) {ep+=249; badges.push("contiguous pair");}
         else if (u.length < length) {ep+=120; badges.push("pair");}
         if (([...s].every((d, i, a) => i == 0 || a[i-1] < d)) && length > 1) {ep+=219298; badges.push("ascension");}
+        else if (([...s].every((d, i, a) => i == 0 || a[i-1] <= d)) && length > 1 && u.length > 1) {ep+=20202; badges.push("steps");}
         if ((/^(.)(?!\1)(.)((?!\2)\1((?!\1)\2((?!\2)\1((?!\1)\2)?)?)?)?$/gmi).test(s)) {ep+=246914; badges.push("zipper");}
         if (s.split("").reverse().map(n => ({"0":"0","1":"1","2":"-","3":"-","4":"-","5":"-","6":"9","7":"-","8":"8","9":"6"})[n]).join("") == s) {ep+=502513; badges.push("strobogrammatic");}
         if (s.endsWith("5000")) {ep+=1000001; badges.push("semi-epoch");}
@@ -692,16 +850,6 @@
         if (s.includes("56789")) {ep+=5000005; badges.push("royal flush");}
         else if ((/02468|86420|13579|97531/gi).test(s)) {ep+=1449277; badges.push("straight flush");}
         else if ((/01234|12345|23456|34567|45678|56789|98765|87654|76543|65432|54321|43210/gi).test(s)) {ep+=454546; badges.push("straight");}
-        if (("0123456789".includes(s) || "9876543210".includes(s)) && length == 6) {ep+=11111122; badges.push("sequence (6)");}
-        else if ("0123456789".includes(s) && length > 1) {ep+=3333337; badges.push("cascade");}
-        else if ("9876543210".includes(s) && length > 1) {ep+=2857146; badges.push("waterfall");}
-        else if (s.split("").every((d, i, a) => i < 2 || d-a[i-1] == a[1]-a[0]) && length > 2) {ep+=862070; badges.push("even spacing");}
-        else if (s.split("").every((d, i, a) => i < 2 || Math.abs(d-a[i-1]) == Math.abs(a[1]-a[0])) && length > 2) {ep+=90992; badges.push("even spacing (absolute)");}
-        else if ([...s].every((d, i, a) => i == 0 || Math.abs(d-a[i-1])<2) && length > 1) {ep+=36049; badges.push("turtle");}
-        else if ((/0123|1234|2345|3456|4567|5678|6789|9876|8765|7654|6543|5432|4321|3210/gi).test(s)) {ep+=25907; badges.push("sequence (4)");}
-        else if ("0123456789".includes([...s].sort().join("")) && length > 1) {ep+=22722; badges.push("scramble");}
-        else if ((/012|123|234|345|456|567|678|789|987|876|765|654|543|432|321|210/gi).test(s)) {ep+=1716; badges.push("sequence (3)");}
-        if (Math.log2(num) % 1 == 0) {ep+=5000005; badges.push("power of two");}
         if ((Math.log(num)/Math.log(3)).toFixed(10) % 1 == 0) {ep+=7692315; badges.push("power of three");}
         if (s.endsWith("99999")) {ep+=10000010; badges.push("quint nine");}
         else if (s.endsWith("9999")) {ep+=1000001; badges.push("quad nine");}
@@ -716,6 +864,9 @@
         else if ((/(.)\1\1\1/gi).test(s)) {ep+=37023; badges.push("contiguous quads");}
         else if ((/(.)\1\1/gi).test(s)) {ep+=2784; badges.push("contiguous trips");}
         if ([1,2,6,24,120,720,5040,40320,362880].includes(num)) {ep+=11111122; badges.push("factorial");}
+        if ((Math.log(num)/Math.log(5)).toFixed(10) % 1 == 0) {ep+=11111122; badges.push("power of five");}
+        if ((Math.log(num)/Math.log(7)).toFixed(10) % 1 == 0) {ep+=12500013; badges.push("power of seven");}
+        if (Math.log2(num) % 1 == 0) {ep+=5000005; badges.push("power of two");}
         if ((num ** (1/13)).toFixed(10) % 1 == 0) {ep+=33333367; badges.push("13th power");}
         else if ((num ** (1/17)).toFixed(10) % 1 == 0) {ep+=33333367; badges.push("17th power");}
         else if ((num ** (1/19)).toFixed(10) % 1 == 0) {ep+=33333367; badges.push("19th power");}
@@ -723,6 +874,7 @@
         else if ((num ** (1/11)).toFixed(10) % 1 == 0) {ep+=25000025; badges.push("11th power");}
         else if ((num ** (1/9)).toFixed(10) % 1 == 0) {ep+=20000020; badges.push("9th power");}
         else if ((num ** (1/8)).toFixed(10) % 1 == 0) {ep+=16666683; badges.push("8th power");}
+        else if ([1,4,27,256,3125,46656,823543].includes(num)) {ep+=14285729; badges.push("ouroboros");}
         else if ((num ** (1/7)).toFixed(10) % 1 == 0) {ep+=12500013; badges.push("7th power");}
         else if ((num ** (1/6)).toFixed(10) % 1 == 0) {ep+=9090918; badges.push("6th power");}
         else if ((num ** (1/5)).toFixed(10) % 1 == 0) {ep+=6250006; badges.push("5th power");}
@@ -730,12 +882,12 @@
         else if (Math.cbrt(num) % 1 == 0) {ep+=990100; badges.push("3rd power");}
         else if (Math.sqrt(num) % 1 == 0) {ep+=99900; badges.push("2nd power");}
         if (length == 1) {ep+=100000100; badges.push("0/1/2/3/4/5/6/7/8/9");}
-        if ([42,67,69,86,101,350,365,420,666,777,911,1337,1984,7734,80085,365365,420420,424242,676767,696969,777777,911911].includes(num)) {ep+=100000100; badges.push("exact number");}
+        if ([42,67,69,86,101,350,365,404,420,666,777,911,1337,1984,7734,17776,80085,86400,365365,420420,424242,666666,676767,696969,777777,911911].includes(num)) {ep+=100000100; badges.push("exact number");}
+        else if (s=="247365"||s=="365247") {ep+=50000050; badges.push("always");}
+        else if (s=="69420"||s=="42069") {ep+=50000050; badges.push("funny number");}
         else if (s=="8008"||s=="58008") {ep+=50000050; badges.push("exact boob/boobs");}
+        else if (s=="1618"||s=="16180"||s=="161803") {ep+=33333337; badges.push("golden ratio");}
         else {
-          if (s.includes("77777")) {ep+=5263163; badges.push("jackpot five");}
-          else if (s.includes("7777")) {ep+=357143; badges.push("jackpot four");}
-          else if (s.includes("777")) {ep+=27027; badges.push("jackpot");}
           if ([271,2718,27182,271828].includes(num)) {ep+=25000025; badges.push("euler's number");}
           else if (s.includes("27182")) {ep+=5000005; badges.push("e slice (5)");}
           else if (s.includes("2718")) {ep+=333334; badges.push("e slice (4)");}
@@ -744,6 +896,12 @@
           else if (s.includes("31415")) {ep+=5000005; badges.push("pi slice (5)");}
           else if (s.includes("3141")) {ep+=333334; badges.push("pi slice (4)");}
           else if (s.includes("314")) {ep+=25006; badges.push("pi slice (3)");}
+          if ([6283,62831,628318].includes(num)) {ep+=33333337; badges.push("tau");}
+          else if (s.includes("62831")) {ep+=5000005; badges.push("tau slice (5)");}
+          else if (s.includes("6283")) {ep+=333334; badges.push("tau slice (4)");}
+          if (s.includes("77777")) {ep+=5263163; badges.push("jackpot five");}
+          else if (s.includes("7777")) {ep+=357143; badges.push("jackpot four");}
+          else if (s.includes("777")) {ep+=27027; badges.push("jackpot");}
           if (s.includes("58008")) {ep+=5000005; badges.push("58008");}
           else if (s.includes("80085")) {ep+=5000005; badges.push("80085");}
           else if (s.includes("8008")) {ep+=333334; badges.push("8008");}
@@ -754,6 +912,7 @@
           else if (s.includes("67")) {ep+=2024; badges.push("six-seven");}
           if (s.includes("6969")) {ep+=334448; badges.push("very nice");}
           else if (s.includes("69")) {ep+=2024; badges.push("nice");}
+          if (s.includes("69") && s.includes("420")) {ep+=1666668; badges.push("funny numbers");}
           if (s.includes("4242")) {ep+=334448; badges.push("deeper meaning");}
           if (s.includes("1337")) {ep+=333334; badges.push("leet");}
           if (s.includes("1984")) {ep+=333334; badges.push("big brother");}
@@ -768,8 +927,9 @@
         }
         if (num==1000000) {ep+=100000100; badges.push("the fabled one million");}
         if (num==424242) {ep+=2024; badges.push("meaning of life");}
+        if (s=="e") {ep+=999999999999; badges.push("exactly euler's number to every one of the decimal places");}
         if (typeof(number)=="number") return ep;
-        const rarity = ep < 2050 ? "trash" : ep < 5349 ? "common" : ep < 8642 ? "uncommon" : ep < 20245 ? "rare" : ep < 33971 ? "epic" : ep < 150679 ? "anomaly" : "mythic";
+        const rarity = ep < 2098 ? "trash" : ep < 5761 ? "common" : ep < 9644 ? "uncommon" : ep < 23077 ? "rare" : ep < 35744 ? "epic" : ep < 164953 ? "anomaly" : "mythic";
         document.querySelector("#num").classList = rarity;
         document.querySelector("#rarity").classList = rarity;
         document.querySelector("#rarity").textContent = rarity.toUpperCase();
@@ -789,17 +949,24 @@
         document.querySelector(".tooltip").style.left = `${e.clientX}px`;
         document.querySelector(".tooltip").style.top = `${e.clientY}px`;
       }
-      function analyzeAll() {
+      function analyzeAll(minimum, maximum) {
         const start = Date.now();
         let content = "";
         for (let num = 0; num <= 1000000; num++) {
-          content += `${num}, ${analyze(num)}\n`;
+          let numep = analyze(num);
+          if ((numep >= minimum && numep <= maximum) || !(minimum || maximum)) content += `${num},${numep}\n`;
         }
         const blob = new Blob([content], { type: "text/plain" });
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = "allNumbers.txt";
+        if (!(minimum || maximum)) {
+          link.download = "allNumbers.txt";
+        } else if (minimum == maximum) {
+          link.download = `allNumbers${minimum}.txt`;
+        } else if (minimum && maximum) {
+          link.download = `allNumbers${minimum}to${maximum}`;
+        }
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -813,14 +980,15 @@
       let length = "??????";
       let sum = -1;
       let product = -2;
+      let sorted = [];
       let badges = [];
+      let d = [];
       let sum1 = -696969;
       let sum2 = -420420;
       let rngbox = false;
       let level = 0;
       setInterval(update, 16);
       document.querySelector("#num").oninput = () => {
-        console.log("before function")
         if (!rngbox) analyze();
         if (document.querySelector("#num").value.length == 0) {
           document.querySelector("#num").style.width = "15.5rem";
@@ -835,365 +1003,8 @@
       document.querySelector("#share").onclick = () => {
         analyze()
         setTimeout(() => {
-          const rarity = ep < 2050 ? "trash" : ep < 5349 ? "common" : ep < 8642 ? "uncommon" : ep < 20245 ? "rare" : ep < 33971 ? "epic" : ep < 150679 ? "anomaly" : "mythic";
-          if (level == 1) {
-            if (rarity == "mythic") {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that is an ANOMALY.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 1. You should be ashamed of yourself.";
-            }
-          }
-          else if (level == 2) {
-            if (rarity == "anomaly") {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that is EPIC.";
-            } else {
-              document.querySelector("#obj").textContent = "You have faiwed wevew 2... You thought you wewe so smawt, didn't chu?";
-            }
-          }
-          else if (level == 3) {
-            if (rarity == "epic") {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that is RARE.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 3. Must not know RNGdle enough.";
-            }
-          }
-          else if (level == 4) {
-            if (rarity == "rare") {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that is UNCOMMON.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 4. Try again.";
-            }
-          }
-          else if (level == 5) {
-            if (rarity == "uncommon") {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that is COMMON.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 5. Oh, come on! You should've been able to do this.";
-            }
-          }
-          else if (level == 6) {
-            if (rarity == "common") {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns between 4000 and 12000 EP.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 6. What a pity, that was easy.";
-            }
-          }
-          else if (level == 7) {
-            if (ep >= 4000 && ep <= 12000) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns between 2000 and 3000 EP.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 7. Meh, just try again someday.";
-            }
-          }
-          else if (level == 8) {
-            if (ep >= 2000 && ep <= 3000) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns between 13000 and 26000 EP.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 8. You were meant to pass this level!";
-            }
-          }
-          else if (level == 9) {
-            if (ep >= 13000 && ep <= 26000) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns between 27000 and 54000 EP.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 9. You realize that includes almost all rares and epics, right?";
-            }
-          }
-          else if (level == 10) {
-            if (ep >= 27000 && ep <= 54000) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns between 55000 and 110000 EP.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 10. Bitch, please.";
-            }
-          }
-          else if (level == 11) {
-            if (ep >= 55000 && ep <= 110000) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns between 190000 and 200000 EP.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 11. This level was just find the anomaly.";
-            }
-          }
-          else if (level == 12) {
-            if (ep >= 190000 && ep <= 200000) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns between 1760 and 1986 EP.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 12. I don't blame you, this one was *sooo* difficult.";
-            }
-          }
-          else if (level == 13) {
-            if (ep > 1759 && ep <= 1986) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns exactly 1759 EP.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 13. Holy shit, you lost a guessing game!";
-            }
-          }
-          else if (level == 14) {
-            if (ep == 1759) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the most common badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 14. Didn't consult the worst numbers list? How unfortunate.";
-            }
-          }
-          else if (level == 15) {
-            if (num > 99999) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns Gap One.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 15. Are you fucking stupid?";
-            }
-          }
-          else if (level == 16) {
-            if (badges.includes("gap one")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Hills badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 16. The first and last digits differ by 1.";
-            }
-          }
-          else if (level == 17) {
-            if (badges.includes("hills")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Balanced badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 17. The digits rise and fall.";
-            }
-          }
-          else if (level == 18) {
-            if (badges.includes("balanced")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Blackjack badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 18. The sum of the first half equals the sum of the second half.";
-            }
-          }
-          else if (level == 19) {
-            if (badges.includes("blackjack")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Feather badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 19. The digits sum to 21.";
-            }
-          }
-          else if (level == 20) {
-            if (badges.includes("feather")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Alternator badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 20. The sum of the digits is less than 15.";
-            }
-          }
-          else if (level == 21) {
-            if (badges.includes("alternator")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Mountain badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 21. The digits alternate between even and odd.";
-            }
-          }
-          else if (level == 22) {
-            if (badges.includes("mountain")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Mirror Bookends badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 22. The digits ascend to a peak and then descend.";
-            }
-          }
-          else if (level == 23) {
-            if (badges.includes("mirror bookends")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Paired Bookends badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 23. The first 2 digits mirror the last 2.";
-            }
-          }
-          else if (level == 24) {
-            if (badges.includes("paired bookends")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Framed Double badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 24. The number starts with a pair and ends with a different one.";
-            }
-          }
-          else if (level == 25) {
-            if (badges.includes("framed double")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Scramble badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 25. The number is 2 pairs bookended by different digits.";
-            }
-          }
-          else if (level == 26) {
-            if (badges.includes("scramble")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Divisible by 3 badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 26. The number forms a sequence of 6 when sorted.";
-            }
-          }
-          else if (level == 27) {
-            if (badges.includes("divisible by 3")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Heavy badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 27. The digits are all divisible by 3.";
-            }
-          }
-          else if (level == 28) {
-            if (badges.includes("heavy")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Turtle badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 28. The digits are all 5-9.";
-            }
-          }
-          else if (level == 29) {
-            if (badges.includes("turtle")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Colossal badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 29. The digits differ by at most 1.";
-            }
-          }
-          else if (level == 30) {
-            if (badges.includes("colossal")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Framed Triple badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 30. The number is greater than 999000.";
-            }
-          }
-          else if (level == 31) {
-            if (badges.includes("framed triple")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Framed Pair badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 31. The number is a triple bookended by different digits.";
-            }
-          }
-          else if (level == 32) {
-            if (badges.includes("framed pair")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Zipper badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 32. The number is a pair bookended by different digits.";
-            }
-          }
-          else if (level == 33) {
-            if (badges.includes("zipper")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Big Brother badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 33. The number alternates between 2 digits.";
-            }
-          }
-          else if (level == 34) {
-            if (badges.includes("big brother")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Strobogrammatic badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 34. The number contains 1984.";
-            }
-          }
-          else if (level == 35) {
-            if (badges.includes("strobogrammatic")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Straight Flush badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 35. The number looks the same rotated 180 degrees.";
-            }
-          }
-          else if (level == 36) {
-            if (badges.includes("straight flush")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Sandwich badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 36. The number contains 13579, 97531, 02468, or 86420.";
-            }
-          }
-          else if (level == 37) {
-            if (s=="") {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Harshad Number badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 37. Here's a hint: nothing earns Sandwich.";
-            }
-          }
-          else if (level == 38) {
-            if (badges.includes("harshad number")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Eleven badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 38. The number is divisible by the sum of its digits.";
-            }
-          }
-          else if (level == 39) {
-            if (badges.includes("eleven")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Dozen badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 39. The number is divisible by 11.";
-            }
-          }
-          else if (level == 40) {
-            if (badges.includes("dozen")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Prime Number badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 40. The number is divisible by 12.";
-            }
-          }
-          else if (level == 41) {
-            if (badges.includes("prime number")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Pronic Number badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 41. The number is only divisible by 1 and itself.";
-            }
-          }
-          else if (level == 42) {
-            if (badges.includes("pronic number")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Spy Number badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 42. The number can be represented in the form n * n + n.";
-            }
-          }
-          else if (level == 43) {
-            if (badges.includes("spy number")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Fibonacci Number badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 43. The sum of the number's digits equals the product of its digits.";
-            }
-          }
-          else if (level == 44) {
-            if (badges.includes("fibonacci number")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the Factorial badge.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 44. The number is found in the Fibonacci sequence.";
-            }
-          }
-          else if (level == 45) {
-            if (badges.includes("factorial")) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the 13th Power badge and is greater than 1.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 45. The number is a factorial number.";
-            }
-          }
-          else if (level == 46) {
-            if (badges.includes("13th power") && num > 1) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the 17th Power badge and is greater than 1.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 46. Pull up your calculator.";
-            }
-          }
-          else if (level == 47) {
-            if (badges.includes("17th power") && num > 1) {
-              level += 1; document.querySelector("#obj").textContent = "Now find a number that earns the 19th Power badge and is greater than 1.";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 47. Pull up your calculator.";
-            }
-          }
-          else if (level == 48) {
-            if (badges.includes("19th power") && num > 1) {
-              level += 1; document.querySelector("#obj").textContent = "How many badges were in this game on June 24, 2026?";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 48. Pull up your calculator.";
-            }
-          }
-          else if (level == 49) {
-            if (num == 203) {
-              level += 1; document.querySelector("#obj").textContent = "In what year did cam make an RNGdle account?";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 49. Find the link to the RNGdle badges.";
-            }
-          }
-          else if (level == 50) {
-            if (num == 2025) {
-              level += 1; document.querySelector("#obj").innerHTML = "And lastly, give me the 1 number that earns <b>EXACTLY 126931 EP.</b>";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 50. Pull up that profile on RNGdle.";
-            }
-          }
-          else if (level == 51) {
-            if (ep == 126931) {
-              level += 1; document.querySelector("#obj").textContent = "CONGRATULATIONS YOU'VE BEATEN THE GAME!!!";
-            } else {
-              document.querySelector("#obj").textContent = "You have failed level 51. you were so close lmao oh well oops try again maybe you'll get it next time haha";
-            }
-          }
-        }, 2225)
+          
+        }, 2225);
       };
       document.querySelector("#rngbox").onclick = () => {
         document.querySelector("#rngbox").remove();
@@ -1201,10 +1012,11 @@
         document.querySelector("h1").textContent = "RNGbox";
         document.querySelector("#description").textContent = "Challenge your RNGdle knowledge!";
         document.querySelector("#warning").textContent = "Click the SHARE button to check your answer!";
-        document.querySelector("#tools").insertAdjacentHTML("beforeend", "<h6 id='obj'>Find a number that is MYTHIC.</h6>");
+        document.querySelector("#tools").insertAdjacentHTML("beforeend", `<h6 id="obj" style="font-family: Inter, sans-serif;">Guess a number that earns a certain amount of EP.</h6>`);
         rngbox = true;
         level = 1;
       }
+      document.querySelector("#personalize").onclick = () => {window.location.href = "https://prototypestudios.neocities.org/personalize";}
     </script>
   </body>
 </html>
