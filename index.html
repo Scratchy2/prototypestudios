@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/style.css">
     <style>
       #world {
-        background: linear-gradient(to right, hsl(240, 100%, 65%), hsl(140, 100%, 60%));
+        background: linear-gradient(to right in oklch, hsl(240, 100%, 65%), hsl(140, 100%, 60%));
         color: transparent;
         background-clip: text;
         text-decoration: underline;
@@ -31,6 +31,10 @@
         <p class="large title">Creulette</p>
         <h6 class="small">Get rewarded for a random color with infinite chances. Epilepsy warning!</h6>
       </div></button><br>
+      <button id="dlm"><div class="prototype">
+        <p class="large title">DLM() Color Picker</p>
+        <h6 class="small">The new way to represent colors with three values: D, L, and M.</h6>
+      </div></button><br>
       <button id="rngdle"><div class="prototype">
         <p class="large title">RNGdle Sandbox</p>
         <h6 class="small">An RNGdle EP calculator. Find out how much EP a number might earn. 100% ACCURATE ON RNGDLE V2!!! 🎉</h6>
@@ -43,9 +47,9 @@
         <p class="large title">Rollscapes</p>
         <h6 class="small">Roll 10 dice of 2-100 sides and analyze the probability.</h6>
       </div></button><br>
-      <button id="rngdle"><div class="prototype">
+      <button id="hertzle"><div class="prototype">
         <p class="large title">Hertzle</p>
-        <h6 class="small">Test your frequency luck daily in multiple ways!🎉</h6>
+        <h6 class="small">Test your frequency luck daily in multiple ways!</h6>
       </div></button><br>
       <hr><a class="medium mono" href="https://docs.google.com/spreadsheets/d/1YMs7aei-l5lOZu3yVG_5xdsBzfqzOB_zFAv5gudGrGk">Link to RNGdle Badges. Shift-click to copy the link.</a>
       <hr><footer class="small">© 2026 Milo the Protogen. All rights reserved.</footer>
@@ -87,8 +91,10 @@
       function gr() {
         g = (g + 0.3) % 360;
         document.querySelector("#creulette").style.background = `linear-gradient(to right, hsl(${g}, 100%, 50%), hsl(${g+36}, 100%, 50%))`;
+        document.querySelector("#dlm").style.background = `linear-gradient(to right, hsl(${g}, 100%, 50%), hsl(${g+36}, 100%, 50%))`;
         document.querySelector("#pts").style.background = `linear-gradient(to right, hsl(${g+180}, 100%, 50%), hsl(${g+216}, 100%, 50%))`;
         document.querySelector("#creulette").style.color = `hsl(${g+180}, 100%, 50%)`;
+        document.querySelector("#dlm").style.color = `hsl(${g+180}, 100%, 50%)`;
         document.querySelector("#pts").style.color = `transparent`;
         document.querySelector("#pts").style.backgroundClip = `text`;
       }
@@ -130,6 +136,9 @@
       document.querySelector("#creulette").onclick = () => {
         window.location.href = "https://prototypestudios.neocities.org/creulette";
       }
+      document.querySelector("#dlm").onclick = () => {
+        window.location.href = "https://prototypestudios.neocities.org/dlm";
+      }
       document.querySelector("#sunclipse").onclick = () => {
         window.location.href = "https://prototypestudios.neocities.org/sunclipse";
       }
@@ -138,6 +147,9 @@
       }
       document.querySelector("#rollscapes").onclick = () => {
         window.location.href = "https://prototypestudios.neocities.org/rollscapes";
+      }
+      document.querySelector("#hertzle").onclick = () => {
+        window.location.href = "https://prototypestudios.neocities.org/hertzle";
       }
       document.querySelector('a').addEventListener('click', function(event) {
         if (event.shiftKey) {
