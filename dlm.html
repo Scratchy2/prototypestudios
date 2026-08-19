@@ -5,19 +5,30 @@
     <meta name="description" content="The new way to represent colors with three values: D, L, and M. They stand for Dynamic, Luminance, and Mix.">
     <meta property="og:description" content="The new way to represent colors with three values: D, L, and M. They stand for Dynamic, Luminance, and Mix.">
     <meta name="author" content="ProtoType Studios">
-    <meta property="og:title" content="DLM() Color Picker by ProtoType Studios">
+    <meta property="og:title" content="DLM() Color Picker by ProtoType Studios™">
     <meta property="og:url" content="https://prototypestudios.neocities.org/dlm">
     <meta name="theme-color" content="#303336">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DLM() Color Picker</title>
     <link href="/style.css" rel="stylesheet" type="text/css" media="all">
     <style>
+      .container {
+        position: relative;
+      }
+      #overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 9;
+        pointer-events: none;
+      }
       .tooltip {
         position: fixed;
         border: 2px solid black;
         pointer-events: none;
         padding: 1em;
         width: 12em;
+        z-index: 999;
         font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
         height: fit-content;
         background-color: #202326;
@@ -61,8 +72,11 @@
       <h1 class="large project">DLM() Color Picker</h1>
       <button class="large" id="personalize">Personalize Account</button>
     </div>
-    <h6 class="small">The <b><u>new</u></b> way to represent colors with three values: D, L, and M. They stand for Dynamic, Luminance, and Mix.<br>Try it out by hovering over and clicking on the CIE 1931 generated from the official observer data below or typing in the textboxes to convert your colors to DLM.<br>Note: the bigger your screen is, the longer it takes to draw the canvas. A computer is recommended.</h6>
-    <canvas></canvas>
+    <h6 class="small">The <b><u>new</u></b> way to represent colors with three values: D, L, and M. They stand for Dynamic, Luminance, and Mix.<br>Try it out by hovering over and clicking on the CIE 1931 generated from the official observer data below or typing in the textboxes to convert your colors to DLM.<br>Note: WebGL 2 is required to render the canvas.</h6>
+    <div class="container">
+      <canvas id="cie"></canvas>
+      <canvas id="overlay"></canvas>
+    </div>
     <div class="large tooltip" style="display: none;"></div>
     <div class="info">
       <h2 class="large">Triangles</h2>
@@ -572,11 +586,77 @@
       	"829": { "x": 1.341977e-06, "y": 4.846123e-07, "z": 0.0 },
       	"830": { "x": 1.251141e-06, "y": 4.5181e-07, "z": 0.0 }
       };
+      // above: cie observer data
+      const vertexShaderSource = `#version 300 es
+      in vec2 position;
+      void main() {
+      	gl_Position = vec4(position, 0.0, 1.0);
+      }
+      `;
+      const fragmentShaderSource = `#version 300 es
+      precision highp float;
+      out vec4 outColor;
+      uniform vec2 resolution;
+      uniform float luminance;
+      uniform sampler2D locusMask;
+      uniform vec2 polygon[321];
+      uniform float xmin;
+      uniform float xmax;
+      uniform float ymin;
+      uniform float ymax;
+      uniform float gamut;
+      bool inside(float x, float y) {
+      	bool result = false;
+      	for (int i = 0; i < 321; i++) {
+      		int j = (i + 320) % 321;
+      		float xi = polygon[i].x;
+      		float yi = polygon[i].y;
+      		float xj = polygon[j].x;
+      		float yj = polygon[j].y;
+      		bool intersect = ((yi > y) != (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+      		if (intersect) result = !result;
+      	}
+      	return result;
+      }
+      void main() {
+      	float px = gl_FragCoord.x;
+      	float py = resolution.y - gl_FragCoord.y;
+      	float x3 = xmin + px / (resolution.x - 1.0) * (xmax - xmin);
+      	float y3 = ymax - py / (resolution.y - 1.0) * (ymax - ymin);
+      	if (!inside(x3, y3)) {outColor = vec4(0.0); return;}
+      	float Y = luminance;
+      	float X = x3 * Y / y3;
+      	float Z = (1.0 - x3 - y3) * Y / y3;
+      	float r = 0.0;
+      	float g = 0.0;
+      	float b = 0.0;
+      	if (gamut == 0.0) {
+      		r =  3.2406 * X - 1.5372 * Y - 0.4986 * Z;
+      		g = -0.9689 * X + 1.8758 * Y + 0.0415 * Z;
+      		b =  0.0557 * X - 0.2040 * Y + 1.0570 * Z;
+      	} else {
+      		r =  2.4934969 * X - 0.9313836 * Y - 0.4027108 * Z;
+      		g = -0.8294890 * X + 1.7626640 * Y + 0.0236247 * Z;
+      		b =  0.0358458 * X - 0.0761724 * Y + 0.9568845 * Z;
+      	}
+      	r = r <= 0.0031308 ? 12.92 * r : 1.055 * pow(r, 1.0 / 2.4) - 0.055;
+      	g = g <= 0.0031308 ? 12.92 * g : 1.055 * pow(g, 1.0 / 2.4) - 0.055;
+      	b = b <= 0.0031308 ? 12.92 * b : 1.055 * pow(b, 1.0 / 2.4) - 0.055;
+      	outColor = vec4(r, g, b, 1.0);
+      }
+      `;
+      function shader(type, source) {
+      	const s = gl.createShader(type);
+      	gl.shaderSource(s, source);
+      	gl.compileShader(s);
+      	if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+      	return s;
+      }
       function xyCIE(x, y) {
         return {
           x3: xmin + x / (w - 1) * (xmax - xmin),
           y3: ymax - y / (h - 1) * (ymax - ymin),
-        }
+        };
       }
       function cieXY(x, y) {
       	return {
@@ -584,30 +664,8 @@
       		y: (ymax - y) / (ymax - ymin) * (h - 1),
       	};
       }
-      function CIE() {
-      	image = ctx.createImageData(w, h);
-      	data = image.data;
-      	for (let y = 0; y < h; y++) {
-      		for (let x = 0; x < w; x++) {
-      			let l = Math.max(Math.min(document.querySelector("#luminance").valueAsNumber || 1, 1), 0);
-      			let a = 255;
-      			const {x3, y3} = xyCIE(x, y);
-      			const i = (y * w + x) * 4;
-      			if (y3 <= 0 || x3 + y3 > 1 || !inside(x3, y3)) {data[i] = 0; data[i + 1] = 0; data[i + 2] = 0; data[i + 3] = 255; continue};
-      			const Y = l;
-      			const X = x3 * Y / y3;
-      			const Z = (1 - x3 - y3) * Y / y3;
-      			let [r, g, b] = cieRGB(X, Y, Z, window.matchMedia("(color-gamut: rec2020)").matches ? "rec2020" : window.matchMedia("(color-gamut: p3)").matches ? "display-p3" : "srgb");
-      			data[i] = r;
-      			data[i + 1] = g;
-      			data[i + 2] = b;
-      			data[i + 3] = a;
-      		}
-      	}
-      }
       function redraw() {
       	ctx.clearRect(0, 0, w, h);
-      	ctx.putImageData(image, 0, 0);
       	let l = Math.max(Math.min(document.querySelector("#luminance").valueAsNumber || 1, 1), 0);
       	ctx.strokeStyle = "#000";
       	if (l <= 0.289) {
@@ -689,7 +747,7 @@
         const f = c <= 0.0031308 ? 12.92 * c : 1.055 * c ** (1 / 2.4) - 0.055;
       	return Math.max(Math.min(f * 255, 255), 0);
       }
-      function spectralWL(x, y, wx = 1 / 3, wy = 1 / 3) {
+      function spectralWL(x, y, wx = 1/3, wy = 1/3) {
       	const dx = x - wx;
       	const dy = y - wy;
       	let best = null;
@@ -730,12 +788,31 @@
       	}
       	return [gamma(r), gamma(g), gamma(b)];
       }
-      const canvas = document.querySelector("canvas");
-      const ctx = canvas.getContext('2d', {colorSpace: window.matchMedia("(color-gamut: p3)").matches ? "display-p3" : "srgb"});
+      const canvas = document.querySelector("#cie");
+      const canvas2 = document.querySelector("#overlay");
+      const ctx = canvas2.getContext('2d', {colorSpace: window.matchMedia("(color-gamut: p3)").matches ? "display-p3" : "srgb"});
+      const gl = canvas.getContext('webgl2');
+      if (!gl) document.querySelector("h6").innerHTML += " <b><u>Your browser does not support WebGL 2</u></b>, but you can still convert between DLM and RGB.";
+      gl.drawingBufferColorSpace = window.matchMedia("(color-gamut: p3)").matches ? "display-p3" : "srgb";
+      const vertexShader = shader(gl.VERTEX_SHADER, vertexShaderSource);
+      const fragmentShader = shader(gl.FRAGMENT_SHADER, fragmentShaderSource);
+      const program = gl.createProgram();
+      gl.attachShader(program, vertexShader);
+      gl.attachShader(program, fragmentShader);
+      gl.linkProgram(program);
+      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(program));
+      gl.useProgram(program);
+      const vertices = new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]);
+      const buffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+      gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+      const position = gl.getAttribLocation(program, "position");
+      gl.enableVertexAttribArray(position);
+      gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
       const w = Math.round(Math.min(window.innerWidth * 0.95, window.innerHeight * 0.9 * 0.8 / 0.9));
       const h = Math.round(w * 0.9 / 0.8);
       canvas.width = w; canvas.height = h;
-      ctx.fillRect(0, 0, w, h)
+      canvas2.width = w; canvas2.height = h;
       let image; let data;
       let polygon = [];
       let xmin = 999;
@@ -754,33 +831,41 @@
       	polygon.push({x: px, y: py, nm});
       }
       polygon.push(polygon[0]);
-      CIE();
+      const resolution = gl.getUniformLocation(program, "resolution");
+      const luminance = gl.getUniformLocation(program, "luminance");
+      const pl = gl.getUniformLocation(program, "polygon");
+      const xminl = gl.getUniformLocation(program, "xmin");
+      const xmaxl = gl.getUniformLocation(program, "xmax");
+      const yminl = gl.getUniformLocation(program, "ymin");
+      const ymaxl = gl.getUniformLocation(program, "ymax");
+      const gamutl = gl.getUniformLocation(program, "gamut");
+      gl.uniform2f(resolution, w, h);
+      gl.uniform1f(luminance, 1);
+      gl.uniform1f(xminl, xmin);
+      gl.uniform1f(xmaxl, xmax);
+      gl.uniform1f(yminl, ymin);
+      gl.uniform1f(ymaxl, ymax);
+      gl.uniform1f(gamutl, +window.matchMedia("(color-gamut: p3)").matches);
+      const polygon2 = new Float32Array(642);
+      for (let nm = 380; nm <= 700; nm++) {
+      	const i = (nm - 380) * 2;
+      	const c = cie[nm];
+      	const sum = c.x + c.y + c.z;
+      	polygon2[i] = c.x / sum;
+      	polygon2[i + 1] = c.y / sum;
+      }
+      for (let i = 0; i < 321; i++) gl.uniform2f(gl.getUniformLocation(program, `polygon[${i}]`), polygon2[i * 2], polygon2[i * 2 + 1]);
+      gl.viewport(0, 0, w, h);
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
       const srgb = {"red": cieXY(0.64, 0.33), "green": cieXY(0.3, 0.6), "blue": cieXY(0.15, 0.06)}
       const p3 = {"red": cieXY(0.68, 0.32), "green": cieXY(0.2651, 0.69), "blue": cieXY(0.15, 0.06)}
       const rec2020 = {"red": cieXY(0.708, 0.292), "green": cieXY(0.17, 0.797), "blue": cieXY(0.131, 0.046)}
       let clicked = 0;
-      redraw();
       canvas.onmousemove = (event) => {
         const x = event.offsetX;
         const y = event.offsetY;
         const {x3, y3} = xyCIE(x, y);
-        const sum = cie["650"].x + cie["650"].y + cie["650"].z;
-        const xf = cie["650"].x / sum;
-      	const yf = cie["650"].y / sum;
-        let d = Math.max(spectralWL(x3, y3, xf, yf), 380);
         let l = Math.max(Math.min(document.querySelector("#luminance").valueAsNumber || 1, 1), 0);
-        let c = interpolate(d);
-      	const xd = c.x / (c.x + c.y + c.z);
-      	const yd = c.y / (c.x + c.y + c.z);
-      	const dx = xd - xf;
-      	const dy = yd - yf;
-      	let m = 0;
-      	if (Math.abs(dx) > Math.abs(dy)) {m = (x3 - xf) / dx;}
-      	else {m = (y3 - yf) / dy;}
-      	if (m <= 0) {
-      		m = 1; d = spectralWL(x3, y3);
-      		if (d == 0) d = 650;
-      	}
         const Y = l;
         const X = x3 * Y / y3;
         const Z = (1 - x3 - y3) * Y / y3;
@@ -794,7 +879,6 @@
         if (window.matchMedia("(color-gamut: srgb)").matches) {document.querySelector(".tooltip").style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${a/255})`;}
         if (window.matchMedia("(color-gamut: p3)").matches) {document.querySelector(".tooltip").style.backgroundColor = `color(display-p3 ${r/255} ${g/255} ${b/255} / ${a/255})`;}
         if (window.matchMedia("(color-gamut: rec2020)").matches) {document.querySelector(".tooltip").style.backgroundColor = `color(rec2020 ${r/255} ${g/255} ${b/255} / ${a/255})`;}
-        if (window.matchMedia("(color-gamut: dlm)").matches) {document.querySelector(".tooltip").style.backgroundColor = `dlm(${d.toFixed(5)}, ${l.toFixed(5)}, ${m.toFixed(5)})`}
       	document.querySelector(".tooltip").innerHTML = `
       	x: ${x3.toFixed(5)}<br>
       	y: ${y3.toFixed(5)}<br>
@@ -935,7 +1019,9 @@
       		document.querySelector("#result1").textContent = `Converted result: dlm(${d.toFixed(5)}, ${(100*l).toFixed(5)}%, ${(100*m).toFixed(5)}%)`;
       		document.querySelector("#fixed").textContent = `Fixed: ${power*(1-m)}×`;
       		document.querySelector("#dynamic").textContent = `Dynamic: ${power*m}×`;
-      		CIE(); redraw();
+      		gl.uniform1f(luminance, l);
+      		gl.drawArrays(gl.TRIANGLES, 0, 6);
+      		redraw();
       	}
       }
       document.querySelector("#dlmc").onblur = () => {
@@ -986,12 +1072,19 @@
       		document.querySelector("#result2").innerHTML = `Converted result:<br>sRGB - #${srgbR}${srgbG}${srgbB}<br>Display-P3 - color(display-p3 ${p3R.toFixed(5)} ${p3G.toFixed(5)} ${p3B.toFixed(5)})<br>Rec2020 - color(rec2020 ${rec2020R.toFixed(5)} ${rec2020G.toFixed(5)} ${rec2020B.toFixed(5)})`;
       		document.querySelector("#fixed").textContent = `Fixed: ${power*(1-m)}×`;
       		document.querySelector("#dynamic").textContent = `Dynamic: ${power*m}×`;
-      		CIE(); redraw();
+      		gl.uniform1f(luminance, l);
+      		gl.drawArrays(gl.TRIANGLES, 0, 6);
+      		redraw();
       	}
+      }
+      document.querySelector("#redraw").onclick = () => {
+      	const l = Math.max(Math.min(document.querySelector("#luminance").valueAsNumber, 1), 0);
+      	gl.uniform1f(luminance, l);
+      	gl.drawArrays(gl.TRIANGLES, 0, 6);
+      	redraw();
       }
       canvas.onmouseenter = () => {document.querySelector(".tooltip").style.display="block"}
       canvas.onmouseleave = () => {document.querySelector(".tooltip").style.display="none"}
-      document.querySelector("#redraw").onclick = () => {CIE(); redraw();}
       document.querySelector("#rec2020").oninput = redraw;
       document.querySelector("#displayp3").oninput = redraw;
       document.querySelector("#srgb").oninput = redraw;
