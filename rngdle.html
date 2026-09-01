@@ -2,10 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta name="description" content="An RNGdle calculator. Find out how much EP a number might earn.">
-    <meta property="og:description" content="An RNGdle calculator. Find out how much EP a number might earn.">
+    <meta name="description" content="An RNGdle EP calculator. Find out how much EP a number might earn. 100% ACCURATE ON RNGDLE V2!!! 🎉">
+    <meta property="og:description" content="An RNGdle EP calculator. Find out how much EP a number might earn. 100% ACCURATE ON RNGDLE V2!!! 🎉">
     <meta name="author" content="ProtoType Studios">
-    <meta property="og:title" content="RNGdle Sandbox by ProtoType Studios">
+    <meta property="og:title" content="RNGdle Sandbox by ProtoType Studios™">
     <meta property="og:url" content="https://prototypestudios.neocities.org/rngdle">
     <meta name="theme-color" content="#0a0a0a">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,11 +22,40 @@
           transform: scale(1.015);
         }
       }
+      @keyframes spin {
+        0% {transform: scale(0) rotate(0deg); top: 0%; opacity: 0.5;}
+        40%, 60% {transform: scale(2) rotate(720deg); top: 0%; opacity: 1;}
+        100% {transform: scale(2) rotate(720deg); top: 100%; opacity: 0;}
+      }
+      @keyframes spin2 {
+        0% {transform: scale(0); top: 0%; opacity: 0.5;}
+        40%, 60% {transform: scale(2); top: 0%; opacity: 1;}
+        100% {transform: scale(2); top: 100%; opacity: 0;}
+      }
+      .spin {
+        display: flex;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: 86;
+        justify-content: center;
+        align-items: center;
+        animation: 4s spin forwards;
+      }
+      .spin2 {
+        display: flex;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: 86;
+        justify-content: center;
+        align-items: center;
+        animation: 4s spin2 forwards;
+      }
       body {
-        background-color: #0a0a0a;
+        background-color: #131313;
         font-family: "Space Mono", monospace;
         color: #fafafa;
-        letter-spacing: 0.05em;
       }
       h1 {
         font-size: 3.75rem;
@@ -114,7 +143,7 @@
         color: oklch(63.7% 0.237 25.331);
         font-weight: normal;
         margin-left: 0.25em;
-        font-size: 0.87rem;
+        font-size: 0.875rem;
         transition: all 0.75s ease;
       }
       h6 {
@@ -122,8 +151,8 @@
       }
       button {
         display: inline-flex;
-        border: 2px solid;
-        background-color: #222;
+        border: 1px solid;
+        background-color: oklch(26.1% 0.014 295);
         color: #c4c4c4;
         border-radius: 0.5rem;
         padding-inline: 0.75rem;
@@ -132,13 +161,12 @@
         width: fit-content;
         font-family: "Inter", sans-serif;
         font-weight: bold;
-        letter-spacing: 0.1em;
         font-size: 0.875rem;
         animation: border 3s infinite;
       }
       #countdown {
         font-size: 0.875rem;
-        font-family: "Inter", sans-serif;
+        font-family: "Space Mono", monospace;
         margin-left: 0.125rem;
         color: #c4c4c4;
       }
@@ -158,6 +186,10 @@
         }
       }
       
+      @keyframes appear {
+        0% {transform: translateY(10px); opacity: 0;}
+        100% {transform: translateY(0px); opacity: 1;}
+      }
       input::-webkit-outer-spin-button,
       input::-webkit-inner-spin-button {
         -webkit-appearance: none;
@@ -205,12 +237,12 @@
         color: oklch(96.7% 0.003 264.542);
         box-shadow: 0 0 24px color-mix(in oklab,color-mix(in oklab, oklch(40.8% 0.153 2.432) 30%,transparent) 100%,transparent),0 0 42px color-mix(in oklab,color-mix(in oklab, oklch(40.8% 0.153 2.432) 30%,transparent) 100%,transparent);
       }
-      #num.nautical {
+      #num.unheard {
         background: linear-gradient(135deg, transparent 0%, #ffffff07 33%, transparent 60%, #ffffff07 100%),
-          linear-gradient(to bottom right in oklab, color-mix(in oklab, oklch(0.6 0.2385 253.69) 55%,transparent) 0%, color-mix(in oklab, oklch(0.4664 0.3232 264.05) 45%,transparent) 50%, color-mix(in oklab, oklch(0.6 0.2385 253.69) 55%,transparent) 100%), linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 100%);
-        border: 3px solid oklch(0.5676 0.1661 238.49);
-        color: oklch(0.8076 0.119 238.49);
-        box-shadow: 0 0 24px color-mix(in oklab,color-mix(in oklab, oklch(0.5676 0.1661 238.49) 30%,transparent) 100%,transparent),0 0 42px color-mix(in oklab,color-mix(in oklab, oklch(0.5676 0.1661 238.49) 30%,transparent) 100%,transparent);
+          linear-gradient(to bottom right in oklab, color-mix(in oklab, #00ffbe 90%,transparent) 0%, color-mix(in oklab, #00cbe6 90%,transparent) 50%, color-mix(in oklab, #0096ff 90%,transparent) 100%), linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 100%);
+        border: 3px solid oklch(0.905399 0.1646 194.7689);
+        color: oklch(0.959 0.0657 184.21);
+        box-shadow: 0 0 24px color-mix(in oklab,color-mix(in oklab, oklch(0.905 0.1646 194.7689) 30%,transparent) 100%,transparent),0 0 42px color-mix(in oklab,color-mix(in oklab, oklch(0.905 0.1646 194.7689) 30%,transparent) 100%,transparent);
       }
       
       #rarity.trash, #ep.trash, .badge.trash {
@@ -248,10 +280,10 @@
         background-color: color-mix(in oklab, oklch(25.8% 0.092 26.042) 40%, transparent);
         border: 1px solid color-mix(in oklab, oklch(45.9% 0.187 3.815) 60%, transparent);
       }
-      #rarity.nautical, #ep.nautical, .badge.nautical {
-        color: oklch(0.8076 0.119 238.49);
-        background-color: color-mix(in oklab, oklch(0.4165 0.2891 264.05) 40%, transparent);
-        border: 1px solid color-mix(in oklab, oklch(0.426 0.1929 256.87) 60%, transparent);
+      #rarity.unheard, #ep.unheard, .badge.unheard {
+        color: oklch(0.875 0.0896 224.81);
+        background-color: color-mix(in oklab, oklch(0.662 0.201 249.84) 40%, transparent);
+        border: 1px solid color-mix(in oklab, oklch(0.662 0.1519 194.77) 60%, transparent);
       }
       /* bg: oklch(0.4165 0.2891 264.05) border: oklch(0.426 0.1929 256.87) color: oklch(0.8076 0.119 238.49) */
       
@@ -260,6 +292,7 @@
         padding-inline: 0.5rem;
         padding-block: 0.125rem;
         display: inline-flex;
+        cursor: pointer;
         flex-wrap: wrap;
         margin-right: 0.375rem;
         margin-bottom: 0.375rem;
@@ -281,17 +314,17 @@
         align-items: center;
         justify-content: center;
       }
-      #percentile.uncommon, #percentile.rare {
+      #percentile.uncommon {
         color: oklch(69.6% 0.17 162.48);
       }
-      #percentile.epic {
+      #percentile.rare, #percentile.epic {
         color: oklch(72.3% 0.219 149.579);
       }
       #percentile.anomaly, #percentile.mythic {
         color: oklch(79.5% 0.184 86.047);
       }
-      #percentile.nautical {
-        color: oklch(0.8076 0.119 238.49);
+      #percentile.unheard {
+        color: oklch(0.875 0.0896 224.81);
       }
       
       .badges {
@@ -308,6 +341,7 @@
         width: 20em;
         height: 10em;
         padding: 1em;
+        cursor: pointer;
       }
       .rbadge.common {
         background-color: oklch(27.4% 0.006 286.033);
@@ -333,10 +367,35 @@
         background-color: oklch(25.8% 0.092 26.042);
         border: 5px solid color-mix(in oklab, oklch(45.9% 0.187 3.815) 60%, transparent);
       }
-      .rbadge.nautical {
-        background-color: oklch(0.2988 0.2086 264.05);
-        border: 5px solid color-mix(in oklab, oklch(0.426 0.1929 256.87) 60%, transparent);
+      .rbadge.unheard {
+        background-color: #0096ff;
+        border: 5px solid color-mix(in oklab, oklch(0.905399 0.1646 194.7689) 60%, transparent);
       }
+      .rbadgecontainer {
+        position: fixed;
+        left: 0%;
+        top: 0%;
+        width: 100%;
+        height: 100%;
+        background-color: #3f304733;
+        backdrop-filter: blur(13px);
+      }
+      .rbadgeview {
+        position: fixed;
+        padding: 3em;
+        left: calc(18% - 3em);
+        top: calc(18% - 3em);
+        width: 64%;
+        height: 64%;
+        border: 2.5px solid #4b3c54;
+        background-color: #392f3f;
+        overflow-y: auto;
+        border-radius: 1em;
+        animation: appear 0.1s forwards;
+      }
+      .rbadgename, .\'rbadgename\' {font-weight: bolder; font-size: 1.3em;}
+      .rbadgeep, .smalltext, .\'rbadgeep\', .\'smalltext\' {font-size: 0.9em;}
+      .rbadgefamily, .\'rbadgefamily\' {margin-block: 0.5em;}
     </style>
   </head>
   <body>
@@ -346,9 +405,11 @@
       <button class="large" id="personalize">Personalize Account</button>
     </div>
     <center>
-      <h6 id="description">An RNGdle calculator. Find out how much EP a number might earn.<br>100% ACCURATE ON RNGDLE V2!!! 🎉</h6><hr>
-      <input id="luck" type="number" min="0.001" max="1000" step="0.1" value="1"><span style="font-family: 'Inter', monospace;">x LUCK</span><br>
-      <button id="random">Random number</button><br>
+      <h6 id="description">An RNGdle EP calculator. Find out how much EP a number might earn.<br>100% ACCURATE ON RNGDLE V2!!! 🎉</h6><hr>
+      <div class="random">
+        <input id="luck" type="number" min="0.0001" max="10000" step="0.1" value="1"><span style="font-family: 'Inter', monospace;">x LUCK</span><br>
+        <button id="random">Random number</button><br>
+      </div>
       <b>
         <input id="num" min="0" max="1000000" type="number" placeholder="??????">
         <p style="color: #606060; margin-bottom: 1rem;"><span id="rarity">??????</span> • <span id="percentile">TOP ???%</span></p>
@@ -357,218 +418,228 @@
         <p id="ep3">YOUR LIFETIME EP</p>
         <div style="gap: 0.375rem; display: flex; align-items: center; justify-content: center;">
           <button id="share"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share2 lucide-share-2 w-4 h-4" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg><span>SHARE</span></button>
-          <span><span style="font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #9a9a9a; font-weight: normal;">NEXT ROLL IN </span><span id="countdown">6H 21M 42S</span></span>
+          <span><span style="font-family: 'Inter', sans-serif; font-size: 0.75rem; color: #9a9a9a; font-weight: normal; margin-left: 0.5rem;">NEXT ROLL IN </span><span id="countdown">6H 21M 42S</span></span>
         </div>
         <div id="badges">BADGES: ???</div>
         <p id="number">?? BADGES EARNED</p><br>
         <div class="tooltip"></div>
+        <input type="checkbox" id="extras" checked="true"><label class="medium" for="extras">Extra rarities</label>
       </b>
-      <h6 id="warning">WARNING: This has the potential to spoil the whole thing; be cautious. Input a number and hover over the badges to see their EP values and probabilities!
-        <br>The percentile is an approximation that fits R²=0.9984. Go play the real game!</h6>
+      <h6 id="warning" style="margin-top: 1em;">WARNING: This has the potential to spoil the whole thing; be cautious. Input a number and hover over the badges to see their EP values and probabilities!
+        <br>The percentile is an approximation that fits R²=0.9984. Go play <a href="https://rngdle.com">the real game!</a></h6>
       <hr><div id="tools">
         <h2>Tools</h2>
         <button id="rngbox">RNGbox<br>Challenge your knowledge of RNGdle!</button>
-        <button id="rngdex">RNGdex<br>View all 230 badges in RNGdle!</button>
+        <button id="rngdex">RNGdex<br>View all 233 badges in RNGdle!</button>
       </div>
       <hr><footer>© 2026 ProtoType Studios. All rights reserved.</footer>
       <footer>This project and its owner are not affiliated with RNGdle or its owner.</footer>
     </center>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
     <script>
+      const A2rare = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/2rare.mp3");
       const badgesList = {
-        "the fabled one million": [100000100, "exactly 1000000, the highest number you can roll"],
-        "exact number": [100000100, "one of 42, 67, 69, 86, 101, 350, 365, 404, 420, 666, 777, 911, 1337, 1984, 7734, 17776, 80085, 86400, 365365, 420420, 424242, 666666, 676767, 696969, 777777, 911911"],
-        "0/1/2/3/4/5/6/7/8/9": [100000100, "a single digit - badges are normally separate"],
-        "funny number": [50000050, "either 69420 or 42069"],
-        "exact boob/boobs": [50000050, "either 58008 or 8008, which stands for boob/boobs"],
-        "always": [50000050, "either 247365 or 365247 which stands for 24/7/365"],
-        "19th power": [33333367, "number is in the form n^19"],
-        "17th power": [33333367, "number is in the form n^17"],
-        "13th power": [33333367, "number is in the form n^13"],
-        "tau": [33333367, "one of 6283,62831,628318 which are the first digits of τ"],
-        "golden ratio": [33333367, "one of 1618,16180,161803 which are the first digits of φ"],
-        "pi": [25000025, "one of 314,3141,31415,314159 which are the first digits of π"],
-        "euler's number": [25000025, "one of 271,2718,27182,271828 which are the first digits of e"],
-        "4 consecutive numbers": [25000025, "4 consecutive numbers where at least one is 2+ digits"],
-        "11th power": [25000025, "number is in the form n^11"],
-        "10th power": [25000025, "number is in the form n^10"],
-        "9th power": [20000020, "number is in the form n^9"],
-        "8th power": [16666683, "number is in the form n^8"],
-        "ouroboros": [14285729, "number is in the form n^n"],
-        "7th power": [12500013, "number is in the form n^7"],
-        "power of seven": [12500013, "number is in the form 7^n"],
-        "sequence (6)": [11111122, "contains six 1-digit numbers in order, ascending or descending"],
-        "power of five": [11111122, "number is in the form 5^n"],
-        "hello": [11111122, "contains 07734 which is 'hello' upside down"],
-        "factorial": [11111122, "number is in the form n! - n×(n-1)×(n-2)×...×2"],
-        "quint nine": [10000010, "ends in 99999"],
-        "deep void (5)": [10000010, "contains 00000"],
-        "contiguous sixes": [10000010, "contains six of the same number in a row"],
-        "6th power": [9090918, "number is in the form n^6"],
-        "power of three": [7692315, "number is in the form 3^n"],
-        "5th power": [6250006, "number is in the form n^5"],
-        "jackpot five": [5263163, "contains 77777; seven is believed to be lucky"],
-        "tau slice (5)": [5000005, "contains 62831, the first five digits of τ"],
-        "royal flush": [5000005, "contains 56789, the highest possible sequence of 5"],
-        "power of two": [5000005, "number is in the form 2^n"],
-        "pi slice (5)": [5000005, "contains 31415, the first five digits of π"],
-        "e slice (5)": [5000005, "contains 27182, the first five digits of e"],
-        "80085": [5000005, "contains 80085, which stands for boobs"],
-        "58008": [5000005, "contains 58008, which is 'boobs' upside down"],
-        "fibonacci number": [3333337, "number is in the fibonacci sequence"],
-        "cascade": [3333337, "each digit is exactly 1 more than the previous"],
-        "4th power": [3125003, "number is in the form n^4"],
-        "waterfall": [2857146, "each digit is exactly 1 less than the previous"],
-        "4 consecutive numbers (contains)": [2631582, "contains 4 consecutive numbers where at least one is 2+ digits"],
-        "4 consecutive numbers (scrambled)": [2272730, "contains 4 consecutive numbers where at least one is 2+ digits, but they must be sorted"],
-        "homogeneous": [2222224, "every digit is the same"],
-        "funny numbers": [1666668, "contains both 69 and 420"],
-        "binary soul": [1538463, "number is made up of only 1s and 0s"],
-        "straight flush": [1449277, "contains one of 13579,97531,02468,86420"],
-        "two digits": [1111112, "number has exactly two digits"],
-        "spy number": [1030929, "the sum of the digits equals the product of the digits"],
-        "semi-epoch": [1000001, "ends in 5000"],
-        "quad nine": [1000001, "ends in 9999"],
-        "3rd power": [990100, "number is in the form n^3"],
-        "even spacing": [862070, "there is a constant difference between every digit"],
-        "3 consecutive numbers": [555556, "3 consecutive numbers where at least one is 2+ digits"],
-        "deep void (4)": [552487, "contains 0000"],
-        "contiguous fives": [552487, "contains five of the same number in a row"],
-        "strobogrammatic": [502513, "the number looks mostly the same when rotated 180 degrees"],
-        "straight": [454546, "contains five 1-digit numbers in order, ascending or descending"],
-        "jackpot four": [357143, "contains 7777; seven is believed to be lucky"],
-        "very nice": [334448, "contains 6969; 69 stands for sex"],
+        "the fabled one million": [100000100, "exactly 1000000, the highest number you can roll", "<p class='rbadgename'>🐐 One Million</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>No family</p>"],
+        "exact number": [100000100, "one of 42, 67, 69, 86, 101, 365, 404, 420, 666, 777, 911, 1337, 1984, 7734, 17776, 80085, 86400, 365365, 420420, 424242, 666666, 676767, 696969, 777777, 911911", "<p class='rbadgename'>🌌 Exact Meaning</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Botanist family:<br>Exact Botanist<br>Hotbox<br>> Exact Meaning<br>Botanist<br>Meaning of Life</p><hr><p class='rbadgename'>🫠 Exact Six-Seven</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Sixty-Seven family:<br>> Exact Six-Seven<br>Brainrot<br>6767<br>Six-Seven</p><hr><p class='rbadgename'>🍽️ Exact Eighty-Six</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Eighty-Six family:<br>> Exact Eighty-Six<br>Eighty-Six</p><hr><p class='rbadgename'>😏 Exact Nice</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Nice family:<br>> Exact Nice<br>Very Very Nice<br>Very Nice<br>Nice</p><hr><p class='rbadgename'>🧭 Exact Orientation</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Orientation family:<br>> Exact Orientation<br>Orientaton</p><hr><p class='rbadgename'>📅 Exact Calendar</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Calendar family:<br>> Exact Calendar<br>Groundhog Day<br>Always<br>Calendar</p><hr><p class='rbadgename'>🚫 Not Found</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Error family:<br>> Not Found<br>Error 404</p><hr><p class='rbadgename'>🌿 Exact Botanist</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Botanist family:<br>> Exact Botanist<br>Hotbox<br>Exact Meaning<br>Botanist<br>Meaning of Life</p><hr><p class='rbadgename'>😈 Exact Devil</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Devil family:<br>> Exact Devil<br>Infernal<br>Devil</p><hr><p class='rbadgename'>💰 Exact Jackpot</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Jackpot family:<br>> Exact Jackpot<br>Jackpot Six<br>Jackpot Five<br>Jackpot Four<br>Jackpot</p><hr><p class='rbadgename'>🚑 Exact Emergency</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Emergency family:<br>> Exact Emergency<br>Mayday<br>Emergency</p><hr><p class='rbadgename'>💻 Exact Leet</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Leet family:<br>> Exact Leet<br>Leet</p><hr><p class='rbadgename'>👁️ Orwellian</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Big Brother family:<br>> Orwellian<br>Big Brother</p><hr><p class='rbadgename'>👹 Exact Hell</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Hell family:<br>> Exact Hell<br>Hell</p><hr><p class='rbadgename'>🏈 17776</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>No family</p><hr><p class='rbadgename'>💎 Exact 80085</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Boob family:<br>> Exact 80085<br>Exact Boob<br>58008<br>80085<br>8008</p><hr><p class='rbadgename'>⏳ Full Day</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>No family</p><hr><p class='rbadgename'>📅 Groundhog Day</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Calendar family:<br>Exact Calendar<br>> Groundhog Day<br>Always<br>Calendar</p><hr><p class='rbadgename'>🌿 Hotbox</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Botanist family:<br>Exact Botanist<br>> Hotbox<br>Exact Meaning<br>Botanist<br>Meaning of Life</p><hr><p class='rbadgename'>🌌 Universal Answer</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Meaning family:<br>> Universal Answer<br>Deeper Meaning</p><hr><p class='rbadgename'>🔱 Infernal</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Devil family:<br>Exact Devil<br>> Infernal<br>Devil</p><hr><p class='rbadgename'>🫠 Exact Brainrot</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Sixty-Seven family:<br>Exact Six-Seven<br>> Brainrot<br>6767<br>Six-Seven</p><hr><p class='rbadgename'>😏 Very Very Nice</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Nice family:<br>Exact Nice<br>> Very Very Nice<br>Very Nice<br>Nice</p><hr><p class='rbadgename'>🏦 Jackpot Six</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Jackpot family:<br>Exact Jackpot<br>> Jackpot Six<br>Jackpot Five<br>Jackpot Four<br>Jackpot</p><hr><p class='rbadgename'>🚑 Mayday</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Emergency family:<br>Exact Emergency<br>> Mayday<br>Emergency</p><hr><p class='rbadgename'>🐐 One Million</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>No family</p>"],
+        "0/1/2/3/4/5/6/7/8/9": [100000100, "a single digit - badges are normally separate", "<p class='rbadgename'>0️⃣ Zero</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Single Digit Family:<br>> Zero<br>One<br>Two<br>Three<br>Four<br>Five<br>Six<br>Seven<br>Eight<br>Nine<br>Single Digit</p><hr><p class='rbadgename'>1️⃣ One</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Single Digit Family:<br>Zero<br>> One<br>Two<br>Three<br>Four<br>Five<br>Six<br>Seven<br>Eight<br>Nine<br>Single Digit</p><hr><p class='rbadgename'>2️⃣ Two</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Single Digit Family:<br>Zero<br>One<br>> Two<br>Three<br>Four<br>Five<br>Six<br>Seven<br>Eight<br>Nine<br>Single Digit</p><hr><p class='rbadgename'>3️⃣ Three</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Single Digit Family:<br>Zero<br>One<br>Two<br>> Three<br>Four<br>Five<br>Six<br>Seven<br>Eight<br>Nine<br>Single Digit</p><hr><p class='rbadgename'>4️⃣ Four</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Single Digit Family:<br>Zero<br>One<br>Two<br>Three<br>> Four<br>Five<br>Six<br>Seven<br>Eight<br>Nine<br>Single Digit</p><hr><p class='rbadgename'>5️⃣ Five</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Single Digit Family:<br>Zero<br>One<br>Two<br>Three<br>Four<br>> Five<br>Six<br>Seven<br>Eight<br>Nine<br>Single Digit</p><hr><p class='rbadgename'>6️⃣ Six</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Single Digit Family:<br>Zero<br>One<br>Two<br>Three<br>Four<br>Five<br>> Six<br>Seven<br>Eight<br>Nine<br>Single Digit</p><hr><p class='rbadgename'>7️⃣ Seven</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Single Digit Family:<br>Zero<br>One<br>Two<br>Three<br>Four<br>Five<br>Six<br>> Seven<br>Eight<br>Nine<br>Single Digit</p><hr><p class='rbadgename'>8️⃣ Eight</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Single Digit Family:<br>Zero<br>One<br>Two<br>Three<br>Four<br>Five<br>Six<br>Seven<br>> Eight<br>Nine<br>Single Digit</p><hr><p class='rbadgename'>9️⃣ Nine</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Single Digit Family:<br>Zero<br>One<br>Two<br>Three<br>Four<br>Five<br>Six<br>Seven<br>Eight<br>> Nine<br>Single Digit</p>"],
+        "funny number": [50000050, "either 69420 or 42069", "<p class='rbadgename'>😂 Funny Number</p><p class='rbadgeep'>50 000 050 EP</p><p class='rbadgefamily'>Ultimeme family:<br>> Funny Number<br>Funny Numbers</p>"],
+        "exact boob": [50000050, "either 58008 or 8008, which stands for boob/boobs", "<p class='rbadgename'>🍈 Exact Boob</p><p class='rbadgeep'>50 000 050 EP</p><p class='rbadgefamily'>Boob family:<br>Exact 80085<br>> Exact Boob<br>58008<br>80085<br>8008</p>"],
+        "always": [50000050, "either 247365 or 365247 which stands for 24/7/365", "<p class='rbadgename'>♾️ Always</p><p class='rbadgeep'>50 000 050 EP</p><p class='rbadgefamily'>Calendar family:<br>Exact Calendar<br>Groundhog Day<br>> Always<br>Calendar</p>"],
+        "13th power": [33333367, "number is in the form n^13", "<p class='rbadgename'>💀 13th Power</p><p class='rbadgeep'>33 333 367 EP</p><p class='rbadgefamily'>Power family:<br>> 13th Power<br>17th Power<br>19th Power<br>10th Power<br>11th Power<br>9th Power<br>8th Power<br>Ouroboros<br>7th Power<br>6th Power<br>5th Power<br>4th Power<br>3rd Power<br>2nd Power</p>"],
+        "17th power": [33333367, "number is in the form n^17", "<p class='rbadgename'>🧙 17th Power</p><p class='rbadgeep'>33 333 367 EP</p><p class='rbadgefamily'>Power family:<br>13th Power<br>> 17th Power<br>19th Power<br>10th Power<br>11th Power<br>9th Power<br>8th Power<br>Ouroboros<br>7th Power<br>6th Power<br>5th Power<br>4th Power<br>3rd Power<br>2nd Power</p>"],
+        "19th power": [33333367, "number is in the form n^19", "<p class='rbadgename'>🌑 19th Power</p><p class='rbadgeep'>33 333 367 EP</p><p class='rbadgefamily'>Power family:<br>13th Power<br>17th Power<br>> 19th Power<br>10th Power<br>11th Power<br>9th Power<br>8th Power<br>Ouroboros<br>7th Power<br>6th Power<br>5th Power<br>4th Power<br>3rd Power<br>2nd Power</p>"],
+        "tau": [33333367, "one of 6283,62831,628318 which are the first digits of τ", "<p class='rbadgename'>🌀 Tau</p><p class='rbadgeep'>33 333 367 EP</p><p class='rbadgefamily'>Tau family:<br>> Tau<br>Tau Slice (5)<br>Tau Slice (4)</p>"],
+        "golden ratio": [33333367, "one of 1618,16180,161803 which are the first digits of φ", "<p class='rbadgename'>🐚 Golden Ratio</p><p class='rbadgeep'>33 333 367 EP</p><p class='rbadgefamily'>No family</p>"],
+        "pi": [25000025, "one of 314,3141,31415,314159 which are the first digits of π", "<p class='rbadgename'>🥧 Pi</p><p class='rbadgeep'>25 000 025 EP</p><p class='rbadgefamily'>Pi family:<br>> Pi<br>Pi Slice (5)<br>Pi Slice (4)<br>Pi Slice (3)</p>"],
+        "euler's number": [25000025, "one of 271,2718,27182,271828 which are the first digits of e", "<p class='rbadgename'>📈 Euler's Number</p><p class='rbadgeep'>25 000 025 EP</p><p class='rbadgefamily'>E family:<br>> Euler's Number<br>E Slice (5)<br>E Slice (4)<br>E Slice (3)</p>"],
+        "4 consecutive numbers": [25000025, "4 consecutive numbers where at least one is 2+ digits", "<p class='rbadgename'>⛓️ 4 Consecutive Numbers</p><p class='rbadgeep'>25 000 025 EP</p><p class='rbadgefamily'>Consecutive family:<br>> 4 Consecutive Numbers<br>4 Consecutive Numbers (Contains)<br>4 Consecutive Numbers (Scrambled)<br>3 Consecutive Numbers<br>3 Consecutive Numbers (Scrambled)<br>3 Consecutive Numbers (Contains)<br>2 Consecutive Numbers<br>2 Consecutive Numbers (Contains)<br>2 Consecutive Numbers (Nearby)</p>"],
+        "10th power": [25000025, "number is in the form n^10", "<p class='rbadgename'>🔟 10th Power</p><p class='rbadgeep'>25 000 025 EP</p><p class='rbadgefamily'>Power family:<br>13th Power<br>17th Power<br>19th Power<br>> 10th Power<br>11th Power<br>9th Power<br>8th Power<br>Ouroboros<br>7th Power<br>6th Power<br>5th Power<br>4th Power<br>3rd Power<br>2nd Power</p>"],
+        "11th power": [25000025, "number is in the form n^11", "<p class='rbadgename'>🕚 11th Power</p><p class='rbadgeep'>25 000 025 EP</p><p class='rbadgefamily'>Power family:<br>13th Power<br>17th Power<br>19th Power<br>10th Power<br>> 11th Power<br>9th Power<br>8th Power<br>Ouroboros<br>7th Power<br>6th Power<br>5th Power<br>4th Power<br>3rd Power<br>2nd Power</p>"],
+        "9th power": [20000020, "number is in the form n^9", "<p class='rbadgename'>☁️ 9th Power</p><p class='rbadgeep'>20 000 020 EP</p><p class='rbadgefamily'>Power family:<br>13th Power<br>17th Power<br>19th Power<br>10th Power<br>11th Power<br>> 9th Power<br>8th Power<br>Ouroboros<br>7th Power<br>6th Power<br>5th Power<br>4th Power<br>3rd Power<br>2nd Power</p>"],
+        "8th power": [16666683, "number is in the form n^8", "<p class='rbadgename'>🎱 8th Power</p><p class='rbadgeep'>16 666 683 EP</p><p class='rbadgefamily'>Power family:<br>13th Power<br>17th Power<br>19th Power<br>10th Power<br>11th Power<br>9th Power<br>> 8th Power<br>Ouroboros<br>7th Power<br>6th Power<br>5th Power<br>4th Power<br>3rd Power<br>2nd Power</p>"],
+        "ouroboros": [14285729, "number is in the form n^n", "<p class='rbadgename'>🐍 Ouroboros</p><p class='rbadgeep'>14 285 729 EP</p><p class='rbadgefamily'>Power family:<br>13th Power<br>17th Power<br>19th Power<br>10th Power<br>11th Power<br>9th Power<br>8th Power<br>> Ouroboros<br>7th Power<br>6th Power<br>5th Power<br>4th Power<br>3rd Power<br>2nd Power</p>"],
+        "7th power": [12500013, "number is in the form n^7", "<p class='rbadgename'>🌈 7th Power</p><p class='rbadgeep'>12 500 013 EP</p><p class='rbadgefamily'>Power family:<br>13th Power<br>17th Power<br>19th Power<br>10th Power<br>11th Power<br>9th Power<br>8th Power<br>Ouroboros<br>> 7th Power<br>6th Power<br>5th Power<br>4th Power<br>3rd Power<br>2nd Power</p>"],
+        "power of seven": [12500013, "number is in the form 7^n", "<p class='rbadgename'>7️⃣ Power of Seven</p><p class='rbadgeep'>12 500 013 EP</p><p class='rbadgefamily'>No family</p>"],
+        "sequence (6)": [11111122, "contains six 1-digit numbers in order, ascending or descending", "<p class='rbadgename'>🔢 Sequence (6)</p><p class='rbadgeep'>11 111 122 EP</p><p class='rbadgefamily'>Progression family:<br>> Sequence (6)<br>Cascade<br>Waterfall<br>Even Spacing<br>Crescendo<br>Even Spacing (Absolute)<br>Turtle<br>Sequence (4)<br>Scramble<br>Metronome<br>Sequence (3)<br>Mini Scramble</p>"],
+        "power of five": [11111122, "number is in the form 5^n", "<p class='rbadgename'>5️⃣ Power of Five</p><p class='rbadgeep'>11 111 122 EP</p><p class='rbadgefamily'>No family</p>"],
+        "hello": [11111122, "contains 07734 which is 'hello' upside down", "<p class='rbadgename'>👋 Hello</p><p class='rbadgeep'>11 111 122 EP</p><p class='rbadgefamily'>No family</p>"],
+        "factorial": [11111122, "number is in the form n! - n×(n-1)×(n-2)×...×2", "<p class='rbadgename'>❗ Factorial</p><p class='rbadgeep'>11 111 122 EP</p><p class='rbadgefamily'>No family</p>"],
+        "single digit": [10000010, "number has exactly one digit", "<p class='rbadgename'>☝️ Single Digit</p><p class='rbadgeep'>10 000 010 EP</p><p class='rbadgefamily'>Single Digit Family:<br>Zero<br>One<br>Two<br>Three<br>Four<br>Five<br>Six<br>Seven<br>Eight<br>Nine<br>> Single Digit</p>"],
+        "semi-eon": [10000010, "ends in 50000", "<p class='rbadgename'>🦴 Semi-Eon</p><p class='rbadgeep'>10 000 010 EP</p><p class='rbadgefamily'>No family</p>"],
+        "quint nine": [10000010, "ends in 99999", "<p class='rbadgename'>🥳 Quint Nine</p><p class='rbadgeep'>10 000 010 EP</p><p class='rbadgefamily'>Nine Ending family<br>> Quint Nine<br>Quad Nine<br>Triple Nine<br>Double Nine</p>"],
+        "eon": [10000010, "ends in 00000", "<p class='rbadgename'>🗿 Eon</p><p class='rbadgeep'>10 000 010 EP</p><p class='rbadgefamily'>No family</p>"],
+        "deep void (5)": [10000010, "contains 00000", "<p class='rbadgename'>⚫ Deep Void (5)</p><p class='rbadgeep'>10 000 010 EP</p><p class='rbadgefamily'>Void Depth family:<br>> Deep Void (5)<br>Deep Void (4)<br>Deep Void (3)<br>Deep Void</p>"],
+        "contiguous sixes": [10000010, "contains six of the same number in a row", "<p class='rbadgename'>➖➖➖➖ Contiguous Sixes</p><p class='rbadgeep'>10 000 010 EP</p><p class='rbadgefamily'>Contiguous Run family:<br>> Contiguous Sixes<br>Contiguous Fives<br>Contiguous Quads<br>Contiguous Trips</p>"],
+        "6th power": [9090918, "number is in the form n^6", "<p class='rbadgename'>🎲 6th Power</p><p class='rbadgeep'>9 090 918 EP</p><p class='rbadgefamily'>Power family:<br>13th Power<br>17th Power<br>19th Power<br>10th Power<br>11th Power<br>9th Power<br>8th Power<br>Ouroboros<br>7th Power<br>> 6th Power<br>5th Power<br>4th Power<br>3rd Power<br>2nd Power</p>"],
+        "power of three": [7692315, "number is in the form 3^n", "<p class='rbadgename'>🔺 Power of Three</p><p class='rbadgeep'>7 692 315 EP</p><p class='rbadgefamily'>No family</p>"],
+        "5th power": [6250006, "number is in the form n^5", "<p class='rbadgename'>🖐 5th Power</p><p class='rbadgeep'>6 250 006 EP</p><p class='rbadgefamily'>Power family:<br>13th Power<br>17th Power<br>19th Power<br>10th Power<br>11th Power<br>9th Power<br>8th Power<br>Ouroboros<br>7th Power<br>6th Power<br>> 5th Power<br>4th Power<br>3rd Power<br>2nd Power</p>"],
+        "jackpot five": [5263163, "contains 77777; seven is believed to be lucky", "<p class='rbadgename'>💰💰💰 Jackpot Five</p><p class='rbadgeep'>5 000 005 EP</p><p class='rbadgefamily'>Jackpot family:<br>Exact Jackpot<br>Jackpot Six<br>> Jackpot Five<br>Jackpot Four<br>Jackpot</p>"],
+        "tau slice (5)": [5000005, "contains 62831, the first five digits of τ", "<p class='rbadgename'>🌀 Tau Slice (5)</p><p class='rbadgeep'>5 000 005 EP</p><p class='rbadgefamily'>Tau family:<br>Tau<br>> Tau Slice (5)<br>Tau Slice (4)</p>"],
+        "royal flush": [5000005, "contains 56789, the highest possible sequence of 5", "<p class='rbadgename'>🐚 Fibonacci Number</p><p class='rbadgeep'>3 333 337 EP</p><p class='rbadgefamily'>Straight family:<br>> Royal Flush<br>Straight Flush<br>Straight</p>"],
+        "power of two": [5000005, "number is in the form 2^n", "<p class='rbadgename'>💾 Power of Two</p><p class='rbadgeep'>5 000 005 EP</p><p class='rbadgefamily'>No family</p>"],
+        "pi slice (5)": [5000005, "contains 31415, the first five digits of π", "<p class='rbadgename'>🥧 Pi Slice (5)</p><p class='rbadgeep'>5 000 005 EP</p><p class='rbadgefamily'>Pi family:<br>Pi<br>> Pi Slice (5)<br>Pi Slice (4)<br>Pi Slice (3)</p>"],
+        "e slice (5)": [5000005, "contains 27182, the first five digits of e", "<p class='rbadgename'>📈 E Slice (5)</p><p class='rbadgeep'>5 000 005 EP</p><p class='rbadgefamily'>E family:<br>Euler's Number<br>> E Slice (5)<br>E Slice (4)<br>E Slice (3)</p>"],
+        "80085": [5000005, "contains 80085, which stands for boobs", "<p class='rbadgename'>🅱 80085</p><p class='rbadgeep'>5 000 005 EP</p><p class='rbadgefamily'>Boob family:<br>Exact 80085<br>Exact Boob<br>58008<br>> 80085<br>8008</p>"],
+        "58008": [5000005, "contains 58008, which is 'boobs' upside down", "<p class='rbadgename'>🔠 58008</p><p class='rbadgeep'>5 000 005 EP</p><p class='rbadgefamily'>Boob family:<br>Exact 80085<br>Exact Boob<br>> 58008<br>80085<br>8008</p>"],
+        "fibonacci number": [3333337, "number is in the fibonacci sequence", "<p class='rbadgename'>🐚 Fibonacci Number</p><p class='rbadgeep'>3 333 337 EP</p><p class='rbadgefamily'>No family</p>"],
+        "cascade": [3333337, "each digit is exactly 1 more than the previous", "<p class='rbadgename'>🌊 Cascade</p><p class='rbadgeep'>3 333 337 EP</p><p class='rbadgefamily'>Progression family:<br>Sequence (6)<br>> Cascade<br>Waterfall<br>Even Spacing<br>Crescendo<br>Even Spacing (Absolute)<br>Turtle<br>Sequence (4)<br>Scramble<br>Metronome<br>Sequence (3)<br>Mini Scramble</p>"],
+        "4th power": [3125003, "number is in the form n^4", "<p class='rbadgename'>📦 4th Power</p><p class='rbadgeep'>3 125 003 EP</p><p class='rbadgefamily'>Power family:<br>13th Power<br>17th Power<br>19th Power<br>10th Power<br>11th Power<br>9th Power<br>8th Power<br>Ouroboros<br>7th Power<br>6th Power<br>5th Power<br>> 4th Power<br>3rd Power<br>2nd Power</p>"],
+        "waterfall": [2857146, "each digit is exactly 1 less than the previous", "<p class='rbadgename'>🚿 Waterfall</p><p class='rbadgeep'>2 857 146 EP</p><p class='rbadgefamily'>Progression family:<br>Sequence (6)<br>Cascade<br>> Waterfall<br>Even Spacing<br>Crescendo<br>Even Spacing (Absolute)<br>Turtle<br>Sequence (4)<br>Scramble<br>Metronome<br>Sequence (3)<br>Mini Scramble</p>"],
+        "4 consecutive numbers (contains)": [2631582, "contains 4 consecutive numbers where at least one is 2+ digits", "<p class='rbadgename'>🔗 4 Consecutive Numbers (Contains)</p><p class='rbadgeep'>2 631 582 EP</p><p class='rbadgefamily'>Consecutive family:<br>4 Consecutive Numbers<br>> 4 Consecutive Numbers (Contains)<br>4 Consecutive Numbers (Scrambled)<br>3 Consecutive Numbers<br>3 Consecutive Numbers (Scrambled)<br>3 Consecutive Numbers (Contains)<br>2 Consecutive Numbers<br>2 Consecutive Numbers (Contains)<br>2 Consecutive Numbers (Nearby)</p>"],
+        "4 consecutive numbers (scrambled)": [2272730, "contains 4 consecutive numbers where at least one is 2+ digits, but they must be sorted", "<p class='rbadgename'>🔀 4 Consecutive Numbers (Scrambled)</p><p class='rbadgeep'>2 272 730 EP</p><p class='rbadgefamily'>Consecutive family:<br>4 Consecutive Numbers<br>4 Consecutive Numbers (Contains)<br>> 4 Consecutive Numbers (Scrambled)<br>3 Consecutive Numbers<br>3 Consecutive Numbers (Scrambled)<br>3 Consecutive Numbers (Contains)<br>2 Consecutive Numbers<br>2 Consecutive Numbers (Contains)<br>2 Consecutive Numbers (Nearby)</p>"],
+        "homogeneous": [2222224, "every digit is the same", "<p class='rbadgename'>🥛 Homogeneous</p><p class='rbadgeep'>2 222 224 EP</p><p class='rbadgefamily'>No family</p>"],
+        "funny numbers": [1666668, "contains both 69 and 420", "<p class='rbadgename'>😂 Funny Numbers</p><p class='rbadgeep'>1 666 668 EP</p><p class='rbadgefamily'>Ultimeme family:<br>Funny Number<br>> Funny Numbers</p>"],
+        "binary soul": [1538463, "number is made up of only 1s and 0s", "<p class='rbadgename'>🤖 Binary Soul</p><p class='rbadgeep'>1 538 463 EP</p><p class='rbadgefamily'>No family</p>"],
+        "straight flush": [1449277, "contains one of 13579,97531,02468,86420", "<p class='rbadgename'>🃏 Straight Flush</p><p class='rbadgeep'>1 449 277 EP</p><p class='rbadgefamily'>Straight family:<br>Royal Flush<br>> Straight Flush<br>Straight</p>"],
+        "two digits": [1111112, "number has exactly two digits", "<p class='rbadgename'>✌️ Two Digits</p><p class='rbadgeep'>1 111 112 EP</p><p class='rbadgefamily'>No family</p>"],
+        "spy number": [1030929, "the sum of the digits equals the product of the digits", "<p class='rbadgename'>🕵 	Spy Number</p><p class='rbadgeep'>1 030 929 EP</p><p class='rbadgefamily'>No family</p>"],
+        "semi-epoch": [1000001, "ends in 5000", "<p class='rbadgename'>🗿 Semi-Epoch</p><p class='rbadgeep'>1 000 001 EP</p><p class='rbadgefamily'>No family</p>"],
+        "quad nine": [1000001, "ends in 9999", "<p class='rbadgename'>🎊 Quad Nine</p><p class='rbadgeep'>1 000 001 EP</p><p class='rbadgefamily'>Nine Ending family<br>Quint Nine<br>> Quad Nine<br>Triple Nine<br>Double Nine</p>"],
+        "epoch": [1000001, "ends in 0000", "<p class='rbadgename'>🏛 Epoch</p><p class='rbadgeep'>1 000 001 EP</p><p class='rbadgefamily'>No family</p>"],
+        "3rd power": [990100, "number is in the form n^3", "<p class='rbadgename'>🧊 3rd Power</p><p class='rbadgeep'>990 100 EP</p><p class='rbadgefamily'>Power family:<br>13th Power<br>17th Power<br>19th Power<br>10th Power<br>11th Power<br>9th Power<br>8th Power<br>Ouroboros<br>7th Power<br>6th Power<br>5th Power<br>4th Power<br>> 3rd Power<br>2nd Power</p>"],
+        "even spacing": [862070, "there is a constant difference between every digit", "<p class='rbadgename'>📏 Even Spacing</p><p class='rbadgeep'>862 070 EP</p><p class='rbadgefamily'>Progression family:<br>Sequence (6)<br>Cascade<br>Waterfall<br>> Even Spacing<br>Crescendo<br>Even Spacing (Absolute)<br>Turtle<br>Sequence (4)<br>Scramble<br>Metronome<br>Sequence (3)<br>Mini Scramble</p>"],
+        "3 consecutive numbers": [555556, "3 consecutive numbers where at least one is 2+ digits", "<p class='rbadgename'>⛓️ 3 Consecutive Numbers</p><p class='rbadgeep'>555 556 EP</p><p class='rbadgefamily'>Consecutive family:<br>4 Consecutive Numbers<br>4 Consecutive Numbers (Contains)<br>4 Consecutive Numbers (Scrambled)<br>> 3 Consecutive Numbers<br><br>3 Consecutive Numbers (Scrambled)<br>3 Consecutive Numbers (Contains)<br>2 Consecutive Numbers<br>2 Consecutive Numbers (Contains)<br>2 Consecutive Numbers (Nearby)</p>"],
+        "deep void (4)": [552487, "contains 0000", "<p class='rbadgename'>🌌 Deep Void (4)</p><p class='rbadgeep'>552 487 EP</p><p class='rbadgefamily'>Void Depth family:<br>Deep Void (5)<br>> Deep Void (4)<br>Deep Void (3)<br>Deep Void</p>"],
+        "contiguous fives": [552487, "contains five of the same number in a row", "<p class='rbadgename'>➖➖➖ Contiguous Fives</p><p class='rbadgeep'>552 487 EP</p><p class='rbadgefamily'>Contiguous Run family:<br>Contiguous Sixes<br>> Contiguous Fives<br>Contiguous Quads<br>Contiguous Trips</p>"],
+        "strobogrammatic": [502513, "the number looks mostly the same when rotated 180 degrees", "<p class='rbadgename'>🙃 Strobogrammatic</p><p class='rbadgeep'>502 513 EP</p><p class='rbadgefamily'>No family</p>"],
+        "straight": [454546, "contains five 1-digit numbers in order, ascending or descending", "<p class='rbadgename'>📏 Straight</p><p class='rbadgeep'>454 546 EP</p><p class='rbadgefamily'>Straight family:<br>Royal Flush<br>Straight Flush<br>> Straight</p>"],
+        "jackpot four": [357143, "contains 7777; seven is believed to be lucky", "<p class='rbadgename'>💰💰 Jackpot Four</p><p class='rbadgeep'>357 143 EP</p><p class='rbadgefamily'>Jackpot family:<br>Exact Jackpot<br>Jackpot Six<br>Jackpot Five<br>> Jackpot Four<br>Jackpot</p>"],
+        "very nice": [334448, "contains 6969; 69 stands for sex", "<p class='rbadgename'>🥵 Very Nice</p><p class='rbadgeep'>334 448 EP</p><p class='rbadgefamily'>Nice family:<br>Exact Nice<br>Very Very Nice<br>> Very Nice<br>Nice</p>"],
         "deeper meaning": [334448, "contains 4242; 42 is the answer to life, the universe, and everything"],
-        "6767": [334448, "contains 6767; 67 is recent slang that is considered brainrot"],
-        "tau slice (4)": [333334, "contains 6283, which are the first four digits of τ"],
-        "pi slice (4)": [333334, "contains 3141, which are the first four digits of π"],
-        "leet": [333334, "contains 1337, which is leetspeak for 'leet'"],
-        "hell": [333334, "contains 7734, which is 'hell' upside down"],
-        "e slice (4)": [333334, "contains 2718, which are the first four digits of e"],
-        "big brother": [333334, "contains 1984, which is a book by george orwell"],
-        "8008": [333334, "contains 8008, which stands for boob"],
-        "3 consecutive numbers (scrambled)": [277778, "contains 3 consecutive numbers where at least one is 2+ digits, but they must be sorted"],
-        "zipper": [246914, "number is made up of only 2 unique digits that alternate"],
-        "ascension": [219298, "each digit is larger than the last, not equal"],
-        "crescendo": [208334, "number forms a geometric sequence of at least 3 with a constant ratio where the terms can be 1-3 digits"],
-        "five of a kind": [198020, "contains five of the same number anywhere"],
-        "3 consecutive numbers (contains)": [157978, "contains 3 consecutive numbers where at least one is 2+ digits"],
-        "contiguous three pair": [154321, "contains three contiguous pairs adjacent to each other"],
-        "framed quad": [137174, "contains four of the same number surrounded by numbers not equal to the middle four"],
-        "framed triple": [137174, "contains three of the same number surrounded by numbers not equal to the middle three"],
-        "framed pair": [137174, "contains two of the same number surrounded by numbers not equal to the middle two"],
-        "decay": [119474, "each digit is smaller than the last, not equal"],
-        "three digits": [111111, "number has exactly three digits"],
-        "echo": [100100, "the first 1-3 digits are exactly the same as the second 1-3 digits"],
-        "triple nine": [100000, "ends in 999"],
-        "semi-millenium": [100000, "ends in 500"],
-        "pronic number": [100000, "number is in the form n^2+n"],
-        "millenium": [100000, "ends in 000"],
-        "colossal": [100000, "number is greater than 999000, not equal"],
-        "2nd power": [99900, "number is in the form n^2"],
-        "even spacing (absolute)": [90992, "there is a constant difference between every digit, but it can change signs/directions"],
-        "firefly": [82237, "number has only 2 unique digits with 1 of one digit and at least 3 of the other"],
-        "2 consecutive numbers": [50505, "2 consecutive numbers where at least one is 2+ digits"],
-        "palindrome": [50025, "number remains the same if it is read backwards"],
-        "deep void (3)": [37023, "contains 000"],
-        "contiguous quads": [37023, "contains four of the same number in a row"],
-        "turtle": [36049, "every digit is at most 1 more or less than the previous"],
-        "secret agent": [34614, "contains 007, which can mean james bond"],
-        "heavy": [33300, "the sum of every digit is no less than 45"],
-        "contiguous full house": [30111, "contains three of the same number next to two of a different number, or two of the same number next to three of a different number"],
-        "jackpot": [27027, "contains 777; seven is believed to be lucky"],
-        "devil": [27027, "contains 666, which is the beast's mark"],
-        "sequence (4)": [25907, "contains four 1-digit numbers in order, ascending or descending"],
-        "orientation": [25132, "contains 101, a number used in training courses"],
-        "error 404": [25132, "contains 404, the http error for when a resource was not found"],
-        "tree fiddy": [25006, "contains 350, which comes from south park"],
-        "pi slice (3)": [25006, "contains 314, which are the first three digits of π"],
-        "emergency": [25006, "contains 911, which is the united states general emergency number"],
-        "e slice (3)": [25006, "contains 271, which are the first three digits of e"],
-        "calendar": [25006, "contains 365, which is how many days are in a standard calendar year"],
-        "botanist": [25006, "contains 420, which is code for marijuana"],
+        "6767": [334448, "contains 6767; 67 is recent slang that is considered brainrot", "<p class='rbadgename'>🫠 6767</p><p class='rbadgeep'>334 448 EP</p><p class='rbadgefamily'>Sixty-Seven family:<br>Exact Six-Seven<br>Brainrot<br>> 6767<br>Six-Seven</p>"],
+        "tau slice (4)": [333334, "contains 6283, which are the first four digits of τ", "<p class='rbadgename'>🌀 Tau Slice (4)</p><p class='rbadgeep'>333 334 EP</p><p class='rbadgefamily'>Tau family:<br>Tau<br>Tau Slice (5)<br>> Tau Slice (4)</p>"],
+        "pi slice (4)": [333334, "contains 3141, which are the first four digits of π", "<p class='rbadgename'>🥧 Pi Slice (4)</p><p class='rbadgeep'>333 334 EP</p><p class='rbadgefamily'>Pi family:<br>Pi<br>Pi Slice (5)<br>> Pi Slice (4)<br>Pi Slice (3)</p>"],
+        "leet": [333334, "contains 1337, which is leetspeak for 'leet'", "<p class='rbadgename'>💻 Leet</p><p class='rbadgeep'>333 334 EP</p><p class='rbadgefamily'>Leet family:<br>Exact Leet<br>> Leet</p>"],
+        "hell": [333334, "contains 7734, which is 'hell' upside down", "<p class='rbadgename'>👹 Exact Hell</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Hell family:<br>Exact Hell<br>> Hell</p>"],
+        "e slice (4)": [333334, "contains 2718, which are the first four digits of e", "<p class='rbadgename'>📈 E Slice (4)</p><p class='rbadgeep'>333 334 EP</p><p class='rbadgefamily'>E family:<br>Euler's Number<br>E Slice (5)<br>> E Slice (4)<br>E Slice (3)</p>"],
+        "big brother": [333334, "contains 1984, which is a book by george orwell", "<p class='rbadgename'>👁️ Big Brother</p><p class='rbadgeep'333 334 EP</p><p class='rbadgefamily'>Big Brother family:<br>Orwellian<br>> Big Brother</p>"],
+        "8008": [333334, "contains 8008, which stands for boob", "<p class='rbadgename'>🔢 8008</p><p class='rbadgeep'>333 334 EP</p><p class='rbadgefamily'>Boob family:<br>Exact 80085<br>Exact Boob<br>58008<br>80085<br>> 8008</p>"],
+        "3 consecutive numbers (scrambled)": [277778, "contains 3 consecutive numbers where at least one is 2+ digits, but they must be sorted", "<p class='rbadgename'>🔀 3 Consecutive Numbers (Scrambled)</p><p class='rbadgeep'>277 778 EP</p><p class='rbadgefamily'>Consecutive family:<br>4 Consecutive Numbers<br>4 Consecutive Numbers (Contains)<br>4 Consecutive Numbers (Scrambled)<br>3 Consecutive Numbers<br>> 3 Consecutive Numbers (Scrambled)<br>3 Consecutive Numbers (Contains)<br>2 Consecutive Numbers<br>2 Consecutive Numbers (Contains)<br>2 Consecutive Numbers (Nearby)</p>"],
+        "zipper": [246914, "number is made up of only 2 unique digits that alternate", "<p class='rbadgename'>🤐 Zipper</p><p class='rbadgeep'>246 914 EP</p><p class='rbadgefamily'>No family</p>"],
+        "ascension": [219298, "each digit is larger than the last, not equal", "<p class='rbadgename'>📈 Ascension</p><p class='rbadgeep'>3 333 337 EP</p><p class='rbadgefamily'>Monotonic family:<br>> Ascension<br>Decay<br>Steps<br>Slopes</p>"],
+        "crescendo": [208334, "number forms a geometric sequence of at least 3 with a constant ratio where the terms can be 1-3 digits", "<p class='rbadgename'>🔊 Crescendo</p><p class='rbadgeep'>862 070 EP</p><p class='rbadgefamily'>Progression family:<br>Sequence (6)<br>Cascade<br>Waterfall<br>Even Spacing<br>> Crescendo<br>Even Spacing (Absolute)<br>Turtle<br>Sequence (4)<br>Scramble<br>Metronome<br>Sequence (3)<br>Mini Scramble</p>"],
+        "five of a kind": [198020, "contains five of the same number anywhere", "<p class='rbadgename'>🃏 Five of a Kind</p><p class='rbadgeep'>198 020 EP</p><p class='rbadgefamily'>Of a Kind family:<br>> Five of a Kind<br>Framed Quad<br>Framed Triple<br>Four of a Kind<br>Three of a Kind</p>"],
+        "3 consecutive numbers (contains)": [157978, "contains 3 consecutive numbers where at least one is 2+ digits", "<p class='rbadgename'>🔗	3 Consecutive Numbers (Contains)</p><p class='rbadgeep'>277 778 EP</p><p class='rbadgefamily'>Consecutive family:<br>4 Consecutive Numbers<br>4 Consecutive Numbers (Contains)<br>4 Consecutive Numbers (Scrambled)<br>3 Consecutive Numbers<br>3 Consecutive Numbers (Scrambled)<br>> 3 Consecutive Numbers (Contains)<br>2 Consecutive Numbers<br>2 Consecutive Numbers (Contains)<br>2 Consecutive Numbers (Nearby)</p>"],
+        "contiguous three pair": [154321, "contains three contiguous pairs adjacent to each other", "<p class='rbadgename'>👨‍👩‍👧‍👦👯	Contiguous Three Pair</p><p class='rbadgeep'>154 321 EP</p><p class='rbadgefamily'>Pairs family:<br>> Contiguous Three Pair<br>Framed Pair<br>Framed Double<br>Three Pair<br>Contiguous Two Pair<br>Two Pair<br>Contiguous Pair<br>Pair</p>"],
+        "framed quad": [137174, "contains four of the same number surrounded by numbers not equal to the middle four", "<p class='rbadgename'>🪟 Framed Quad</p><p class='rbadgeep'>137 174 EP</p><p class='rbadgefamily'>Of a Kind family:<br>Five of a Kind<br>> Framed Quad<br>Framed Triple<br>Four of a Kind<br>Three of a Kind</p>"],
+        "framed triple": [137174, "contains three of the same number surrounded by numbers not equal to the middle three", "<p class='rbadgename'>🖼️🖼 Framed Triple</p><p class='rbadgeep'>137 174 EP</p><p class='rbadgefamily'>Of a Kind family:<br>Five of a Kind<br>Framed Quad<br>> Framed Triple<br>Four of a Kind<br>Three of a Kind</p>"],
+        "framed pair": [137174, "contains two of the same number surrounded by numbers not equal to the middle two", "<p class='rbadgename'>🖼 Framed Pair</p><p class='rbadgeep'>137 174 EP</p><p class='rbadgefamily'>Pairs family:<br>Contiguous Three Pair<br>> Framed Pair<br>Framed Double<br>Three Pair<br>Contiguous Two Pair<br>Two Pair<br>Contiguous Pair<br>Pair</p>"],
+        "decay": [119474, "each digit is smaller than the last, not equal", "<p class='rbadgename'>📉 Decay</p><p class='rbadgeep'>119 474 EP</p><p class='rbadgefamily'>Monotonic family:<br>Ascension<br>> Decay<br>Steps<br>Slopes</p>"],
+        "three digits": [111111, "number has exactly three digits", "<p class='rbadgename'>🤟 Three Digits</p><p class='rbadgeep'>111 111 EP</p><p class='rbadgefamily'>No family</p>"],
+        "echo": [100100, "the first 1-3 digits are exactly the same as the second 1-3 digits", "<p class='rbadgename'>📣 Echo</p><p class='rbadgeep'>100 100 EP</p><p class='rbadgefamily'>No family</p>"],
+        "triple nine": [100000, "ends in 999", "<p class='rbadgename'>🎉 Triple Nine</p><p class='rbadgeep'>100 000 EP</p><p class='rbadgefamily'>Nine Ending family<br>Quint Nine<br>Quad Nine<br>> Triple Nine<br>Double Nine</p>"],
+        "semi-millenium": [100000, "ends in 500", "<p class='rbadgename'>📜 Semi-Millennium</p><p class='rbadgeep'>100 000 EP</p><p class='rbadgefamily'>No family</p>"],
+        "pronic number": [100000, "number is in the form n^2+n", "<p class='rbadgename'>🧮 Pronic Number</p><p class='rbadgeep'>100 000 EP</p><p class='rbadgefamily'>No family</p>"],
+        "millenium": [100000, "ends in 000", "<p class='rbadgename'>🗓 Millennium</p><p class='rbadgeep'>100 000 EP</p><p class='rbadgefamily'>No family</p>"],
+        "colossal": [100000, "number is greater than 999000, not equal", "<p class='rbadgename'>🪨 Colossal</p><p class='rbadgeep'>100 000 EP</p><p class='rbadgefamily'>No family</p>"],
+        "2nd power": [99900, "number is in the form n^2", "<p class='rbadgename'>🟦 2nd Power</p><p class='rbadgeep'>99 000 EP</p><p class='rbadgefamily'>Power family:<br>13th Power<br>17th Power<br>19th Power<br>10th Power<br>11th Power<br>9th Power<br>8th Power<br>Ouroboros<br>7th Power<br>6th Power<br>5th Power<br>4th Power<br>3rd Power<br>> 2nd Power</p>"],
+        "even spacing (absolute)": [90992, "there is a constant difference between every digit, but it can change signs/directions", "<p class='rbadgename'>📐 Even Spacing (Absolute)</p><p class='rbadgeep'>862 070 EP</p><p class='rbadgefamily'>Progression family:<br>Sequence (6)<br>Cascade<br>Waterfall<br>Even Spacing<br>Crescendo<br>> Even Spacing (Absolute)<br>Turtle<br>Sequence (4)<br>Scramble<br>Metronome<br>Sequence (3)<br>Mini Scramble</p>"],
+        "firefly": [82237, "number has only 2 unique digits with 1 of one digit and at least 3 of the other", "<p class='rbadgename'>🪲 Firefly</p><p class='rbadgeep'>82 237 EP</p><p class='rbadgefamily'>Duality family:<br>> Firefly<br>Duality</p>"],
+        "2 consecutive numbers": [50505, "2 consecutive numbers where at least one is 2+ digits", "<p class='rbadgename'>🔗 2 Consecutive Numbers</p><p class='rbadgeep'>50 505 EP</p><p class='rbadgefamily'>Consecutive family:<br>4 Consecutive Numbers<br>4 Consecutive Numbers (Contains)<br>4 Consecutive Numbers (Scrambled)<br>3 Consecutive Numbers<br>3 Consecutive Numbers (Scrambled)<br>3 Consecutive Numbers (Contains)<br>> 2 Consecutive Numbers<br>2 Consecutive Numbers (Contains)<br>2 Consecutive Numbers (Nearby)</p>"],
+        "palindrome": [50025, "number remains the same if it is read backwards", "<p class='rbadgename'>🪞 Palindrome</p><p class='rbadgeep'>50 025 EP</p><p class='rbadgefamily'>Palindrome family:<br>> Palindrome<br>Pocket Mirror</p>"],
+        "deep void (3)": [37023, "contains 000", "<p class='rbadgename'>🌑 Deep Void (3)</p><p class='rbadgeep'>37 023 EP</p><p class='rbadgefamily'>Void Depth family:<br>Deep Void (5)<br>Deep Void (4)<br>> Deep Void (3)<br>Deep Void</p>"],
+        "contiguous quads": [37023, "contains four of the same number in a row", "<p class='rbadgename'>➖➖ Contiguous Quads</p><p class='rbadgeep'>37 023 EP</p><p class='rbadgefamily'>Contiguous Run family:<br>Contiguous Sixes<br>Contiguous Fives<br>> Contiguous Quads<br>Contiguous Trips</p>"],
+        "turtle": [36049, "every digit is at most 1 more or less than the previous", "<p class='rbadgename'>🐢 Turtle</p><p class='rbadgeep'>36 049 EP</p><p class='rbadgefamily'>Progression family:<br>Sequence (6)<br>Cascade<br>Waterfall<br>Even Spacing<br>Crescendo<br>Even Spacing (Absolute)<br>> Turtle<br>Sequence (4)<br>Scramble<br>Metronome<br>Sequence (3)<br>Mini Scramble</p>"],
+        "secret agent": [34614, "contains 007, which can mean james bond", "<p class='rbadgename'>🕶️ Secret Agent</p><p class='rbadgeep'>34 614 EP</p><p class='rbadgefamily'>No family</p>"],
+        "heavy": [33300, "the sum of every digit is no less than 45", "<p class='rbadgename'>🧱 Heavy</p><p class='rbadgeep'>33 300 EP</p><p class='rbadgefamily'>No family</p>"],
+        "contiguous full house": [30111, "contains three of the same number next to two of a different number, or two of the same number next to three of a different number", "<p class='rbadgename'>🏰 Contiguous Full House</p><p class='rbadgeep'>30 111 EP</p><p class='rbadgefamily'>Boat family:<br>> Contiguous Full House<br>Full House</p>"],
+        "jackpot": [27027, "contains 777; seven is believed to be lucky", "<p class='rbadgename'>💰 Jackpot</p><p class='rbadgeep'>27 027 EP</p><p class='rbadgefamily'>Jackpot family:<br>Exact Jackpot<br>Jackpot Six<br>Jackpot Five<br>Jackpot Four<br>> Jackpot</p>"],
+        "devil": [27027, "contains 666, which is the beast's mark", "<p class='rbadgename'>😈 Devil</p><p class='rbadgeep'>27 027 EP</p><p class='rbadgefamily'>Devil family:<br>Exact Devil<br>Infernal<br>> Devil</p>"],
+        "sequence (4)": [25907, "contains four 1-digit numbers in order, ascending or descending", "<p class='rbadgename'>🔢 Sequence (4)</p><p class='rbadgeep'>25 907 EP</p><p class='rbadgefamily'>Progression family:<br>Sequence (6)<br>Cascade<br>Waterfall<br>Even Spacing<br>Crescendo<br>Even Spacing (Absolute)<br>Turtle<br>> Sequence (4)<br>Scramble<br>Metronome<br>Sequence (3)<br>Mini Scramble</p>"],
+        "orientation": [25132, "contains 101, a number used in training courses", "<p class='rbadgename'>🧭 Orientation</p><p class='rbadgeep'>25 132 EP</p><p class='rbadgefamily'>Orientation family:<br>Exact Orientation<br>> Orientaton</p>"],
+        "error 404": [25132, "contains 404, the http error for when a resource was not found", "<p class='rbadgename'>🚫 Error 404</p><p class='rbadgeep'>25 132 EP</p><p class='rbadgefamily'>Error family:<br>Not Found<br>> Error 404</p>"],
+        "pi slice (3)": [25006, "contains 314, which are the first three digits of π", "<p class='rbadgename'>🥧 Pi Slice (3)</p><p class='rbadgeep'>25 006 EP</p><p class='rbadgefamily'>Pi family:<br>Pi<br>Pi Slice (5)<br>Pi Slice (4)<br>> Pi Slice (3)</p>"],
+        "emergency": [25006, "contains 911, which is the united states general emergency number", "<p class='rbadgename'>🚑 Emergency</p><p class='rbadgeep'>25 006 EP</p><p class='rbadgefamily'>Emergency family:<br>Exact Emergency<br>Mayday<br>> Emergency</p>"],
+        "e slice (3)": [25006, "contains 271, which are the first three digits of e", "<p class='rbadgename'>📈 E Slice (3)</p><p class='rbadgeep'>25 006 EP</p><p class='rbadgefamily'>E family:<br>Euler's Number<br>E Slice (5)<br>E Slice (4)<br>> E Slice (3)</p>"],
+        "calendar": [25006, "contains 365, which is how many days are in a standard calendar year", "<p class='rbadgename'>📅 Calendar</p><p class='rbadgeep'>25 006 EP</p><p class='rbadgefamily'>Calendar family:<br>Exact Calendar<br>Groundhog Day<br>Always<br>> Calendar</p>"],
+        "botanist": [25006, "contains 420, which is code for marijuana", "<p class='rbadgename'>🌿 Botanist</p><p class='rbadgeep'>25 006 EP</p><p class='rbadgefamily'>Botanist family:<br>Exact Botanist<br>Hotbox<br>Exact Meaning<br>> Botanist<br>Meaning of Life</p>"],
         "divisible by 3": [24414, "every digit is one of 0,3,6,9"],
-        "scramble": [22722, "when sorted, the number forms a perfect sequence"],
-        "duality": [21654, "only 2 unique digits"],
-        "steps": [20202, "each digit is greater than or equal to the last"],
-        "metronome": [17784, "number forms an arithmetic sequence of at least 3 with a constant difference where the terms can be 1-3 digits"],
-        "framed double": [15242, "contains two contiguous pairs surrounded by numbers not equal to their neighbors"],
-        "slopes": [12582, "each digit is less than or equal to the last"],
-        "paired bookends": [11122, "number begins with a contiguous pair and ends with a different contiguous pair"],
+        "scramble": [22722, "when sorted, the number forms a perfect sequence", "<p class='rbadgename'>🔀 Scramble</p><p class='rbadgeep'>22 722 EP</p><p class='rbadgefamily'>Progression family:<br>Sequence (6)<br>Cascade<br>Waterfall<br>Even Spacing<br>Crescendo<br>Even Spacing (Absolute)<br>Turtle<br>Sequence (4)<br>> Scramble<br>Metronome<br>Sequence (3)<br>Mini Scramble</p>"],
+        "duality": [21654, "only 2 unique digits", "<p class='rbadgename'>☯️ Duality</p><p class='rbadgeep'>21 654 EP</p><p class='rbadgefamily'>Duality family:<br>Firefly<br>> Duality</p>"],
+        "steps": [20202, "each digit is greater than or equal to the last", "<p class='rbadgename'>🪜 Steps</p><p class='rbadgeep'>20 202 EP</p><p class='rbadgefamily'>Monotonic family:<br>Ascension<br>Decay<br>> Steps<br>Slopes</p>"],
+        "metronome": [17784, "number forms an arithmetic sequence of at least 3 with a constant difference where the terms can be 1-3 digits", "<p class='rbadgename'>🎼 Metronome</p><p class='rbadgeep'>17 784 EP</p><p class='rbadgefamily'>Progression family:<br>Sequence (6)<br>Cascade<br>Waterfall<br>Even Spacing<br>Crescendo<br>Even Spacing (Absolute)<br>Turtle<br>Sequence (4)<br>Scramble<br>> Metronome<br>Sequence (3)<br>Mini Scramble</p>"],
+        "framed double": [15242, "contains two contiguous pairs surrounded by numbers not equal to their neighbors", "<p class='rbadgename'>🖼️🖼️🖼️ Framed Double</p><p class='rbadgeep'>15 242 EP</p><p class='rbadgefamily'>Pairs family:<br>Contiguous Three Pair<br>Framed Pair<br>> Framed Double<br>Three Pair<br>Contiguous Two Pair<br>Two Pair<br>Contiguous Pair<br>Pair</p>"],
+        "slopes": [12582, "each digit is less than or equal to the last", "<p class='rbadgename'>🛝 Slopes</p><p class='rbadgeep'>12 582 EP</p><p class='rbadgefamily'>Monotonic family:<br>Ascension<br>Decay<br>Steps<br>> Slopes</p>"],
+        "paired bookends": [11122, "number begins with a contiguous pair and ends with a different contiguous pair", "<p class='rbadgename'>👐 Paired Bookends</p><p class='rbadgeep'>11 122 EP</p><p class='rbadgefamily'>Bookends family:<br>> Paired Bookends<br>Bookends<br>Mirror Bookends</p>"],
         "four digits": [11111, "number has exactly four digits"],
-        "three pair": [10288, "contains three pairs anywhere"],
-        "mirror bookends": [10010, "the last two digits when reversed equal the first two digits"],
-        "bookends": [10010, "the last two digits equal the first two digits"],
-        "semi-century": [10000, "ends in 50"],
-        "double nine": [10000, "ends in 99"],
-        "century": [10000, "ends in 00"],
-        "four of a kind": [8436, "contains four of the same number anywhere"],
-        "equation": [7720, "when a basic operation and an equals sign is added to the number, the resulting equation is true"],
-        "low ball": [6400, "contains only digits from 0-4"],
-        "contiguous two pair": [6142, "contains two contiguous pairs adjacent to each other"],
-        "mountain": [5885, "the digits rise and then fall, flat stretches are not allowed"],
-        "double hop": [5321, "a digit appears at every other position three times"],
-        "high roller": [5120, "contains only digits from 5-9"],
-        "valley": [4199, "the digits fall and then rise, flat stretches are not allowed"],
-        "mini echo": [3704, "contains an adjacent 2-digit repeat"],
-        "flush": [2845, "every digit is either all even or all odd"],
-        "alternator": [2845, "the digits alternate between even and odd"],
-        "deep void": [2784, "contains 00"],
-        "contiguous trips": [2784, "contains three of the same digit in a row"],
-        "feather": [2667, "the digits sum to less than 15"],
-        "blackjack": [2521, "the digits sum to exactly 21"],
-        "full house": [2397, "contains three of the same number anywhere and two of a different number anywhere"],
-        "pocket mirror": [2124, "contains a palindrome that is four or five digits long"],
-        "snake eyes": [2121, "contains exactly two 1s and no other pair"],
-        "six-seven": [2024, "contains 67; 67 is recent slang that is considered brainrot"],
-        "nice": [2024, "contains 69; 69 stands for sex"],
-        "meaning of life": [2024, "contains 42; 42 is the answer to life, the universe, and everything"],
-        "eighty-six": [2024, "contains 86, which is restaurant slang for 'throw out,' 'cancel,' get rid of,' or 'refuse service to someone'"],
-        "balanced": [1959, "the sum of the first 1-3 digits is equal to the sum of the second 1-3 digits"],
-        "rhyme": [1872, "contains the same 2+ digit substring twice anywhere"],
-        "sequence (3)": [1716, "contains three 1-digit numbers in order, ascending or descending"],
-        "2 consecutive numbers (contains)": [1659, "contains 2 consecutive numbers where at least one is 2+ digits"],
-        "2 consecutive numbers (nearby)": [1575, "contains 2 consecutive numbers where at least one is 2+ digits, but not in adjacent places"],
-        "mesa": [1568, "the digits rise and then fall, flat stretches are allowed"],
-        "prime number": [1274, "number only has two factors"],
-        "trinity": [1265, "only 3 unique digits"],
-        "dozen": [1200, "divisible by twelve"],
-        "canyon": [1184, "the digits fall and then rise, flat stretches are allowed"],
-        "five digits": [1111, "number has exactly five digits"],
-        "eleven": [1100, "divisible by eleven"],
-        "harshad number": [1048, "divisible by the sum of its own digits"],
-        "semi-clean": [1000, "ends in 5"],
-        "sandwich": [1000, "the first and last digits are the same with one or more digits between them [IMPOSSIBLE TO EARN]"],
-        "equilibrium": [1000, "the first and last digits are the same"],
-        "clean": [1000, "ends in 0"],
-        "hills": [733, "the digits alternate between rising and falling, no flat stretches allowed"],
-        "three of a kind": [724, "contains three of the same number anywhere"],
-        "lucky seven (divisible)": [700, "divisible by 7; seven is believed to be lucky"],
-        "mini scramble": [579, "contains a 3-5 digit substring where, when sorted, forms a perfect sequence"],
-        "heterogeneous": [593, "6 unique digits"],
-        "gap one": [529, "the last digit is only 1 more or less than the first digit"],
-        "two pair": [447, "contains two pairs anywhere"],
-        "dunes": [364, "the digits alternate between rising and falling, flat stretches allowed"],
-        "hopscotch": [312, "a digit appears at every other position two times"],
-        "ghost (0)": [309, "contains exactly one 0"],
-        "quartet": [290, "only 4 unique digits"],
-        "oxygen (8)": [282, "contains exactly one 8"],
-        "nitrogen (7)": [282, "contains exactly one 7"],
-        "lithium (3)": [282, "contains exactly one 3"],
-        "hydrogen (1)": [282, "contains exactly one 1"],
-        "helium (2)": [282, "contains exactly one 2"],
-        "fluorine (9)": [282, "contains exactly one 9"],
-        "carbon (6)": [282, "contains exactly one 6"],
-        "boron (5)": [282, "contains exactly one 5"],
-        "beryllium (4)": [282, "contains exactly one 4"],
-        "grounded": [250, "the first digit is smaller than the last digit"],
-        "contiguous pair": [249, "contains two of the same number in a row"],
-        "lucky seven": [213, "contains 7 anywhere; seven is believed to be lucky"],
-        "liftoff": [200, "the first digit is larger than the last digit"],
-        "even/odd": [200, "number is either even or odd, badges are normally separate"],
-        "void": [167, "contains no 0s"],
-        "neighbors": [161, "contains two digits that are adjacent in value"],
-        "pair": [120, "contains a pair anywhere"],
-        "six digits": [111, "number has exactly six digits"],
+        "three pair": [10288, "contains three pairs anywhere", "<p class='rbadgename'>👯‍♀️👯	Three Pair</p><p class='rbadgeep'>10 288 EP</p><p class='rbadgefamily'>Pairs family:<br>Contiguous Three Pair<br>Framed Pair<br>Framed Double<br>> Three Pair<br>Contiguous Two Pair<br>Two Pair<br>Contiguous Pair<br>Pair</p>"],
+        "bookends": [10010, "the last two digits equal the first two digits", "<p class='rbadgename'>📚 Bookends</p><p class='rbadgeep'>10 010 EP</p><p class='rbadgefamily'>Bookends family:<br>Paired Bookends<br>> Bookends<br>Mirror Bookends</p>"],
+        "mirror bookends": [10010, "the last two digits when reversed equal the first two digits", "<p class='rbadgename'>📖 Mirror Bookends</p><p class='rbadgeep'>10 010 EP</p><p class='rbadgefamily'>Bookends family:<br>Paired Bookends<br>Bookends<br>> Mirror Bookends</p>"],
+        "three-quarter century": [10000, "ends in 75", "<p class='rbadgename'>🕰️ Three-Quarter Century</p><p class='rbadgeep'>10 000 EP</p><p class='rbadgefamily'>No family</p>"],
+        "semi-century": [10000, "ends in 50", "<p class='rbadgename'>🗓 Semi-Century</p><p class='rbadgeep'>10 000 EP</p><p class='rbadgefamily'>No family</p>"],
+        "quarter-century": [10000, "ends in 25", "<p class='rbadgename'>🪙 Quarter-Century</p><p class='rbadgeep'>10 000 EP</p><p class='rbadgefamily'>No family</p>"],
+        "double nine": [10000, "ends in 99", "<p class='rbadgename'>🎈 Double Nine</p><p class='rbadgeep'>10 000 EP</p><p class='rbadgefamily'>Nine Ending family<br>Quint Nine<br>Quad Nine<br>Triple Nine<br>> Double Nine</p>"],
+        "century": [10000, "ends in 00", "<p class='rbadgename'>💯 Century</p><p class='rbadgeep'>10 000 EP</p><p class='rbadgefamily'>No family</p>"],
+        "four of a kind": [8436, "contains four of the same number anywhere", "<p class='rbadgename'>🍀 Four of a Kind</p><p class='rbadgeep'>8 436 EP</p><p class='rbadgefamily'>Of a Kind family:<br>Five of a Kind<br>Framed Quad<br>Framed Triple<br>> Four of a Kind<br>Three of a Kind</p>"],
+        "equation": [7720, "when a basic operation and an equals sign is added to the number, the resulting equation is true", "<p class='rbadgename'>🟰 Equation</p><p class='rbadgeep'>7 720 EP</p><p class='rbadgefamily'>No family</p>"],
+        "low ball": [6400, "contains only digits from 0-4", "<p class='rbadgename'>📉 Low Ball</p><p class='rbadgeep'>6 400 EP</p><p class='rbadgefamily'>No family</p>"],
+        "mountain": [5885, "the digits rise and then fall, flat stretches are not allowed", "<p class='rbadgename'>🏔 Mountain</p><p class='rbadgeep'>5 885 EP</p><p class='rbadgefamily'>Peak family:<br>> Mountain<br>Valley<br>Mesa<br>Canyon</p>"],
+        "double hop": [5321, "a digit appears at every other position three times", "<p class='rbadgename'>🦘🦘 Double Hop</p><p class='rbadgeep'>5 321 EP</p><p class='rbadgefamily'>Hopscotch family:<br>> Double Hop<br>Hopscotch</p>"],
+        "high roller": [5120, "contains only digits from 5-9", "<p class='rbadgename'>🤑 High Roller</p><p class='rbadgeep'>5 120 EP</p><p class='rbadgefamily'>No family</p>"],
+        "valley": [4199, "the digits fall and then rise, flat stretches are not allowed", "<p class='rbadgename'>🏜 Valley</p><p class='rbadgeep'>4 199 EP</p><p class='rbadgefamily'>Peak family:<br>Mountain<br>> Valley<br>Mesa<br>Canyon</p>"],
+        "contiguous two pair": [3957, "contains two contiguous pairs adjacent to each other", "<p class='rbadgename'>👨‍👩‍👧‍👦	Contiguous Two Pair</p><p class='rbadgeep'>3 957 EP</p><p class='rbadgefamily'>Pairs family:<br>Contiguous Three Pair<br>Framed Pair<br>Framed Double<br>Three Pair<br>> Contiguous Two Pair<br>Two Pair<br>Contiguous Pair<br>Pair</p>"],
+        "mini echo": [3704, "contains an adjacent 2-digit repeat", "<p class='rbadgename'>🔂 Mini Echo</p><p class='rbadgeep'>3 704 EP</p><p class='rbadgefamily'>Repeat family:<br>> Mini Echo<br>Rhyme</p>"],
+        "flush": [2845, "every digit is either all even or all odd", "<p class='rbadgename'>🎨 Flush</p><p class='rbadgeep'>2 845 EP</p><p class='rbadgefamily'>No family</p>"],
+        "alternator": [2845, "the digits alternate between even and odd", "<p class='rbadgename'>⚡ Alternator</p><p class='rbadgeep'>2 845 EP</p><p class='rbadgefamily'>No family</p>"],
+        "deep void": [2784, "contains 00", "<p class='rbadgename'>🕳 Deep Void</p><p class='rbadgeep'>2 784 EP</p><p class='rbadgefamily'>Void Depth family:<br>Deep Void (5)<br>Deep Void (4)<br>Deep Void (3)<br>> Deep Void</p>"],
+        "contiguous trips": [2784, "contains three of the same digit in a row", "<p class='rbadgename'>➖ Contiguous Trips</p><p class='rbadgeep'>2 784 EP</p><p class='rbadgefamily'>Contiguous Run family:<br>Contiguous Sixes<br>Contiguous Fives<br>Contiguous Quads<br>> Contiguous Trips</p>"],
+        "feather": [2667, "the digits sum to less than 15", "<p class='rbadgename'>🪶 Feather</p><p class='rbadgeep'>2 667 EP</p><p class='rbadgefamily'>No family</p>"],
+        "blackjack": [2521, "the digits sum to exactly 21", "<p class='rbadgename'>♠️ Blackjack</p><p class='rbadgeep'>2 521 EP</p><p class='rbadgefamily'>No family</p>"],
+        "full house": [2397, "contains three of the same number anywhere and two of a different number anywhere", "<p class='rbadgename'>🏠 Full House</p><p class='rbadgeep'>2 397 EP</p><p class='rbadgefamily'>Boat family:<br>Contiguous Full House<br>> Full House</p>"],
+        "pocket mirror": [2124, "contains a palindrome that is four or five digits long", "<p class='rbadgename'>🪞 Pocket Mirror</p><p class='rbadgeep'>2 124 EP</p><p class='rbadgefamily'>Palindrome family:<br>Palindrome<br>> Pocket Mirror</p>"],
+        "snake eyes": [2121, "contains exactly two 1s and no other pair", "<p class='rbadgename'>🎲 Snake Eyes</p><p class='rbadgeep'>2 121 EP</p><p class='rbadgefamily'>No family</p>"],
+        "six-seven": [2024, "contains 67; 67 is recent slang that is considered brainrot", "<p class='rbadgename'>🫠 Six-Seven</p><p class='rbadgeep'>2 024 EP</p><p class='rbadgefamily'>Sixty-Seven family:<br>Exact Six-Seven<br>Brainrot<br>6767<br>> Six-Seven</p>"],
+        "nice": [2024, "contains 69; 69 stands for sex", "<p class='rbadgename'>😏 Nice</p><p class='rbadgeep'>2 024 EP</p><p class='rbadgefamily'>Nice family:<br>Exact Nice<br>Very Very Nice<br>Very Nice<br>> Nice</p>"],
+        "meaning of life": [2024, "contains 42; 42 is the answer to life, the universe, and everything", "<p class='rbadgename'>🌌 Meaning of Life</p><p class='rbadgeep'>2 024 EP</p><p class='rbadgefamily'>Botanist family:<br>Exact Botanist<br>Hotbox<br>Exact Meaning<br>Botanist<br>> Meaning of Life</p>"],
+        "eighty-six": [2024, "contains 86, which is restaurant slang for 'throw out,' 'cancel,' get rid of,' or 'refuse service to someone'", "<p class='rbadgename'>🍽️ Exact Eighty-Six</p><p class='rbadgeep'>100 000 100 EP</p><p class='rbadgefamily'>Eighty-Six family:<br>Exact Eighty-Six<br>> Eighty-Six</p>"],
+        "balanced": [1959, "the sum of the first 1-3 digits is equal to the sum of the second 1-3 digits", "<p class='rbadgename'>⚖️ Balanced</p><p class='rbadgeep'>1 959 EP</p><p class='rbadgefamily'>No family</p>"],
+        "rhyme": [1872, "contains the same 2+ digit substring twice anywhere", "<p class='rbadgename'>🎶 Rhyme</p><p class='rbadgeep'>1 872 EP</p><p class='rbadgefamily'>Repeat family:<br>Mini Echo<br>> Rhyme</p>"],
+        "sequence (3)": [1716, "contains three 1-digit numbers in order, ascending or descending", "<p class='rbadgename'>🔢 Sequence (3)</p><p class='rbadgeep'>1 716 EP</p><p class='rbadgefamily'>Progression family:<br>Sequence (6)<br>Cascade<br>Waterfall<br>Even Spacing<br>Crescendo<br>Even Spacing (Absolute)<br>Turtle<br>Sequence (4)<br>Scramble<br>Metronome<br>> Sequence (3)<br>Mini Scramble</p>"],
+        "2 consecutive numbers (contains)": [1659, "contains 2 consecutive numbers where at least one is 2+ digits", "<p class='rbadgename'>🔗 2 Consecutive Numbers (Contains)</p><p class='rbadgeep'>50 505 EP</p><p class='rbadgefamily'>Consecutive family:<br>4 Consecutive Numbers<br>4 Consecutive Numbers (Contains)<br>4 Consecutive Numbers (Scrambled)<br>3 Consecutive Numbers<br>3 Consecutive Numbers (Scrambled)<br>3 Consecutive Numbers (Contains)<br>2 Consecutive Numbers<br>> 2 Consecutive Numbers (Contains)<br>2 Consecutive Numbers (Nearby)</p>"],
+        "2 consecutive numbers (nearby)": [1575, "contains 2 consecutive numbers where at least one is 2+ digits, but not in adjacent places", "<p class='rbadgename'>🔗 2 Consecutive Numbers (Nearby)</p><p class='rbadgeep'>50 505 EP</p><p class='rbadgefamily'>Consecutive family:<br>4 Consecutive Numbers<br>4 Consecutive Numbers (Contains)<br>4 Consecutive Numbers (Scrambled)<br>3 Consecutive Numbers<br>3 Consecutive Numbers (Scrambled)<br>3 Consecutive Numbers (Contains)<br>2 Consecutive Numbers<br>2 Consecutive Numbers (Contains)<br>> 2 Consecutive Numbers (Nearby)</p>"],
+        "mesa": [1568, "the digits rise and then fall, flat stretches are allowed", "<p class='rbadgename'>🗻 Mesa</p><p class='rbadgeep'>1 568 EP</p><p class='rbadgefamily'>Peak family:<br>Mountain<br>Valley<br>> Mesa<br>Canyon</p>"],
+        "prime number": [1274, "number only has two factors", "<p class='rbadgename'>💎 Prime Number</p><p class='rbadgeep'>1 274 EP</p><p class='rbadgefamily'>No family</p>"],
+        "trinity": [1265, "only 3 unique digits", "<p class='rbadgename'>⚜️ Trinity</p><p class='rbadgeep'>1 265 EP</p><p class='rbadgefamily'>No family</p>"],
+        "dozen": [1200, "divisible by twelve", "<p class='rbadgename'>🍩 Dozen</p><p class='rbadgeep'>1 200 EP</p><p class='rbadgefamily'>No family</p>"],
+        "canyon": [1184, "the digits fall and then rise, flat stretches are allowed", "<p class='rbadgename'>🌄 Canyon</p><p class='rbadgeep'>1 184 EP</p><p class='rbadgefamily'>Peak family:<br>Mountain<br>Valley<br>Mesa<br>> Canyon</p>"],
+        "five digits": [1111, "number has exactly five digits", "<p class='rbadgename'>🖐 Five Digits</p><p class='rbadgeep'>1 111 EP</p><p class='rbadgefamily'>No family</p>"],
+        "eleven": [1100, "divisible by eleven", "<p class='rbadgename'>🕚 Eleven</p><p class='rbadgeep'>1 100 EP</p><p class='rbadgefamily'>No family</p>"],
+        "harshad number": [1048, "divisible by the sum of its own digits", "<p class='rbadgename'>🤝 Harshad Number</p><p class='rbadgeep'>1 048 EP</p><p class='rbadgefamily'>No family</p>"],
+        "semi-clean": [1000, "ends in 5", "<p class='rbadgename'>🧹 Semi-Clean</p><p class='rbadgeep'>1 000 EP</p><p class='rbadgefamily'>No family</p>"],
+        "equilibrium": [1000, "the first and last digits are the same", "<p class='rbadgename'>🧘 Equilibrium</p><p class='rbadgeep'>1 000 EP</p><p class='rbadgefamily'>Equilibrium family:<br>> Equilibrium<br>Sandwich</p>"],
+        "sandwich": [1000, "the first and last digits are the same with one or more digits between them [IMPOSSIBLE TO EARN]", "<p class='rbadgename'>🧘 Equilibrium</p><p class='rbadgeep'>1 000 EP</p><p class='rbadgefamily'>Equilibrium family:<br>Equilibrium<br>> Sandwich</p>"],
+        "clean": [1000, "ends in 0", "<p class='rbadgename'>🧼 Clean</p><p class='rbadgeep'>1 000 EP</p><p class='rbadgefamily'>No family</p>"],
+        "hills": [733, "the digits alternate between rising and falling, no flat stretches allowed", "<p class='rbadgename'>🏞 Hills</p><p class='rbadgeep'>733 EP</p><p class='rbadgefamily'>Hills family:<br>> Hills<br>Dunes</p>"],
+        "three of a kind": [724, "contains three of the same number anywhere", "<p class='rbadgename'>🎰 Three of a Kind</p><p class='rbadgeep'>724 EP</p><p class='rbadgefamily'>Of a Kind family:<br>Five of a Kind<br>Framed Quad<br>Framed Triple<br>Four of a Kind<br>> Three of a Kind</p>"],
+        "lucky seven (divisible)": [700, "divisible by 7; seven is believed to be lucky", "<p class='rbadgename'>🎰 Lucky Seven (Divisible)</p><p class='rbadgeep'>700 EP</p><p class='rbadgefamily'>No family</p>"],
+        "mini scramble": [579, "contains a 3-5 digit substring where, when sorted, forms a perfect sequence", "<p class='rbadgename'>🧩 Mini Scramble</p><p class='rbadgeep'>579 EP</p><p class='rbadgefamily'>Progression family:<br>Sequence (6)<br>Cascade<br>Waterfall<br>Even Spacing<br>Crescendo<br>Even Spacing (Absolute)<br>Turtle<br>Sequence (4)<br>Scramble<br>Metronome<br>Sequence (3)<br>> Mini Scramble</p>"],
+        "heterogeneous": [593, "all digits unique", "<p class='rbadgename'>🥗 Heterogeneous</p><p class='rbadgeep'>593 EP</p><p class='rbadgefamily'>No family</p>"],
+        "gap one": [529, "the last digit is only 1 more or less than the first digit", "<p class='rbadgename'>↕️ Gap One</p><p class='rbadgeep'>529 EP</p><p class='rbadgefamily'>No family</p>"],
+        "two pair": [377, "contains two pairs anywhere", "<p class='rbadgename'>👯‍♀️ Two Pair</p><p class='rbadgeep'>377 EP</p><p class='rbadgefamily'>Pairs family:<br>Contiguous Three Pair<br>Framed Pair<br>Framed Double<br>Three Pair<br>Contiguous Two Pair<br>> Two Pair<br>Contiguous Pair<br>Pair</p>"],
+        "dunes": [364, "the digits alternate between rising and falling, flat stretches allowed", "<p class='rbadgename'>🐫 Dunes</p><p class='rbadgeep'>364 EP</p><p class='rbadgefamily'>Hills family:<br>Hills<br>> Dunes</p>"],
+        "hopscotch": [312, "a digit appears at every other position two times", "<p class='rbadgename'>🦘 Hopscotch</p><p class='rbadgeep'>312 EP</p><p class='rbadgefamily'>Hopscotch family:<br>Double Hop<br>> Hopscotch</p>"],
+        "ghost (0)": [309, "contains exactly one 0", "<p class='rbadgename'>👻 Ghost</p><p class='rbadgeep'>309 EP</p><p class='rbadgefamily'>No family</p>"],
+        "quartet": [290, "only 4 unique digits", "<p class='rbadgename'>🎻 Quartet</p><p class='rbadgeep'>290 EP</p><p class='rbadgefamily'>No family</p>"],
+        "oxygen (8)": [282, "contains exactly one 8", "<p class='rbadgename'>💨 Oxygen (8)</p><p class='rbadgeep'>282 EP</p><p class='rbadgefamily'>No family</p>"],
+        "nitrogen (7)": [282, "contains exactly one 7", "<p class='rbadgename'>❄️ Nitrogen (7)</p><p class='rbadgeep'>282 EP</p><p class='rbadgefamily'>No family</p>"],
+        "lithium (3)": [282, "contains exactly one 3", "<p class='rbadgename'>🔋 Lithium (3)</p><p class='rbadgeep'>282 EP</p><p class='rbadgefamily'>No family</p>"],
+        "hydrogen (1)": [282, "contains exactly one 1", "<p class='rbadgename'>💧 Hydrogen (1)</p><p class='rbadgeep'>282 EP</p><p class='rbadgefamily'>No family</p>"],
+        "helium (2)": [282, "contains exactly one 2", "<p class='rbadgename'>🎈 Helium (2)</p><p class='rbadgeep'>282 EP</p><p class='rbadgefamily'>No family</p>"],
+        "fluorine (9)": [282, "contains exactly one 9", "<p class='rbadgename'>🦷 Fluorine (9)</p><p class='rbadgeep'>282 EP</p><p class='rbadgefamily'>No family</p>"],
+        "carbon (6)": [282, "contains exactly one 6", "<p class='rbadgename'>✏️ Carbon (6)</p><p class='rbadgeep'>282 EP</p><p class='rbadgefamily'>No family</p>"],
+        "boron (5)": [282, "contains exactly one 5", "<p class='rbadgename'>🧼 Boron (5)</p><p class='rbadgeep'>282 EP</p><p class='rbadgefamily'>No family</p>"],
+        "beryllium (4)": [282, "contains exactly one 4", "<p class='rbadgename'>💎 Beryllium (4)</p><p class='rbadgeep'>282 EP</p><p class='rbadgefamily'>No family</p>"],
+        "grounded": [250, "the first digit is smaller than the last digit", "<p class='rbadgename'>⚓ Grounded</p><p class='rbadgeep'>250 EP</p><p class='rbadgefamily'>No family</p>"],
+        // "<p class='rbadgename'>🐚 Fibonacci Number</p><p class='rbadgeep'>3 333 337 EP</p><p class='rbadgefamily'>No family</p>"
+        "contiguous pair": [249, "contains two of the same number in a row", "<p class='rbadgename'>🫂 Contiguous Pair</p><p class='rbadgeep'>249 EP</p><p class='rbadgefamily'>Pairs family:<br>Contiguous Three Pair<br>Framed Pair<br>Framed Double<br>Three Pair<br>Contiguous Two Pair<br>Two Pair<br>> Contiguous Pair<br>Pair</p>"],
+        "lucky seven": [213, "contains 7 anywhere; seven is believed to be lucky", "<p class='rbadgename'>7️⃣ Lucky Seven</p><p class='rbadgeep'>213 EP</p><p class='rbadgefamily'>No family</p>"],
+        "liftoff": [200, "the first digit is larger than the last digit", "<p class='rbadgename'>🚀 Liftoff</p><p class='rbadgeep'>200 EP</p><p class='rbadgefamily'>No family</p>"],
+        "odd": [200, "number is not divisible by two", "<p class='rbadgename'>🦄 Odd</p><p class='rbadgeep'>200 EP</p><p class='rbadgefamily'>No family</p>"],
+        "even": [200, "number is divisible by two", "<p class='rbadgename'>⚖️ Even</p><p class='rbadgeep'>200 EP</p><p class='rbadgefamily'>No family</p>"],
+        "void": [167, "contains no 0s", "<p class='rbadgename'>🕳 Void</p><p class='rbadgeep'>167 EP</p><p class='rbadgefamily'>No family</p>"],
+        "neighbors": [161, "contains two digits that are adjacent in value", "<p class='rbadgename'>🏘 Neighbors</p><p class='rbadgeep'>161 EP</p><p class='rbadgefamily'>No family</p>"],
+        "pair": [120, "contains a pair anywhere", "<p class='rbadgename'>👯 Pair</p><p class='rbadgeep'>120 EP</p><p class='rbadgefamily'>Pairs family:<br>Contiguous Three Pair<br>Framed Pair<br>Framed Double<br>Three Pair<br>Contiguous Two Pair<br>Two Pair<br>Contiguous Pair<br>> Pair</p>"],
+        "six digits": [111, "number has exactly six digits", "<p class='rbadgename'>🐝 Six Digits</p><p class='rbadgeep'>111 EP</p><p class='rbadgefamily'>No family</p>"],
       }
       function CNums() {
         const a = s.slice(0,2);
@@ -763,23 +834,25 @@
       	return 0;
       }
       function update() {
-        epdisp += 0.1337 * (ep - epdisp);
-      	percentile = 100 * (1 - (1 + ((epdisp - 1759) / 2223.0006) ** 2.5744553) ** -0.4092457) || -1;
+        epdisp += 0.21337 * (ep - epdisp);
+      	percentile = 100 * (1 - (1 + ((epdisp - 1759) / 2380.95292) ** 2.32356995) ** -0.463854758) || -1;
         document.querySelector("#ep").textContent = `${Math.round(epdisp).toLocaleString()} EP`;
         document.querySelector("#ep2").textContent = `${Math.round(epdisp).toLocaleString()} EP`;
+        if (lifetime > 0) {
+          epdisp2 += 0.1337 * (lifetime - epdisp2);
+          document.querySelector("#ep2").textContent = `${Math.round(epdisp2).toLocaleString()} EP`;
+        }
         const now = new Date();
         const hours = String(23-now.getUTCHours());
         const minutes = String(59-now.getUTCMinutes());
         const seconds = String(59-now.getUTCSeconds());
         document.querySelector("#countdown").textContent = `${hours}H ${minutes.padStart(2,"0")}M ${seconds.padStart(2,"0")}S`;
         const length = document.querySelector("#num").value.length;
-        document.querySelector("#num").style.fontSize = length < 6 ? "3.75rem" : "2.75rem";
-        document.querySelector("#num").style.width = length > 5 ? "15.5rem" : `${5+14*length/6}rem`;
+        document.querySelector("#num").style.fontSize = length == 0 ? "2.75rem" : `${Math.max(Math.min(-0.75*length+6.75, 4.5), 2.75)}em`;
+        document.querySelector("#num").style.width = length == 0 ? "15.5rem" : length > 3 ? `${9.5+length}rem` : `${6+14*length/6}rem`;
         document.querySelector("#num").style.paddingBlock = length < 6 ? "0.75rem" : "1rem";
         document.querySelector("#number").textContent = `${badges.length} BADGES EARNED`;
         if (ep == 0) {
-          document.querySelector("#num").style.width = "15.5rem";
-          document.querySelector("#num").style.fontSize = "2.75rem";
           document.querySelector("#ep").textContent = `??? EP`;
           document.querySelector("#ep2").textContent = `??? EP`;
           document.querySelector("#percentile").classList = "common";
@@ -790,13 +863,13 @@
           document.querySelector("#rarity").textContent = "??????";
           document.querySelector("#ep").classList = "common";
           document.querySelector("#number").textContent = "?? BADGES EARNED";
-        } else if (ep < 2050) {
+        } else if (ep <= 2095) {
           document.querySelector("#percentile").textContent = "BOTTOM <1%";
         } else if (percentile < 50) {
           document.querySelector("#percentile").textContent = `BOTTOM ${Math.max(Math.round(percentile), 1)}%`;
         } else if (percentile < 99.5) {
           document.querySelector("#percentile").textContent = `TOP ${Math.max(Math.round(100-percentile), 1)}%`;
-        } else if (percentile < 99.9) {
+        } else if (percentile < 99.9 || !document.querySelector("#extras").checked) {
           document.querySelector("#percentile").textContent = "TOP <1%";
         } else {
           document.querySelector("#percentile").textContent = "TOP <0.1%";
@@ -839,7 +912,7 @@
         for (const d of digits) {
         	counts[d] = (counts[d] || 0) + 1;
         }
-        const counts2 = Object.values(counts)
+        const counts2 = Object.values(counts);
         const maxCount = Math.max(...counts2);
         const minCount = Math.min(...counts2);
         if (length % 2 == 0) {
@@ -852,7 +925,9 @@
         if ((/01|10|12|21|23|32|34|43|45|54|56|65|67|76|78|87|89|98/gi).test(s)) {ep+=161; badges.push("neighbors");}
         if (!s.includes("0")) {ep+=167; badges.push("void");}
         if (s[0] > s.at(-1)) {ep+=200; badges.push("liftoff");}
-        ep+=200; badges.push("even/odd");
+        if (num % 2 == 0) {badges.push("even")}
+        else {badges.push("odd")}
+        ep+=200;
         if (s.includes("7")) {ep+=213; badges.push("lucky seven");}
         if (s[0] < s.at(-1)) {ep+=250; badges.push("grounded");}
         if ((s.match(/1/gi) || []).length == 1) {ep+=282; badges.push("hydrogen (1)");}
@@ -897,7 +972,9 @@
         else if ((/(.).\1/gi).test(s) && u.length > 1) {ep+=312; badges.push("hopscotch");}
         if ([...s].every(d => d < 5)) {ep+=6400; badges.push("low ball");}
         ep += Equation();
+        if (s.endsWith("75")) {ep+=10000; badges.push("three-quarter century")}
         if (s.endsWith("50")) {ep+=10000; badges.push("semi-century");}
+        if (s.endsWith("25")) {ep+=10000; badges.push("quarter-century");}
         if (s.endsWith("00")) {ep+=10000; badges.push("century");}
         if (length == 4) {ep+=11111; badges.push("four digits");}
         if ((/^(.)\1.*(?!\1)(.)\2$/gmi).test(s)) {ep+=11122; badges.push("paired bookends");}
@@ -929,8 +1006,8 @@
         else if ((/^(.)(?!\1)(.)\2(?!\2).$/gmi).test(s)) {ep+=137174; badges.push("framed pair");}
         else if ((/(.)(?!\1)(.)\2(?!\2)(.)\3(?!\3)./gi).test(s)) {ep+=15242; badges.push("framed double");}
         else if (u.length == 3 && maxCount == 2 && length > 5) {ep+=10288; badges.push("three pair");}
-        else if ((/(.)\1(?!\1)(.)\2/gi).test(s) && maxCount == 2) {ep+=6142; badges.push("contiguous two pair");}
-        else if (u.length == length - 2 && maxCount == 2) {ep+=447; badges.push("two pair");}
+        else if ((/(.)\1(?!\1)(.)\2/gi).test(s)) {ep+=3957; badges.push("contiguous two pair");}
+        else if (u.length <= length - 2 && counts2.filter((c) => c >= 2).length >= 2) {ep+=377; badges.push("two pair");}
         else if ((/(.)\1/gi).test(s)) {ep+=249; badges.push("contiguous pair");}
         else if (u.length < length) {ep+=120; badges.push("pair");}
         if (([...s].every((d, i, a) => i == 0 || a[i-1] < d)) && length > 1) {ep+=219298; badges.push("ascension");}
@@ -938,6 +1015,7 @@
         if ((/^(.)(?!\1)(.)((?!\2)\1((?!\1)\2((?!\2)\1((?!\1)\2)?)?)?)?$/gmi).test(s)) {ep+=246914; badges.push("zipper");}
         if (s.split("").reverse().map(n => ({"0":"0","1":"1","2":"-","3":"-","4":"-","5":"-","6":"9","7":"-","8":"8","9":"6"})[n]).join("") == s) {ep+=502513; badges.push("strobogrammatic");}
         if (s.endsWith("5000")) {ep+=1000001; badges.push("semi-epoch");}
+        if (s.endsWith("0000")) {ep+=1000001; badges.push("epoch");}
         if (sum == product && num != 1 && num != 2) {ep+=1030929; badges.push("spy number");}
         if (length == 2) {ep+=1111112; badges.push("two digits");}
         if ([...s].every(d => d < 2)) {ep+=1538463; badges.push("binary soul");}
@@ -947,6 +1025,8 @@
         else if ((/02468|86420|13579|97531/gi).test(s)) {ep+=1449277; badges.push("straight flush");}
         else if ((/01234|12345|23456|34567|45678|56789|98765|87654|76543|65432|54321|43210/gi).test(s)) {ep+=454546; badges.push("straight");}
         if ((Math.log(num)/Math.log(3)).toFixed(10) % 1 == 0) {ep+=7692315; badges.push("power of three");}
+        if (s.endsWith("50000")) {ep+=10000010; badges.push("semi-eon");}
+        if (s.endsWith("00000")) {ep+=10000010; badges.push("eon");}
         if (s.endsWith("99999")) {ep+=10000010; badges.push("quint nine");}
         else if (s.endsWith("9999")) {ep+=1000001; badges.push("quad nine");}
         else if (s.endsWith("999")) {ep+=100000; badges.push("triple nine");}
@@ -978,10 +1058,10 @@
         else if (Math.cbrt(num) % 1 == 0) {ep+=990100; badges.push("3rd power");}
         else if (Math.sqrt(num) % 1 == 0) {ep+=99900; badges.push("2nd power");}
         if (length == 1) {ep+=100000100; badges.push("0/1/2/3/4/5/6/7/8/9");}
-        if ([42,67,69,86,101,350,365,404,420,666,777,911,1337,1984,7734,17776,80085,86400,365365,420420,424242,666666,676767,696969,777777,911911].includes(num)) {ep+=100000100; badges.push("exact number");}
+        if ([42,67,69,86,101,365,404,420,666,777,911,1337,1984,7734,17776,80085,86400,365365,420420,424242,666666,676767,696969,777777,911911].includes(num)) {ep+=100000100; badges.push("exact number");}
         else if (s=="247365"||s=="365247") {ep+=50000050; badges.push("always");}
         else if (s=="69420"||s=="42069") {ep+=50000050; badges.push("funny number");}
-        else if (s=="8008"||s=="58008") {ep+=50000050; badges.push("exact boob/boobs");}
+        else if (s=="8008"||s=="58008") {ep+=50000050; badges.push("exact boob");}
         else if (s=="1618"||s=="16180"||s=="161803") {ep+=33333367; badges.push("golden ratio");}
         else {
           if ([271,2718,27182,271828].includes(num)) {ep+=25000025; badges.push("euler's number");}
@@ -1014,7 +1094,6 @@
           if (s.includes("1984")) {ep+=333334; badges.push("big brother");}
           if (s.includes("7734")) {ep+=333334; badges.push("hell");}
           if (s.includes("101")) {ep+=25132; badges.push("orientation");}
-          if (s.includes("350")) {ep+=25006; badges.push("tree fiddy");}
           if (s.includes("365")) {ep+=25006; badges.push("calendar");}
           if (s.includes("404")) {ep+=25132; badges.push("error 404");}
           if (s.includes("666")) {ep+=27027; badges.push("devil");}
@@ -1029,7 +1108,7 @@
         if (num==17776) {ep+=27027; badges.push("jackpot");}
         if (s=="e") {ep+=999999999999; badges.push("exactly euler's number to every one of the decimal places");}
         if (typeof(number)=="number") return ep;
-        const rarity = ep < 2098 ? "trash" : ep < 5761 ? "common" : ep < 9644 ? "uncommon" : ep < 23077 ? "rare" : ep < 35744 ? "epic" : ep < 164953 ? "anomaly" : ep < 1056119 ? "mythic" : "nautical";
+        const rarity = ep < 2087 ? "trash" : ep < 5804 ? "common" : ep < 10079 ? "uncommon" : ep < 22469 ? "rare" : ep < 35530 ? "epic" : ep < 165326 ? "anomaly" : ep < 1103043 ? "mythic" : document.querySelector("#extras").checked ? "unheard" : "mythic";
         document.querySelector("#num").classList = rarity;
         document.querySelector("#rarity").classList = rarity;
         document.querySelector("#rarity").textContent = rarity.toUpperCase();
@@ -1040,9 +1119,27 @@
         let badgeep = 100000100;
         for (badge in badgesList) {
           badgeep = badgesList[badge][0];
-          badgerarity = badgeep >= 33333367 ? "nautical" : badgeep >= 10000000 ? "mythic" : badgeep >= 1000000 ? "anomaly" : badgeep >= 100000 ? "epic" : badgeep >= 10000 ? "rare" : badgeep >= 1000 ? "uncommon" : "common";
-          if (badges.includes(badge)) document.querySelector("#badges").insertAdjacentHTML("beforeend",
-          `<span class="${badgerarity} badge" onmousemove="document.querySelector('.tooltip').innerHTML = this.textContent + ' - ${badgerarity.toUpperCase()}<br>+${badgeep.toLocaleString()} EP: ~${(10000/badgeep).toFixed(4)}% probability'" onmouseenter="document.querySelector('.tooltip').style.display = 'block'" onmouseleave="document.querySelector('.tooltip').style.display = 'none'">${badge}</span>`);
+          badgerarity = badgeep >= 33333367 && document.querySelector("#extras").checked ? "unheard" : badgeep >= 10000000 ? "mythic" : badgeep >= 1000000 ? "anomaly" : badgeep >= 100000 ? "epic" : badgeep >= 10000 ? "rare" : badgeep >= 1000 ? "uncommon" : "common";
+          if (badges.includes(badge)) {
+            const escaped = badgesList[badge][1].replace(/"/g, "&quot;").replace(/'/g, "\\'").replace(/\n/g, " ");
+            document.querySelector("#badges").insertAdjacentHTML("beforeend", `
+            <span class="${badgerarity} badge" data-badge="${badge.replaceAll(" ", "+").replaceAll("'", "")}"
+              onmousemove="
+              document.querySelector('.tooltip').innerHTML = this.textContent + ' - ${badgerarity.toUpperCase()}<br>+${badgeep.toLocaleString()} EP: ~${(10000/badgeep).toFixed(4)}% probability' + '<p>${escaped}</p>'"
+              onmouseenter="document.querySelector('.tooltip').style.display = 'block'"
+              onmouseleave="document.querySelector('.tooltip').style.display = 'none'">
+                ${badge}
+            </span>`);
+            let badgeinfo = badgesList[badge][2];
+            document.querySelector(`span[data-badge='${badge.replaceAll(" ", "+").replaceAll("'", "")}']`).onclick = () => {
+              document.body.insertAdjacentHTML("beforeend", `<div class="rbadgecontainer">
+                <div class="rbadgeview">
+                  <button style="float: right;" onclick="document.querySelector('.rbadgecontainer').remove()"><svg style="margin: 0;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+                  ${badgeinfo.replace(/"/g, "&quot;").replace(/'/g, "&#39;") || "Work in Progress"}
+                </div>
+              </div>`);
+            }
+          }
         }
       }
       document.onmousemove = (e) => {
@@ -1054,7 +1151,7 @@
         let content = "";
         for (let num = 0; num <= 1000000; num++) {
           let numep = analyze(num);
-          const rarity = ep < 2098 ? "trash" : ep < 5761 ? "common" : ep < 9644 ? "uncommon" : ep < 23077 ? "rare" : ep < 35744 ? "epic" : ep < 164953 ? "anomaly" : "mythic";
+          const rarity = ep < 2087 ? "trash" : ep < 5804 ? "common" : ep < 10079 ? "uncommon" : ep < 22469 ? "rare" : ep < 35530 ? "epic" : ep < 165326 ? "anomaly" : "mythic";
           if ((numep >= minimum && numep <= maximum) || !(minimum || maximum)) content += `${num},${numep},${rarity}\n`;
         }
         const blob = new Blob([content], { type: "text/plain" });
@@ -1078,18 +1175,39 @@
       let s = "??????";
       let ep = 0;
       let epdisp = 0;
+      let epdisp2 = 0;
       let length = "??????";
       let sum = -1;
       let product = -2;
       let sorted = [];
       let badges = [];
+      let obadges = [];
       let d = [];
       let sum1 = -696969;
       let sum2 = -420420;
       let rngbox = false;
       let rngdex = false;
       let level = 0;
+      let lifetime = 0;
       let upd = setInterval(update, 16);
+      function next() {
+        level += 1;
+        console.log(`Level ${level}`);
+        let temp = Math.floor(1000001 * Math.random());
+        let bestnum = temp;
+        let best = analyze(temp);
+        if (level > 1) {
+          for (let i = 0; i < level - 1; i++) {
+            temp = Math.floor(1000001 * Math.random());
+            if (analyze(temp) > best) {bestnum = temp;}
+          }
+        }
+        document.querySelector("#description").textContent = `Level ${level}`;
+        document.querySelector("#num").value = bestnum;
+        analyze();
+        document.querySelector("#num").value = "";
+        obadges = badges;
+      }
       document.querySelector("#num").oninput = () => {
         if (!(rngbox || rngdex)) analyze();
       }
@@ -1099,7 +1217,30 @@
         } else if (rngbox) {
           analyze();
           setTimeout(() => {
-            
+            let oset = new Set(obadges);
+            let nbadges = new Set(badges);
+            let matching = obadges.filter((badge) => nbadges.has(badge)).length;
+            let extra = badges.filter((badge) => !oset.has(badge)).length;
+            if (matching == obadges.length && extra == 0) {
+              A2rare.play();
+              document.body.insertAdjacentHTML("afterbegin", '<div class="spin" style="color: oklch(0.8488 0.3685 145.64);">PERFECT MATCH!</div>');
+              setTimeout(() => {
+                document.querySelector(".spin").remove();
+                next();
+              }, 4000);
+            } else if (obadges.length-matching == 0 || extra == 0) {
+              document.body.insertAdjacentHTML("afterbegin", `<div class="spin2" style="color: oklch(0.9648 0.245 110.23);">${obadges.length-matching} missing, ${extra} extra</div>`);
+              setTimeout(() => {
+                document.querySelector(".spin2").remove();
+                next();
+              }, 4000);
+            } else {
+              document.body.insertAdjacentHTML("afterbegin", `<div class="spin2" style="color: oklch(0.6486 0.2995 28.96);">${obadges.length-matching} missing, ${extra} extra</div>`);
+              setTimeout(() => {
+                document.querySelector(".spin2").remove();
+                next();
+              }, 4000);
+            }
           }, 2225);
         }
       };
@@ -1107,29 +1248,40 @@
         document.querySelector("#rngbox").remove();
         document.querySelector("#rngdex").remove();
         document.querySelector("h1").textContent = "RNGbox";
-        document.querySelector("#description").textContent = "Challenge your RNGdle knowledge!";
-        document.querySelector("#warning").textContent = "Click the SHARE button to check your answer!";
-        document.querySelector("#tools").insertAdjacentHTML("beforeend", `<h6 id="obj" style="font-family: Inter, sans-serif;">Guess a number that earns a certain amount of EP.</h6>`);
+        document.querySelector("#description").textContent = "Level 1";
+        document.querySelector("#warning").textContent = "Click the CHECK button to check your answer!";
+        document.querySelector("#share").innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-line-icon lucide-check-line"><path d="M20 4L9 15"/><path d="M21 19L3 19"/><path d="M9 15L4 10"/></svg> CHECK';
+        document.querySelector("#tools").insertAdjacentHTML("beforeend", `<h6 id="obj" style="font-family: Inter, sans-serif;">Guess a number that earns these badges.</h6>`);
         rngbox = true;
-        level = 1;
+        level = 0;
+        document.querySelector(".random").remove();
+        next();
       }
       document.querySelector("#rngdex").onclick = () => {
         clearInterval(upd);
         document.querySelector("#rngbox").remove();
         document.querySelector("#rngdex").remove();
         document.querySelector(".project").textContent = "RNGdex";
-        document.querySelector("center").innerHTML = `<h6 id="description">View all 230 RNGdle badges! Click the SHARE button to go back.</h6><hr><button id="share"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share2 lucide-share-2 w-4 h-4" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg><span>SHARE</span></button><div class="badges"></div><div class="tooltip"></div><hr><footer>© 2026 ProtoType Studios. All rights reserved.</footer><footer>This project and its owner are not affiliated with RNGdle or its owner.</footer>`;
+        document.querySelector("center").innerHTML = `<h6 id="description">View all 233 RNGdle badges! Click the BACK button below to go back to RNGdle Sandbox, and click any of the badges below to view more information about it.</h6><hr><button id="share"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left-icon lucide-arrow-left"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg><span>BACK</span></button><div class="badges"></div><div class="tooltip"></div><hr><footer>© 2026 ProtoType Studios. All rights reserved.</footer><footer>This project and its owner are not affiliated with RNGdle or its owner.</footer>`;
         rngdex = true;
         document.querySelector("#share").onclick = () => {window.location.reload();}
         for (const [name, value] of Object.entries(badgesList).sort((a, b) => b[1][0] - a[1][0])) {
           let div = document.createElement("div");
-          badgerarity = value[0] >= 33333367 ? "nautical" : value[0] >= 10000000 ? "mythic" : value[0] >= 1000000 ? "anomaly" : value[0] >= 100000 ? "epic" : value[0] >= 10000 ? "rare" : value[0] >= 1000 ? "uncommon" : "common";
+          badgerarity = value[0] >= 33333367 ? "unheard" : value[0] >= 10000000 ? "mythic" : value[0] >= 1000000 ? "anomaly" : value[0] >= 100000 ? "epic" : value[0] >= 10000 ? "rare" : value[0] >= 1000 ? "uncommon" : "common";
           div.classList = `${badgerarity} rbadge`;
           div.innerHTML = `
           <p class="large">${name}</p>
           <p class="medium">${value[0].toLocaleString()} EP [${badgerarity.toUpperCase()}]</p><hr>
           <p class="small rbtxt">${value[1]}</p>
           `;
+          div.onclick = () => {
+            document.body.insertAdjacentHTML("beforeend", `<div class="rbadgecontainer">
+              <div class="rbadgeview">
+                <button style="float: right;" onclick="document.querySelector('.rbadgecontainer').remove()"><svg style="margin: 0;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+                ${value[2] || "Work in Progress"}
+              </div>
+            </div>`);
+          }
           document.querySelector(".badges").appendChild(div);
         }
       }
@@ -1153,8 +1305,10 @@
           }
           document.querySelector("#num").value = bestnum;
           analyze();
+          lifetime += best;
         }, 300+100*Math.random());
       }
+      document.querySelector("#extras").oninput = analyze;
       document.querySelector("#personalize").onclick = () => {window.location.href = "https://prototypestudios.neocities.org/personalize";}
     </script>
   </body>
