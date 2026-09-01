@@ -326,6 +326,9 @@
       #percentile.unheard {
         color: oklch(0.875 0.0896 224.81);
       }
+      #permalink {margin-inline: 0; transition: all 0.2s;}
+      #permalink:hover {margin-inline: 0.75em;}
+      #permalink:active {margin-inline: -0.25em;}
       
       .badges {
         display: flex;
@@ -429,6 +432,7 @@
         <br>The percentile is an approximation that fits R²=0.9984. Go play <a href="https://rngdle.com">the real game!</a></h6>
       <hr><div id="tools">
         <h2>Tools</h2>
+        <p class="medium">Permalink to this number: <button id="permalink" onclick="navigator.clipboard.writeText(this.textContent); this.textContent = '✅ Copied :3';">https://prototypestudios.neocities.org/rngdle</button> Click the button to copy the link.</p>
         <button id="rngbox">RNGbox<br>Challenge your knowledge of RNGdle!</button>
         <button id="rngdex">RNGdex<br>View all 233 badges in RNGdle!</button>
       </div>
@@ -475,7 +479,7 @@
         "5th power": [6250006, "number is in the form n^5", "<p class='rbadgename'>🖐 5th Power</p><p class='rbadgeep'>6 250 006 EP</p><p class='rbadgefamily'>Power family:<br>13th Power<br>17th Power<br>19th Power<br>10th Power<br>11th Power<br>9th Power<br>8th Power<br>Ouroboros<br>7th Power<br>6th Power<br>> 5th Power<br>4th Power<br>3rd Power<br>2nd Power</p>"],
         "jackpot five": [5263163, "contains 77777; seven is believed to be lucky", "<p class='rbadgename'>💰💰💰 Jackpot Five</p><p class='rbadgeep'>5 000 005 EP</p><p class='rbadgefamily'>Jackpot family:<br>Exact Jackpot<br>Jackpot Six<br>> Jackpot Five<br>Jackpot Four<br>Jackpot</p>"],
         "tau slice (5)": [5000005, "contains 62831, the first five digits of τ", "<p class='rbadgename'>🌀 Tau Slice (5)</p><p class='rbadgeep'>5 000 005 EP</p><p class='rbadgefamily'>Tau family:<br>Tau<br>> Tau Slice (5)<br>Tau Slice (4)</p>"],
-        "royal flush": [5000005, "contains 56789, the highest possible sequence of 5", "<p class='rbadgename'>🐚 Fibonacci Number</p><p class='rbadgeep'>3 333 337 EP</p><p class='rbadgefamily'>Straight family:<br>> Royal Flush<br>Straight Flush<br>Straight</p>"],
+        "royal flush": [5000005, "contains 56789, the highest possible sequence of 5", "<p class='rbadgename'>👑 Royal Flush</p><p class='rbadgeep'>5 000 005 EP</p><p class='rbadgefamily'>Straight family:<br>> Royal Flush<br>Straight Flush<br>Straight</p>"],
         "power of two": [5000005, "number is in the form 2^n", "<p class='rbadgename'>💾 Power of Two</p><p class='rbadgeep'>5 000 005 EP</p><p class='rbadgefamily'>No family</p>"],
         "pi slice (5)": [5000005, "contains 31415, the first five digits of π", "<p class='rbadgename'>🥧 Pi Slice (5)</p><p class='rbadgeep'>5 000 005 EP</p><p class='rbadgefamily'>Pi family:<br>Pi<br>> Pi Slice (5)<br>Pi Slice (4)<br>Pi Slice (3)</p>"],
         "e slice (5)": [5000005, "contains 27182, the first five digits of e", "<p class='rbadgename'>📈 E Slice (5)</p><p class='rbadgeep'>5 000 005 EP</p><p class='rbadgefamily'>E family:<br>Euler's Number<br>> E Slice (5)<br>E Slice (4)<br>E Slice (3)</p>"],
@@ -498,7 +502,7 @@
         "epoch": [1000001, "ends in 0000", "<p class='rbadgename'>🏛 Epoch</p><p class='rbadgeep'>1 000 001 EP</p><p class='rbadgefamily'>No family</p>"],
         "3rd power": [990100, "number is in the form n^3", "<p class='rbadgename'>🧊 3rd Power</p><p class='rbadgeep'>990 100 EP</p><p class='rbadgefamily'>Power family:<br>13th Power<br>17th Power<br>19th Power<br>10th Power<br>11th Power<br>9th Power<br>8th Power<br>Ouroboros<br>7th Power<br>6th Power<br>5th Power<br>4th Power<br>> 3rd Power<br>2nd Power</p>"],
         "even spacing": [862070, "there is a constant difference between every digit", "<p class='rbadgename'>📏 Even Spacing</p><p class='rbadgeep'>862 070 EP</p><p class='rbadgefamily'>Progression family:<br>Sequence (6)<br>Cascade<br>Waterfall<br>> Even Spacing<br>Crescendo<br>Even Spacing (Absolute)<br>Turtle<br>Sequence (4)<br>Scramble<br>Metronome<br>Sequence (3)<br>Mini Scramble</p>"],
-        "3 consecutive numbers": [555556, "3 consecutive numbers where at least one is 2+ digits", "<p class='rbadgename'>⛓️ 3 Consecutive Numbers</p><p class='rbadgeep'>555 556 EP</p><p class='rbadgefamily'>Consecutive family:<br>4 Consecutive Numbers<br>4 Consecutive Numbers (Contains)<br>4 Consecutive Numbers (Scrambled)<br>> 3 Consecutive Numbers<br><br>3 Consecutive Numbers (Scrambled)<br>3 Consecutive Numbers (Contains)<br>2 Consecutive Numbers<br>2 Consecutive Numbers (Contains)<br>2 Consecutive Numbers (Nearby)</p>"],
+        "3 consecutive numbers": [555556, "3 consecutive numbers where at least one is 2+ digits", "<p class='rbadgename'>⛓️ 3 Consecutive Numbers</p><p class='rbadgeep'>555 556 EP</p><p class='rbadgefamily'>Consecutive family:<br>4 Consecutive Numbers<br>4 Consecutive Numbers (Contains)<br>4 Consecutive Numbers (Scrambled)<br>> 3 Consecutive Numbers<br>3 Consecutive Numbers (Scrambled)<br>3 Consecutive Numbers (Contains)<br>2 Consecutive Numbers<br>2 Consecutive Numbers (Contains)<br>2 Consecutive Numbers (Nearby)</p>"],
         "deep void (4)": [552487, "contains 0000", "<p class='rbadgename'>🌌 Deep Void (4)</p><p class='rbadgeep'>552 487 EP</p><p class='rbadgefamily'>Void Depth family:<br>Deep Void (5)<br>> Deep Void (4)<br>Deep Void (3)<br>Deep Void</p>"],
         "contiguous fives": [552487, "contains five of the same number in a row", "<p class='rbadgename'>➖➖➖ Contiguous Fives</p><p class='rbadgeep'>552 487 EP</p><p class='rbadgefamily'>Contiguous Run family:<br>Contiguous Sixes<br>> Contiguous Fives<br>Contiguous Quads<br>Contiguous Trips</p>"],
         "strobogrammatic": [502513, "the number looks mostly the same when rotated 180 degrees", "<p class='rbadgename'>🙃 Strobogrammatic</p><p class='rbadgeep'>502 513 EP</p><p class='rbadgefamily'>No family</p>"],
@@ -516,7 +520,7 @@
         "8008": [333334, "contains 8008, which stands for boob", "<p class='rbadgename'>🔢 8008</p><p class='rbadgeep'>333 334 EP</p><p class='rbadgefamily'>Boob family:<br>Exact 80085<br>Exact Boob<br>58008<br>80085<br>> 8008</p>"],
         "3 consecutive numbers (scrambled)": [277778, "contains 3 consecutive numbers where at least one is 2+ digits, but they must be sorted", "<p class='rbadgename'>🔀 3 Consecutive Numbers (Scrambled)</p><p class='rbadgeep'>277 778 EP</p><p class='rbadgefamily'>Consecutive family:<br>4 Consecutive Numbers<br>4 Consecutive Numbers (Contains)<br>4 Consecutive Numbers (Scrambled)<br>3 Consecutive Numbers<br>> 3 Consecutive Numbers (Scrambled)<br>3 Consecutive Numbers (Contains)<br>2 Consecutive Numbers<br>2 Consecutive Numbers (Contains)<br>2 Consecutive Numbers (Nearby)</p>"],
         "zipper": [246914, "number is made up of only 2 unique digits that alternate", "<p class='rbadgename'>🤐 Zipper</p><p class='rbadgeep'>246 914 EP</p><p class='rbadgefamily'>No family</p>"],
-        "ascension": [219298, "each digit is larger than the last, not equal", "<p class='rbadgename'>📈 Ascension</p><p class='rbadgeep'>3 333 337 EP</p><p class='rbadgefamily'>Monotonic family:<br>> Ascension<br>Decay<br>Steps<br>Slopes</p>"],
+        "ascension": [219298, "each digit is larger than the last, not equal", "<p class='rbadgename'>📈 Ascension</p><p class='rbadgeep'>219 298 EP</p><p class='rbadgefamily'>Monotonic family:<br>> Ascension<br>Decay<br>Steps<br>Slopes</p>"],
         "crescendo": [208334, "number forms a geometric sequence of at least 3 with a constant ratio where the terms can be 1-3 digits", "<p class='rbadgename'>🔊 Crescendo</p><p class='rbadgeep'>862 070 EP</p><p class='rbadgefamily'>Progression family:<br>Sequence (6)<br>Cascade<br>Waterfall<br>Even Spacing<br>> Crescendo<br>Even Spacing (Absolute)<br>Turtle<br>Sequence (4)<br>Scramble<br>Metronome<br>Sequence (3)<br>Mini Scramble</p>"],
         "five of a kind": [198020, "contains five of the same number anywhere", "<p class='rbadgename'>🃏 Five of a Kind</p><p class='rbadgeep'>198 020 EP</p><p class='rbadgefamily'>Of a Kind family:<br>> Five of a Kind<br>Framed Quad<br>Framed Triple<br>Four of a Kind<br>Three of a Kind</p>"],
         "3 consecutive numbers (contains)": [157978, "contains 3 consecutive numbers where at least one is 2+ digits", "<p class='rbadgename'>🔗	3 Consecutive Numbers (Contains)</p><p class='rbadgeep'>277 778 EP</p><p class='rbadgefamily'>Consecutive family:<br>4 Consecutive Numbers<br>4 Consecutive Numbers (Contains)<br>4 Consecutive Numbers (Scrambled)<br>3 Consecutive Numbers<br>3 Consecutive Numbers (Scrambled)<br>> 3 Consecutive Numbers (Contains)<br>2 Consecutive Numbers<br>2 Consecutive Numbers (Contains)<br>2 Consecutive Numbers (Nearby)</p>"],
@@ -630,7 +634,6 @@
         "boron (5)": [282, "contains exactly one 5", "<p class='rbadgename'>🧼 Boron (5)</p><p class='rbadgeep'>282 EP</p><p class='rbadgefamily'>No family</p>"],
         "beryllium (4)": [282, "contains exactly one 4", "<p class='rbadgename'>💎 Beryllium (4)</p><p class='rbadgeep'>282 EP</p><p class='rbadgefamily'>No family</p>"],
         "grounded": [250, "the first digit is smaller than the last digit", "<p class='rbadgename'>⚓ Grounded</p><p class='rbadgeep'>250 EP</p><p class='rbadgefamily'>No family</p>"],
-        // "<p class='rbadgename'>🐚 Fibonacci Number</p><p class='rbadgeep'>3 333 337 EP</p><p class='rbadgefamily'>No family</p>"
         "contiguous pair": [249, "contains two of the same number in a row", "<p class='rbadgename'>🫂 Contiguous Pair</p><p class='rbadgeep'>249 EP</p><p class='rbadgefamily'>Pairs family:<br>Contiguous Three Pair<br>Framed Pair<br>Framed Double<br>Three Pair<br>Contiguous Two Pair<br>Two Pair<br>> Contiguous Pair<br>Pair</p>"],
         "lucky seven": [213, "contains 7 anywhere; seven is believed to be lucky", "<p class='rbadgename'>7️⃣ Lucky Seven</p><p class='rbadgeep'>213 EP</p><p class='rbadgefamily'>No family</p>"],
         "liftoff": [200, "the first digit is larger than the last digit", "<p class='rbadgename'>🚀 Liftoff</p><p class='rbadgeep'>200 EP</p><p class='rbadgefamily'>No family</p>"],
@@ -1115,6 +1118,7 @@
         document.querySelector("#percentile").classList = rarity;
         document.querySelector("#ep").classList = rarity;
         document.querySelector("#badges").innerHTML = "";
+        document.querySelector("#permalink").textContent = `https://prototypestudios.neocities.org/rngdle${document.querySelector("#num").value ? "?n=" + document.querySelector("#num").value : ""}`;
         let badgerarity = "mythic";
         let badgeep = 100000100;
         for (badge in badgesList) {
@@ -1310,6 +1314,10 @@
       }
       document.querySelector("#extras").oninput = analyze;
       document.querySelector("#personalize").onclick = () => {window.location.href = "https://prototypestudios.neocities.org/personalize";}
+      window.onload = () => {
+        let num = new URLSearchParams(window.location.search).get("n");
+        if (num) {document.querySelector("#num").value = num; if (document.querySelector("#num").value) analyze();}
+      }
     </script>
   </body>
 </html>
