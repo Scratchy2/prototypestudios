@@ -4,20 +4,24 @@
     <meta charset="UTF-8">
     <meta name="description" content="Get rewarded for a random color with infinite chances. Epilepsy warning!">
     <meta property="og:description" content="Get rewarded for a random color with infinite chances. Epilepsy warning!">
-    <meta name="keywords" content="daily, random, color, creulette, roulette, rulet, online, game, free, endless, infinite, prototype, studios">
     <meta name="author" content="ProtoType Studios">
-    <meta property="og:title" content="Creulette by ProtoType Studios">
+    <meta property="og:title" content="Creulette by ProtoType Studios™">
+    <meta property="og:image" content="https://github.com/Scratchy2/prototypestudios/blob/main/assets/creulettePreview.png?raw=true">
+    <meta property="og:image:width" content="1536">
+    <meta property="og:image:height" content="768">
+    <meta name="robots" content="max-image-preview:large">
+    <meta name="twitter:card" content="summary_large_image">
     <meta property="og:url" content="https://prototypestudios.neocities.org/creulette">
     <meta name="theme-color" content="#303336">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Creulette</title>
-    <link rel="preload" href="/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/style.css"></noscript>
+    <link rel="canonical" href="https://prototypestudios.neocities.org/creulette" />
+    <link rel="stylesheet" href="/style.css">
     <style>
       body {
         --global-shake: 0px;
         display: block;
-        transform: translateX(var(--global-shake)) translateY(calc(-1*var(--global-shake)));
+        transform: translateX(var(--global-shake)) translateY(calc(var(--global-shake)*-1));
       }
       @keyframes appear {
         0% {scale:0;}
@@ -58,6 +62,7 @@
       #roll {
         width: 10.0695625em;
         height: 4.5em;
+        display: inline;
       }
       #chroma, #percentile {
         transition: all 749.8375ms ease;
@@ -118,6 +123,10 @@
         background: linear-gradient(to bottom, #600, #400);
         border: 4px solid #900;
       }
+      .prop.unheard {
+        background: linear-gradient(to bottom, #00ffbe, #00cbe6, #0096ff);
+        border: 4px solid #099;
+      }
       
       .value {
         border-radius: 999px;
@@ -130,7 +139,7 @@
       .value:active {
         scale: 0.99;
       }
-      .value.trash { /* -40-9 Chroma */
+      .value.trash { /* -32-9 Chroma */
         box-shadow: 0 0 50px 2px #aa4;
         background-color: #aa4;
       }
@@ -154,9 +163,37 @@
         box-shadow: 0 0 50px 23px #aa0;
         background-color: #aa0;
       }
-      .value.mythic { /* 1 000 000+ Chroma */
+      .value.mythic { /* 1 000 000-9 999 999 Chroma */
         box-shadow: 0 0 50px 33px #a00;
         background-color: #a00;
+      }
+      .value.unheard { /* 10 000 000+ Chroma */
+        box-shadow: 0 0 50px 37px #0aa;
+        background-color: #0aa;
+      }
+      
+      .nav {
+        background-color: transparent;
+        border-radius: 0.5em;
+        border: none;
+        border-bottom: 3px solid #fafafa;
+        transition: all 0.2s ease;
+      }
+      .nav.selected {
+        border-bottom: 3px solid #fafa00;
+      }
+      .entry {
+        border-radius: 1em;
+        padding: 0.5em;
+        color: #000;
+        width: 90%;
+        transition: scale 0.3s ease;
+      }
+      .entry:hover {
+        scale: 1.042;
+      }
+      .entry:active {
+        scale: 0.99;
       }
     </style>
   </head>
@@ -164,16 +201,27 @@
     <div class="header">
       <button class="back">← Back to ProtoType Studios</button>
       <h1 class="large project">Creulette</h1>
+      <button class="large" id="personalize">Personalize Account</button>
     </div>
     <center>
-      <h6 class="medium">Get rewarded for a random color with infinite chances. Epilepsy warning!</h6><hr>
-      <div id="color"></div>
-      <p class="small" id="color2">#fafa00</p>
-      <div id="stats">
-        <p class="medium mono" id="chroma">0 Chroma</p>
+      <h6 class="medium">Get rewarded for a random color with infinite chances. Epilepsy warning!</h6>
+      <div class="navbar">
+        <button class="nav selected" id="rollbtn">Roll</button>
+        <button class="nav" id="ldbtn">Leaderboard</button>
       </div>
-      <button class="large" id="roll">ROLL</button>
-      <div id="props"></div>
+      <hr>
+      <div class="roll">
+        <div id="color"></div>
+        <p class="small" id="color2">#fafa00</p>
+        <div id="stats">
+          <p class="medium mono" id="chroma">0 Chroma</p>
+        </div>
+        <button class="large" id="roll">ROLL</button>
+        <div id="props"></div>
+      </div>
+      <div class="leaderboard" style="display: none;"></div>
+      <hr><h2 class="large">what does any of this even mean?</h2>
+      <h6 class="small">you roll a color and it gives you badges based on the digits of the color. while you're rolling, you can get "meta badges" that can be earned multiple times. once the game finishes scoring, you get three special badges that award based on the actual <i>color</i>, like you'd expect. sp stands for saturation points, bp for brightness points, and ap for aesthetic points (which you can get negative chroma for). after everything finishes, you're able to share your roll by clicking it and roll again or treat the game like a daily and click the "I'm Satisfied" button to lock rolling until midnight UTC the next day.</h6>
       <hr><footer class="small">© 2026 ProtoType Studios. All rights reserved.</footer>
     </center>
   </body>
@@ -189,6 +237,8 @@
     const A3rare = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/3rare.mp3");
     const A4rare = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/4rare.mp3");
     const A5rare = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/5rare.mp3");
+    const Aroll = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/roll.wav");
+    const Areveal = new Audio("https://github.com/Scratchy2/prototypestudios/raw/refs/heads/main/assets/reveal.wav");
     let badgeCount = 0;
     let rareCount = 0;
     Acommon.preservesPitch = false;
@@ -197,10 +247,18 @@
     Aepic.preservesPitch = false;
     Alegendary.preservesPitch = false;
     Amythic.preservesPitch = false;
+    Aroll.preservesPitch = false;
+    Areveal.volume = 0.5;
     const badges = {
       "Hexadecimal": "The color is in Hexadecimal format. + 16 Chroma",
+      "Neighbors": "There are two adjacent digits that differ by 1. + 17 Chroma",
       "Spotless": "The red channel is even (02468ace). + 20 Chroma",
       "Bloody": "The red channel is odd (13579bdf). + 20 Chroma",
+      "No Chroma For You": "Begins with a letter and a number or a number and letter. + 21 Chroma",
+      "HAHAHAHAHA": "Ends with a letter and a number or a number and a letter. + 21 Chroma",
+      "Liftoff": "The first digit is larger than the last. + 21 Chroma",
+      "Low Profile": "The first digit is smaller than the last. + 21 Chroma",
+      "Countryside": "No adjacent consecutive digits exist. + 24 Chroma",
       "Double Digit": "The first two digits are numbers. + 25 Chroma",
       "Double End Digit": "The last two digits are numbers. + 25 Chroma",
       "Letterous": "The first digit is a letter. + 26 Chroma",
@@ -211,37 +269,51 @@
       "Cool": "Blue is the most dominant channel. + 30 Chroma",
       "Half Numbers": "The first three digits are numbers. + 40 Chroma",
       "Half End Numbers": "The last three digits are numbers. + 40 Chroma",
+      "The Happy Troll": "Both begins and ends with a number and a letter or a letter and a number. + 45 Chroma",
       "Firefly": "One letter among five numbers. + 46 Chroma",
       "Quartet": "Has only four unique digits. + 59 Chroma",
       "Suspicious": "The first four digits are numbers. + 65 Chroma",
       "Suspicious End": "The last four digits are numbers. + 65 Chroma",
       "Double Trouble": "Contains a pair. + 69 Chroma",
       "Double Letter": "The first two digits are letters. + 71 Chroma",
-      "Double End Letter": "The first two digits are letters. + 71 Chroma",
+      "Double End Letter": "The last two digits are letters. + 71 Chroma",
       "Grounded": "One channel is near midtone (84-8d). + 85 Chroma",
       "Two Pair": "Has exactly two pairs. + 85 Chroma",
       "A1Z26": "Contains a1, b2, c3, d4, e5, f6, or a combination of that. + 85 Chroma",
       "So Close": "The first five digits are numbers. + 104 Chroma",
       "So Close End": "The last five digits are numbers. + 104 Chroma",
+      "1b3": "The first digit is 0, 8, or f, and the rest are not. + 150 Chroma",
+      "1b": "The first digit is 0 or f and the rest are not. + 156 Chroma",
       "Twin Reds": "Both of the red digits are the same. + 160 Chroma",
       "Twin Greens": "Both of the green digits are the same. + 160 Chroma",
       "Twin Blues": "Both of the blue digits are the same. + 160 Chroma",
+      "Equilibrium": "The first and last digits are the same. + 160 Chroma",
       "RNGdle Roll": "All digits are numbers. + 167 Chroma",
       "Half Letters": "The first three digits are letters. + 189 Chroma",
       "Half End Letters": "The last three digits are letters. + 189 Chroma",
       "Triple Trouble": "Contains three of a kind. + 192 Chroma",
+      "Flush": "All digits are the same parity. + 320 Chroma",
+      "Alternate Alternator": "The parity of the digits alternates between even and odd. + 320 Chroma",
       "Firefly+": "One number among five letters. + 359 Chroma",
+      "Sequence (3)": "Contains a sequence of 3 consecutive digits. + 365 Chroma",
       "Alternator": "Alternates strictly between numbers/letters or letters/numbers. + 388 Chroma",
       "Red A1Z26": "The red channel is a1, b2, c3, d4, e5, or f6. + 426 Chroma",
       "Green A1Z26": "The green channel is a1, b2, c3, d4, e5, or f6. + 426 Chroma",
       "Blue A1Z26": "The blue channel is a1, b2, c3, d4, e5, or f6. + 426 Chroma",
+      "Rhyme": "Two different numbers appear twice as a substring. + 455 Chroma",
       "Very Suspicious": "The first four digits are letters. + 505 Chroma",
       "Very Suspicious End": "The last four digits are letters. + 505 Chroma",
+      "Void": "Contains 00. + 512 Chroma",
       "The Other Brainrot Reversed": "Contains 14. + 512 Chroma",
+      "Blackjack": "Contains 21. + 512 Chroma",
       "Reversed Answer to Everything": "Contains 24. + 512 Chroma",
+      "3D": "Contains 3d. + 512 Chroma",
       "The Other Brainrot": "Contains 41. + 512 Chroma",
       "Answer to Everything": "Contains 42. + 512 Chroma",
+      "4D": "Contains 4d. + 512 Chroma",
+      "FIVE FIVE! FIVE FIVE! FIVE FIVE!": "Contains 55. + 512 Chroma",
       "Brainrot": "Contains 67. + 512 Chroma",
+      "REVERSE Restaurant Fuck Shit Thing": "Contains 68. + 512 Chroma",
       "Nice": "Contains 69. + 512 Chroma",
       "Reverse Brainrot": "Contains 76. + 512 Chroma",
       "Restaurant Fuck Shit Thing": "Contains 86. + 512 Chroma",
@@ -250,39 +322,79 @@
       "Air Conditioner": "Contains ac. + 512 Chroma",
       "Advertisement": "Contains ad. + 512 Chroma",
       "As Fuck": "Yeah!!! + 512 Chroma",
-      "Before":"Contains b4. + 512 Chroma",
-      "Before Christ":"Contains bc. + 512 Chroma",
-      "That Is The Question":"Contains be. + 512 Chroma",
+      "Before": "Contains b4. + 512 Chroma",
+      "Before Christ": "Contains bc. + 512 Chroma",
+      "That Is The Question": "Contains be. + 512 Chroma",
       "Companionship": "Contains bf. + 512 Chroma",
-      "English Opening":"Contains c4. + 512 Chroma",
-      "Compact Disc":"Contains cd. + 512 Chroma",
-      "Database":"Contains db. + 512 Chroma",
-      "Direct Current":"Contains dc. + 512 Chroma",
+      "English Opening": "Contains c4. + 512 Chroma",
+      "Compact Disc": "Contains cd. + 512 Chroma",
+      "Database": "Contains db. + 512 Chroma",
+      "Direct Current": "Contains dc. + 512 Chroma",
       "Why does this show up more than it should?": "Contains e3. + 512 Chroma",
       "King's Pawn": "Contains e4. + 512 Chroma",
       "Furry Slice (2)": "Contains e6. + 512 Chroma",
       "Safe Furry Slice (2)": "Contains e9. + 512 Chroma",
-      "EA Sports":"Contains ea. + 512 Chroma",
-      "Education":"Contains ed. + 512 Chroma",
-      "Fur Affinity":"Contains fa. + 512 Chroma",
+      "EA Sports": "Contains ea. + 512 Chroma",
+      "Education": "Contains ed. + 512 Chroma",
+      "Fur Affinity": "Contains fa. + 512 Chroma",
       "Facebook": "Contains fb. + 512 Chroma",
-      "Full Combo":"Contains fc. + 512 Chroma",
+      "Full Combo": "Contains fc. + 512 Chroma",
+      "Fullbright": "Contains ff. + 512 Chroma",
+      "Fully Even": "Every digit is even (02468ace). + 640 Chroma",
+      "Fully Odd": "Every digit is odd (13579bdf). + 640 Chroma",
+      "2 Consecutive Colors": "The difference between red and green or green and blue is 1. + 645 Chroma",
+      "2b3": "The first 2 digits are 0, 8, or f, and the rest are not. + 652 Chroma",
+      "Double Twins": "Two channels are both the same digit. + 853 Chroma",
+      "Mini Echo": "Contains an adjacent repeat of two digits. + 910 Chroma",
+      "2b": "The first 2 digits are 0 or f and the rest are not. + 1 091 Chroma",
+      "Full House": "Contains both a three of a kind and a pair. + 1 324 Chroma",
       "Really Close": "The first five digits are letters. + 1 348 Chroma",
       "Really Close End": "The last five digits are letters. + 1 348 Chroma",
       "Trinity": "Has only three unique digits. + 1 849 Chroma",
       "Scientific Notation": "A number from 1-9, followed by e, followed by only numbers. + 1 864 Chroma",
+      "Almost Greyscale": "The maximum channel minus the minimum channel is at most 10. + 2 035 Chroma",
       "Foundational": "Two channels are near midtone (84-8d). + 2 184 Chroma",
       "Yellow Submarine": "The red and green channels are equal. + 2 560 Chroma",
       "My Oh My": "The green and blue channels are equal. + 2 560 Chroma",
       "Hot Pink": "The red and blue channels are equal. + 2 560 Chroma",
+      "Blackjack (sum)": "Each individual digit sums to 21. + 2 685 Chroma",
+      "Bookends": "The first digits match the last two, but they're not pairs. + 2 730 Chroma",
+      "Paired Bookends": "Starts with a pair and ends with a different one. + 2 730 Chroma",
+      "Mirror Bookends": "The first digits mirror the last two, but they're not pairs. + 2 730 Chroma",
+      "3b3": "The first 3 digits are 0, 8, or f, and the rest are not. + 2 828 Chroma",
       "This Looks Like Shit!": "Did you pull this color out of your ass? + 2 947 Chroma",
+      "Framed Double": "Two pairs that are bookended by different digits. + 3 328 Chroma",
       "It's a Letters Game": "All digits are letters. + 3 595 Chroma",
       "Battery-powered": "Every channel is greater than 220 (dc in hex). + 3 913 Chroma",
+      "High Contrast": "The highest channel is at least 250 more than the lowest channel. + 5 290 Chroma",
+      "Low Ball": "The digits sum to less than 14. + 6 183 Chroma",
+      "3b": "The first 3 digits are 0 or f and the rest are not. + 7 642 Chroma",
       "Three Pair": "Has exactly three pairs. + 8 322 Chroma",
+      "Sequence (4)": "Contains a sequence of 4 consecutive digits. + 8 402 Chroma",
+      "Deep Void (3)": "Contains 000. + 10 240 Chroma",
+      "Secret Agent": "Contains 007. + 10 240 Chroma",
+      "Century": "Contains 100. + 10 240 Chroma",
+      "Twelve Squared": "Contains 144. + 10 240 Chroma",
+      "Euler Slice (3)": "Contains 271. + 10 240 Chroma",
+      "Pi Slice (3)": "Contains 314. + 10 240 Chroma",
+      "Bad Request": "Contains 400. + 10 240 Chroma",
+      "Unauthorized": "Contains 401. + 10 240 Chroma",
+      "Forbidden": "Contains 403. + 10 240 Chroma",
+      "[object Object]": "Contains 404. + 10 240 Chroma",
+      "Botanist": "Contains 420. + 10 240 Chroma",
+      "Too Many Requests": "Contains 429. + 10 240 Chroma",
+      "Internal Server Error": "Contains 500. + 10 240 Chroma",
+      "Bad Gateway": "Contains 502. + 10 240 Chroma",
+      "Service Unavailable": "Contains 503. + 10 240 Chroma",
+      "Tau Slice (3)": "Contains 628. + 10 240 Chroma",
+      "When You See It": "Contains 727. + 10 240 Chroma",
+      "Jackpot 3": "Contains 777. + 10 240 Chroma",
       "Michael Jackson": "Contains bad. + 10 240 Chroma",
       "Watch Your Language": "Contains a55. + 10 240 Chroma",
       "Asexual": "Contains ace. + 10 240 Chroma",
       "Baldi's Basics": "Contains add. + 10 240 Chroma",
+      "British Broadcasting Corporation": "Contains bbc. + 10 240 Chroma",
+      "go to sleep lunarbee": "Contains bed. + 10 240 Chroma",
       "Milo the Protogen :3": "Contains bee. + 10 240 Chroma",
       "Taxi!!! Taxi!!!": "Contains cab. + 10 240 Chroma",
       "Dab on it": "Contains dab. + 10 240 Chroma",
@@ -290,41 +402,80 @@
       "Furry Slice (3)": "Contains e62. + 10 240 Chroma",
       "Safe Furry Slice (3)": "Contains e92. + 10 240 Chroma",
       "Fed Up": "Contains fed. + 10 240 Chroma",
+      "4b3": "The first 4 digits are 0, 8, or f, and the rest are not. + 12 255 Chroma",
       "Double A1Z26": "Two channels are a1, b2, c3, d4, e5, or f6. + 18 204 Chroma",
-      "Deep Void": "Every channel is less than 20 (14 in hex). + 20 971 Chroma",
+      "Decay": "Each digit is smaller than the last. + 20 950 Chroma",
+      "Ascension": "Each digit is larger than the last. + 20 950 Chroma",
+      "Shadowborn": "Every channel is less than 20 (14 in hex). + 20 971 Chroma",
+      "Echo": "The first half repeats the second half. + 40 960 Chroma",
+      "Triple Twins": "Every channel has both of the same digit. + 40 960 Chroma",
       "Palindrome": "Reads the same forwards and backwards without the #. + 40 960 Chroma",
       "Duality": "Has only two unique digits. + 43 690 Chroma",
       "Quadruple Trouble": "Contains four of a kind. + 49 932 Chroma",
+      "5b3": "The first 5 digits are 0, 8, or f, and the rest are not. + 53 109 Chroma",
+      "4b": "The first 4 digits are 0 or f and the rest are not. + 53 498 Chroma",
       "Midtone": "All channels are near midtone (84-8d). + 167 772 Chroma",
+      "Sequence (5)": "Contains a sequence of 5 consecutive digits. + 218 453 Chroma",
       "Pure Signal": "Only one nonzero channel. + 218 453 Chroma",
+      "Deep Void (4)": "Contains 0000. + 218 453 Chroma",
+      "Millennium": "Contains 1000. + 218 453 Chroma",
+      "Leetspeak": "Contains 1337. + 218 453 Chroma",
+      "Euler Slice (4)": "Contains 2718. + 218 453 Chroma",
+      "Pi Slice (4)": "Contains 3141. + 218 453 Chroma",
+      "Tau Slice (4)": "Contains 6283. + 218 453 Chroma",
+      "Reverse Leetspeak": "Contains 7331. + 218 453 Chroma",
+      "Jackpot 4": "Contains 7777. + 218 453 Chroma",
+      "Hey Babe": "Contains babe. + 218 453 Chroma",
       "Rated R": "Contains b00b. + 218 453 Chroma",
       "Café": "Contains cafe. + 218 453 Chroma",
       "Count Your Days": "Contains dead. + 218 453 Chroma",
+      "Hard of Hearing": "Contains deaf. + 218 453 Chroma",
       "Furry Color": "Contains e621. + 218 453 Chroma",
       "Safe Furry Color": "Contains e926. + 218 453 Chroma",
-      "Leetspeak": "Contains 1337. + 218 453 Chroma",
-      "Reverse Leetspeak": "Contains 7331. + 218 453 Chroma",
       "Ternary Soul": "Every digit is either 0, 8, or f. + 230 140 Chroma",
+      "3 Consecutive Colors": "The difference between red and green and green and blue is 1. + 331 565 Chroma",
+      "5b": "The first 5 digits are 0 or f and the rest are not. + 374 491 Chroma",
       "Greyscale": "All channels are the same. + 655 360 Chroma",
       "Quintuple Trouble": "Contains five of a kind. + 699 050 Chroma",
       "Triple A1Z26": "All channels are a1, b2, c3, d4, e5, or f6. + 776 722 Chroma",
       "Binary Soul": "Every digit is either 0 or f. + 2 621 440 Chroma",
+      "Deep Void (5)": "Contains 00000. + 5 242 880 Chroma",
+      "Euler Slice (5)": "Contains 27182. + 5 242 880 Chroma",
+      "Pi Slice (5)": "Contains 31415. + 5 242 880 Chroma",
+      "Tau Slice (5)": "Contains 62831. + 5 242 880 Chroma",
+      "Jackpot 5": "Contains 77777. + 5 242 880 Chroma",
       "Rated X": "Contains b00b5. + 5 242 880 Chroma",
+      "Sequence (6)": "Contains a sequence of 6 consecutive digits. + 7 626 007 Chroma",
       "Homogeneous": "All digits are the same. + 10 485 760 Chroma",
       "Funny Hex": "#bada55, #c0ffee, #deadbf, or #b00b69. + 41 943 040 Chroma",
       "Perfect Sequence": "#abcdef or #fedcba. + 83 886 080 Chroma",
+      "Jackpot 6": "#777777. + 167 772 160 Chroma",
+      "Pure Red": "#ff0000. + 167 772 160 Chroma",
+      "Pure Yellow": "#ffff00. + 167 772 160 Chroma",
+      "Pure Green": "#00ff00. + 167 772 160 Chroma",
+      "Pure Aqua": "#00ffff. + 167 772 160 Chroma",
+      "Pure Blue": "#0000ff. + 167 772 160 Chroma",
+      "Pure Pink": "#ff00ff. + 167 772 160 Chroma",
+      "Pure Black": "#000000. + 167 772 160 Chroma",
+      "Pure White": "#ffffff. + 167 772 160 Chroma",
+      "ProtoType Studios": "The default background color #303336. + 167 772 160 Chroma",
       "Rebecca's Blessing": "The CSS color rebeccapurple. + 167 772 160 Chroma",
+      "secretaltyouwontfind": "The special color that you probably won't see on RNGdle. + 167 772 160 Chroma",
+      "Accurate Image": "Exactly matches the color in the image preview of this website! + 167 772 160 Chroma",
       "What You Started With": "It's like you never even rolled! + 167 772 160 Chroma",
       // above: hex badges -- below: rgb badges
       "RGB": "The Color is in RGB format. + 28 Chroma",
+      "Prime Channel": "One of the channels is a prime number. + 19 Chroma",
       "Spotless RGB": "The red channel is even. + 20 Chroma",
       "Bloody RGB": "The red channel is odd. + 20 Chroma",
       "Red Surge": "Red is the most dominant channel. + 30 Chroma",
       "Green Surge": "Green is the most dominant channel. + 30 Chroma",
       "Blue Surge": "Blue is the most dominant channel. + 30 Chroma",
-      "Power of Two": "One of the channels is a power of 2. + 45 Chroma",
+      "Fibonacci": "One of the channels is a Fibonacci number. + 64 Chroma",
       "Balanced": "All channels have a maximum difference of 10. + 70 Chroma",
       "Grounded RGB": "One channel is near midtone (124-132). + 85 Chroma",
+      "Double Prime": "Two channels are prime numbers. + 87 Chroma",
+      "Power of Two": "One of the channels is a power of 2. + 110 Chroma",
       "Radical Red": "All of the red numbers are the same. + 121 Chroma",
       "Goofy Green": "All of the green numbers are the same. + 121 Chroma",
       "Boisterous Blue": "All of the blue numbers are the same. + 121 Chroma",
@@ -333,14 +484,23 @@
       "Shadow Blue": "The blue channel is less than 10. + 256 Chroma",
       "The Other RGB Brainrot": "One of the channels is 41. + 365 Chroma",
       "Answer to Everything in RGB": "One of the channels is 42. + 365 Chroma",
+      "FIVE FIVE. FIVE FIVE. FIVE FIVE.": "One of the channels is 55. + 365 Chroma",
       "RGB Brainrot": "One of the channels is 67. + 365 Chroma",
       "Nice RGB": "One of the channels is 69. + 365 Chroma",
-      "Restaurant Fuck Shit RGB": "One of the channels is 86. + 365 Chroma",
+      "Restaurant Fuck Shit Thing RGB": "One of the channels is 86. + 365 Chroma",
       "Orientation": "One of the channels is 101. + 365 Chroma",
+      "Twelve Squared": "One of the channels is 144. + 365 Chroma",
       "Prime Color": "Every channel is a prime number. + 1 065 Chroma",
-      "Shadowborn": "The sum of the channels is below 50. + 7 591 Chroma",
+      "Double Power": "Two channels are powers of 2. + 6 971 Chroma",
+      "Shadowborn RGB": "The sum of the channels is below 50. + 7 591 Chroma",
       "Flashbang": "The sum of the channels is above 721. + 11 052 Chroma",
       "Fibonacci Color": "Every channel is a Fibonacci number. + 61 141 Chroma",
+      "Homogeneous RGB": "All channels are the same value. + 655 360 Chroma",
+      // above: rgb badges -- below: meta badges
+      "Boring": "Did not earn a meta badge. + 30 Chroma",
+      "Shaky": "Screen shook more than 1.44px. + 100 Chroma",
+      "Still": "Screen shook less than 0.12px. + 133 Chroma",
+      "Near Miss": "Rolled an exact during the roll. + 279 625 Chroma",
     }
     
     // Source - https://stackoverflow.com/a/53577159
@@ -356,10 +516,10 @@
       const info = badges[name].split(" +");
       const chroma = parseInt(info[1].replaceAll(" ","")) || 10;
       let rarity = "common";
-      if (chroma >= 1000000) {
-        rarity = "mythic";
+      if (chroma >= 10000000) {
+        rarity = "unheard";
       } else {
-        rarity = ["common", "uncommon", "rare", "epic", "legendary", "mythic", "mythic"][Math.floor(Math.log10(chroma))-1];
+        rarity = ["common", "uncommon", "rare", "epic", "legendary", "mythic", "unheard", "unheard"][Math.floor(Math.log10(chroma))-1];
       }
       document.querySelector("#props").insertAdjacentHTML("afterbegin", `
         <div class="prop ${rarity}">
@@ -370,19 +530,286 @@
       `);
       chrto += chroma;
       shake = 1;
-      if (rareCount == 2) {A2rare.play(); shake = 2;}
-      if (rareCount == 3) {A3rare.play(); shake = 4;}
-      if (rareCount == 4) {A4rare.play(); shake = 6;}
-      if (rareCount > 4) {A5rare.play(); shake = 8;}
+      if (rareCount == 1) {A2rare.play(); shake = 2;}
+      if (rareCount == 2) {A3rare.play(); shake = 4;}
+      if (rareCount == 3) {A4rare.play(); shake = 6;}
+      if (rareCount > 3) {A5rare.play(); shake = 8;}
       if (rarity == "common") {Acommon.playbackRate = 1+0.05*badgeCount; badgeCount += 1; Acommon.play(); shake *= 1.5;}
       if (rarity == "uncommon") {Auncommon.playbackRate = 1+0.05*badgeCount; badgeCount += 1; Auncommon.play(); shake *= 2.5;}
       if (rarity == "rare") {Arare.playbackRate = 1+0.025*rareCount; rareCount += 1; Arare.play(); shake *= 4.5;}
       if (rarity == "epic") {Aepic.playbackRate = 1+0.025*rareCount; rareCount += 1; Aepic.play(); shake *= 6.5;}
       if (rarity == "legendary") {Alegendary.playbackRate = 1+0.025*rareCount; rareCount += 1; Alegendary.play(); shake *= 10.5;}
       if (rarity == "mythic") {Amythic.playbackRate = 1+0.025*rareCount; rareCount += 1; Amythic.play(); shake *= 15.5;}
+      if (rarity == "unheard") {Amythic.playbackRate = 1+0.025*rareCount; rareCount += 1; Amythic.play(); shake *= 25.5;}
       await sleep(500+Math.log10(chroma)*337);
     }
+    function CNums() {
+      // 4 consecutive numbers
+      if (s=="78910" || s=="10987" || s=="891011" || s=="111098") return 25000025;
+      if (s.includes("78910") || s.includes("10987")) return 2631582;
+      if (s.includes("7") && s.includes("8") && s.includes("9") && s.includes("10") && length == 5) return 2272730;
+      if (s.includes("8") && s.includes("9") && s.includes("10") && s.includes("11") && length == 6 && !(s.includes("110")&&!s.includes("1110"))) return 2272730;
+      
+      // 3 consecutive numbers
+      // 2 digits
+      if (length == 6) {
+        const a = s.slice(0,2);
+        const b = s.slice(2,4);
+        const c = s.slice(4,6);
+        const sorted = [a,b,c].sort();
+        if (sorted[1]-sorted[0]==1 && sorted[2]-sorted[1]==1 && sorted[0][0]!="0" && sorted[1][0]!="0" && sorted[2][0]!="0") {
+          if ([a,b,c].join(",") == sorted.join(",") || [a,b,c].reverse().join(",") == sorted.join(",")) return 555556;
+          else return 277778;
+        }
+      }
+      // 1 digit
+      if (s=="8910" || s=="91011" || s=="11109" || s=="1098") return 555556;
+      if (s=="8109" || s=="9810" || s=="9108" || s=="1089" || s=="91110" || s=="10911" || s=="10119" || s=="11910") return 277778;
+      if (s.includes("8910") || s.includes("91011") || s.includes("11109") || s.includes("1098")) return 157978;
+      
+      // 2 consecutive numbers
+      // exact
+      if ((Math.abs(s.slice(0,3)-s.slice(3,6)) == 1) && s[0] != "0" && s[3] != "0" && length == 6) return 50505;
+      if ((Math.abs(s.slice(0,2)-s.slice(2,4)) == 1) && s[0] != "0" && s[2] != "0" && length == 4) return 50505;
+      if (s=="910" || s=="109" || s=="99100" || s=="10099") return 50505;
+      // adjacent
+      if (((Math.abs(s.slice(0,2)-s.slice(2,4)) == 1 && s[0] != "0" && s[2] != "0") || (Math.abs(s.slice(1,3)-s.slice(3,5)) == 1 && s[1] != "0" && s[3] != "0") || (Math.abs(s.slice(2,4)-s.slice(4,6)) == 1 && s[2] != "0" && s[4] != "0")) && length > 4) return 1659;
+      if (s.includes("99100") || s.includes("10099")) return 1659;
+      if (s.includes("910") || s.includes("109")) return 1659;
+      // nearby
+      if (((Math.abs(s.slice(0,2)-s.slice(3,5)) == 1 && s[3] != "0" && length > 4) || (Math.abs(s.slice(0,2)-s.slice(4,6)) == 1 && s[4] != "0" && length == 6) || (Math.abs(s.slice(1,3)-s.slice(4,6)) == 1 && s[4] != "0") && length == 6)) return 1575;
+      if (s.includes("99") && s.includes("100")) return 1575;
+      if (s.includes("9") && s.includes("10")) return 1575;
+      return 0;
+    }
+    function Prime() {
+      if (num < 2) return 0;
+      if (num < 4) return 1274;
+      if (num%2==0 || num%3==0) return 0;
+      for (let i = 5; i * i <= num; i += 6) {
+        if (num % i === 0 || num % (i + 2) === 0) return 0;
+      }
+      return 1274;
+    }
+    function MountainValley() {
+      let d = [...s];
+      for (i in d) {
+        d[i] = Math.sign(d[Number(i)+1]-d[i]) || null;
+      }
+      d.splice(-1, 1);
+      if (!(d.includes(-1) && d.includes(1))) return 0;
+      if (d.includes(null)) return 0;
+      if (d.join(",") == [...d].sort().join(",")) return 4199;
+      if (d.join(",") == [...d].sort().reverse().join(",")) return 5885;
+      return 0;
+    }
+    function analyze(number) {
+      ep = 0;
+      num = number;
+      s = String(num);
+      length = s.length;
+      sum = [...s].reduce((acc, digit) => acc + Number(digit), 0);
+      product = [...s].reduce((acc, digit) => acc * Number(digit), 1);
+      sum1 = -6969;
+      sum2 = -420420;
+      const counts = {};
+      const digits = [...s];
+      for (const d of digits) {
+      	counts[d] = (counts[d] || 0) + 1;
+      }
+      const counts2 = Object.values(counts);
+      const maxCount = Math.max(...counts2);
+      const minCount = Math.min(...counts2);
+      if (length % 2 == 0) {
+        sum1 = [...s].slice(0,length/2).reduce((acc, digit) => acc + Number(digit), 0);
+        sum2 = [...s].slice(length/2,length).reduce((acc, digit) => acc + Number(digit), 0);
+      }
+      let u = [...new Set([...s])];
+      if (length == 6) ep+=111;
+      if ((/01|10|12|21|23|32|34|43|45|54|56|65|67|76|78|87|89|98/gi).test(s)) ep+=161;
+      if (!s.includes("0")) ep+=167;
+      if (s[0] > s.at(-1)) ep+=200;
+      ep+=200;
+      if (s.includes("7")) ep+=213;
+      if (s[0] < s.at(-1)) ep+=250;
+      if ((s.match(/1/gi) || []).length == 1) ep+=282;
+      if ((s.match(/2/gi) || []).length == 1) ep+=282;
+      if ((s.match(/3/gi) || []).length == 1) ep+=282;
+      if ((s.match(/4/gi) || []).length == 1) ep+=282;
+      if ((s.match(/5/gi) || []).length == 1) ep+=282;
+      if ((s.match(/6/gi) || []).length == 1) ep+=282;
+      if ((s.match(/7/gi) || []).length == 1) ep+=282;
+      if ((s.match(/8/gi) || []).length == 1) ep+=282;
+      if ((s.match(/9/gi) || []).length == 1) ep+=282;
+      if (u.length == 4) ep+=290;
+      if ((s.match(/0/gi) || []).length == 1) ep+=309;
+      if (Math.abs(s[0] - s.at(-1)) == 1) ep+=529;
+      if (u.length == length) ep+=593;
+      if (num % 7 == 0 && num > 0) ep+=700;
+      if (([...s].every((d, i, a) => i == a.length-1 || (i % 2 == 0 ? a[i+1] > d : a[i+1] < d)) || [...s].every((d, i, a) => i == a.length-1 || (i % 2 == 0 ? a[i+1] < d : a[i+1] > d))) && length > 3) ep+=733;
+      // sandwich badge is never counted. if (s[0] == s.at(-1) && length > 1) ep+=1000;
+      if (s[0] == s.at(-1) && length > 1) ep+=1000;
+      if (s.at(-1) == 5) ep+=1000;
+      if (s.at(-1) == 0) ep+=1000;
+      if (num % sum == 0) ep+=1048;
+      if (num % 11 == 0 && num > 0) ep+=1100;
+      if (length == 5) ep+=1111;
+      if (num % 12 == 0 && num > 0) ep+=1200;
+      if (u.length == 3) ep+=1265;
+      ep += Prime();
+      ep += CNums();
+      ep += MountainValley();
+      if (sum1 == sum2) ep+=1959;
+      if ((u.length == length - 1) && ((s.match(/1/gi) || []).length == 2)) ep+=2121;
+      if (sum == 21) ep+=2521;
+      if (sum < 15) ep+=2667;
+      if ([...s].every(d => d % 2 == 0) || [...s].every(d => d % 2 == 1)) ep+=2845;
+      if ((/^([86420](?![86420])|[97531](?![97531]))+$/gmi).test(s) && length > 1) ep+=2845;
+      if ((/(..)\1/gi).test(s)) ep+=3704;
+      else if ((/(.{2,3}).*\1/gi).test(s)) ep+=1872;
+      if ([...s].every(d => d >= 5)) ep+=5120;
+      if ((/(.).\1.\1/gi).test(s) && u.length > 1) ep+=5321;
+      else if ((/(.).\1/gi).test(s) && u.length > 1) ep+=312;
+      if ([...s].every(d => d < 5)) ep+=6400;
+      if (s.endsWith("50")) ep+=10000;
+      if (s.endsWith("00")) ep+=10000;
+      if (length == 4) ep+=11111;
+      if ((/^(.)\1.*(?!\1)(.)\2$/gmi).test(s)) ep+=11122;
+      else if (s[0] == s.at(-2) && s[1] == s.at(-1) && length > 3) ep+=10010;
+      else if (s[0] == s.at(-1) && s[1] == s.at(-2) && length > 3) ep+=10010;
+      if ([...s].every(d => "0369".includes(d))) ep+=24414;
+      if ((/(.)\1\1(?!\1)(.)\2|(.)\3(?!\3)(.)\4\4/gi).test(s)) ep+=30111;
+      else if (maxCount > 2 && counts2.filter(c => c >= 2).length > 1) ep+=2397;
+      if (sum > 45) ep+=33300;
+      if (s.includes("007")) ep+=34614;
+      if ([...s].join(",") == [...s].reverse().join(",")) ep+=50025;
+      if (u.length === 2 && (s.split(u[0]).length - 1 === 1 || s.split(u[1]).length - 1 === 1) && length > 3) ep+=82237;
+      else if (u.length == 2) ep+=21654;
+      if (num > 999000) ep+=100000;
+      if (s.endsWith("500")) ep+=100000;
+      if (s.endsWith("000")) ep+=100000;
+      if (Math.floor(Math.sqrt(num))*Math.ceil(Math.sqrt(num))==num && Math.floor(Math.sqrt(num))-Math.ceil(Math.sqrt(num))==-1 || num==0) ep+=100000;
+      if ((/^(.{1,3})\1$/gmi).test(s)) ep+=100100;
+      if (length == 3) ep+=111111;
+      if ([...s].every((d, i, a) => i == 0 || a[i-1] > d) && length > 1) ep+=119474;
+      if ((/^(.)(?!\1)(.)\2\2(?!\2).$/gmi).test(s)) ep+=137174;
+      else if (maxCount > 3) ep+=8436;
+      else if (maxCount == 3) ep+=724;
+      if ((/(.)\1(?!\1)(.)\2(?!\1)(?!\2)(.)\3/gi).test(s) && length > 5) ep+=154321;
+      else if ((/^(.)(?!\1)(.)\2(?!\2).$/gmi).test(s)) ep+=137174;
+      else if ((/(.)(?!\1)(.)\2(?!\2)(.)\3(?!\3)./gi).test(s)) ep+=15242;
+      else if (u.length == 3 && maxCount == 2 && length > 5) ep+=10288;
+      else if ((/(.)\1(?!\1)(.)\2/gi).test(s) && maxCount == 2) ep+=6142;
+      else if (u.length == length - 2 && maxCount == 2) ep+=447;
+      else if ((/(.)\1/gi).test(s)) ep+=249;
+      else if (u.length < length) ep+=120;
+      if (([...s].every((d, i, a) => i == 0 || a[i-1] < d)) && length > 1) ep+=219298;
+      if ((/^(.)(?!\1)(.)((?!\2)\1((?!\1)\2((?!\2)\1((?!\1)\2)?)?)?)?$/gmi).test(s)) ep+=246914;
+      if (s.split("").reverse().map(n => ({"0":"0","1":"1","2":"-","3":"-","4":"-","5":"-","6":"9","7":"-","8":"8","9":"6"})[n]).join("") == s) ep+=502513;
+      if (s.endsWith("5000")) ep+=1000001;
+      if (sum == product && num != 1 && num != 2) ep+=1030929;
+      if (length == 2) ep+=1111112;
+      if ([...s].every(d => d < 2)) ep+=1538463;
+      if (u.length == 1 && length > 1) ep+=2222224;
+      if (Math.sqrt(5*num**2+4)%1==0 || Math.sqrt(5*num**2-4)%1==0) ep+=3333337;
+      if (s.includes("56789")) ep+=5000005;
+      else if ((/02468|86420|13579|97531/gi).test(s)) ep+=1449277;
+      else if ((/01234|12345|23456|34567|45678|56789|98765|87654|76543|65432|54321|43210/gi).test(s)) ep+=454546;
+      if (("0123456789".includes(s) || "9876543210".includes(s)) && length == 6) ep+=11111122;
+      else if ("0123456789".includes(s) && length > 1) ep+=3333337;
+      else if ("9876543210".includes(s) && length > 1) ep+=2857146;
+      else if (s.split("").every((d, i, a) => i < 2 || d-a[i-1] == a[1]-a[0]) && length > 2) ep+=862070;
+      else if (s.split("").every((d, i, a) => i < 2 || Math.abs(d-a[i-1]) == Math.abs(a[1]-a[0])) && length > 2) ep+=90992;
+      else if ([...s].every((d, i, a) => i == 0 || Math.abs(d-a[i-1])<2) && length > 1) ep+=36049;
+      else if ((/0123|1234|2345|3456|4567|5678|6789|9876|8765|7654|6543|5432|4321|3210/gi).test(s)) ep+=25907;
+      else if ("0123456789".includes([...s].sort().join("")) && length > 1) ep+=22722;
+      else if ((/012|123|234|345|456|567|678|789|987|876|765|654|543|432|321|210/gi).test(s)) ep+=1716;
+      if (Math.log2(num) % 1 == 0) ep+=5000005;
+      if ((Math.log(num)/Math.log(3)).toFixed(10) % 1 == 0) ep+=7692315;
+      if (s.endsWith("99999")) ep+=10000010;
+      else if (s.endsWith("9999")) ep+=1000001;
+      else if (s.endsWith("999")) ep+=100000;
+      else if (s.endsWith("99")) ep+=10000;
+      if (s.includes("00000")) ep+=10000010;
+      else if (s.includes("0000")) ep+=552487;
+      else if (s.includes("000")) ep+=37023;
+      else if (s.includes("00")) ep+=2784;
+      if ((/(.)\1\1\1\1\1/gi).test(s)) ep+=10000010;
+      else if ((/(.)\1\1\1\1/gi).test(s)) ep+=552487;
+      else if ((/(.)\1\1\1/gi).test(s)) ep+=37023;
+      else if ((/(.)\1\1/gi).test(s)) ep+=2784;
+      if ([1,2,6,24,120,720,5040,40320,362880].includes(num)) ep+=11111122;
+      if ((num ** (1/13)).toFixed(10) % 1 == 0) ep+=33333367;
+      else if ((num ** (1/17)).toFixed(10) % 1 == 0) ep+=33333367;
+      else if ((num ** (1/19)).toFixed(10) % 1 == 0) ep+=33333367;
+      else if ((num ** (1/10)).toFixed(10) % 1 == 0) ep+=25000025;
+      else if ((num ** (1/11)).toFixed(10) % 1 == 0) ep+=25000025;
+      else if ((num ** (1/9)).toFixed(10) % 1 == 0) ep+=20000020;
+      else if ((num ** (1/8)).toFixed(10) % 1 == 0) ep+=16666683;
+      else if ((num ** (1/7)).toFixed(10) % 1 == 0) ep+=12500013;
+      else if ((num ** (1/6)).toFixed(10) % 1 == 0) ep+=9090918;
+      else if ((num ** (1/5)).toFixed(10) % 1 == 0) ep+=6250006;
+      else if ((num ** (1/4)).toFixed(10) % 1 == 0) ep+=3125003;
+      else if (Math.cbrt(num) % 1 == 0) ep+=990100;
+      else if (Math.sqrt(num) % 1 == 0) ep+=99900;
+      if (length == 1) ep+=100000100;
+      if ([42,67,69,86,101,350,365,420,666,777,911,1337,1984,7734,80085,365365,420420,424242,676767,696969,777777,911911].includes(num)) ep+=100000100;
+      else if (s=="8008"||s=="58008") ep+=50000050;
+      else {
+        if (s.includes("77777")) ep+=5263163;
+        else if (s.includes("7777")) ep+=357143;
+        else if (s.includes("777")) ep+=27027;
+        if ([271,2718,27182,271828].includes(num)) ep+=25000025;
+        else if (s.includes("27182")) ep+=5000005;
+        else if (s.includes("2718")) ep+=333334;
+        else if (s.includes("271")) ep+=25006;
+        if ([314,3141,31415,314159].includes(num)) ep+=25000025;
+        else if (s.includes("31415")) ep+=5000005;
+        else if (s.includes("3141")) ep+=333334;
+        else if (s.includes("314")) ep+=25006;
+        if (s.includes("58008")) ep+=5000005;
+        else if (s.includes("80085")) ep+=5000005;
+        else if (s.includes("8008")) ep+=333334;
+        if (s.includes("420")) ep+=25006;
+        else if (s.includes("42")) ep+=2024;
+        if (s.includes("07734")) ep+=11111122;
+        if (s.includes("6767")) ep+=334448;
+        else if (s.includes("67")) ep+=2024;
+        if (s.includes("6969")) ep+=334448;
+        else if (s.includes("69")) ep+=2024;
+        if (s.includes("4242")) ep+=334448;
+        if (s.includes("1337")) ep+=333334;
+        if (s.includes("1984")) ep+=333334;
+        if (s.includes("7734")) ep+=333334;
+        if (s.includes("101")) ep+=25132;
+        if (s.includes("350")) ep+=25006;
+        if (s.includes("365")) ep+=25006;
+        if (s.includes("404")) ep+=25132;
+        if (s.includes("666")) ep+=27027;
+        if (s.includes("911")) ep+=25006;
+        if (s.includes("86")) ep+=2024;
+      }
+      if (num==1000000) ep+=100000100;
+      if (num==424242) ep+=2024;
+      return ep;
+    }
     
+    function updateColor(txt) {
+      document.querySelector("#color").style.backgroundColor = txt;
+      document.querySelector("#color2").textContent = txt;
+      document.querySelector("#color2").style.rotate = `${8*Math.random()-4}deg`;
+    }
+    function update() {
+      scale = parseFloat(document.querySelector("#color2").style.scale) || 1;
+      document.querySelector("#color2").style.scale = `${scale + 0.1 * (1 - scale)}`;
+      chr += 0.2 * (chrto - chr);
+      shake *= -0.9;
+      document.querySelector("#chroma").textContent = `${Math.round(chr)} Chroma`;
+      document.querySelector("#chroma").style.color = `hsl(${600/Math.PI*Math.atan(chrto/3333)}, 100%, 50%)`
+      document.querySelector("#chroma").style.setProperty("--shake", `${3*Math.atan(chrto/33333)}px`);
+      document.querySelector("#chroma").style.fontSize = `${1+3*Math.atan(chrto/70707)}em`;
+      document.body.style.setProperty("--global-shake", `${shake}px`);
+    }
     async function analyzeNumber(type, rh, gs, bl, a) {
       const full=`${rh}${gs}${bl}${a=="-1"?"":a}`;
       const unique = new Set(full);
@@ -394,32 +821,52 @@
         const r = parseInt(rh, 16);
         const g = parseInt(gs, 16);
         const b = parseInt(bl, 16);
+        const sum = parseInt(rh[0], 16)+parseInt(rh[1], 16)+parseInt(gs[0], 16)+parseInt(gs[1], 16)+parseInt(bl[0], 16)+parseInt(bl[1], 16);
         const isNumber = c => /[0-9]/.test(c);
         const isLetter = c => /[a-f]/.test(c);
+        const isb = c => c=="0"||c=="f";
+        const isb3 = c => c=="0"||c=="8"||c=="f";
         const counts = {};
         const digits = full.split("");
         for (const d of digits) {
         	counts[d] = (counts[d] || 0) + 1;
         }
+        const counts2 = Object.values(counts);
         const maxCount = Math.max(...Object.values(counts));
         const midtone = x => x >= 0x84 && x <= 0x8d;
         const a1z26 = x => x === "a1" || x === "b2" || x === "c3" || x === "d4" || x === "e5" || x === "f6";
         await createProperty("Hexadecimal");
-        if ("02468ace".includes(rh[0])) {
+        if (/01|12|23|34|45|56|67|78|89|9a|ab|bc|cd|de|ef|fe|ed|dc|cb|ba|a9|98|87|76|65|54|43|32|21|10/gi.test(full)) await createProperty("Neighbors");
+        if ("02468ace".includes(rh[1])) {
         	await createProperty("Spotless");
         } else {
         	await createProperty("Bloody");
         }
+        if (isNumber(digits[0]) && isLetter(digits[1])) await createProperty("No Chroma For You");
+        if (isLetter(digits[0]) && isNumber(digits[1])) await createProperty("No Chroma For You");
+        if (isNumber(digits[4]) && isLetter(digits[5])) await createProperty("HAHAHAHAHA");
+        if (isLetter(digits[4]) && isNumber(digits[5])) await createProperty("HAHAHAHAHA");
+        if (digits[0] > digits[5]) {
+          await createProperty("Liftoff");
+        } else {
+          await createProperty("Low Profile");
+        }
+        if (!/01|12|23|34|45|56|67|78|89|9a|ab|bc|cd|de|ef|fe|ed|dc|cb|ba|a9|98|87|76|65|54|43|32|21|10/gi.test(full)) await createProperty("Countryside");
         if (isNumber(digits[0]) && isNumber(digits[1])) await createProperty("Double Digit");
         if (isNumber(digits[4]) && isNumber(digits[5])) await createProperty("Double End Digit");
         if (isLetter(digits[0])) await createProperty("Letterous");
+        if (isLetter(digits[5])) await createProperty("Letterous End");
         if (unique.size === 6) await createProperty("Heterogeneous");
         if (r > g && r > b) await createProperty("Warm");
         if (g > r && g > b) await createProperty("Mossy");
         if (b > r && b > g) await createProperty("Cool");
         if (digits.slice(0, 3).every(isNumber)) await createProperty("Half Numbers");
         if (digits.slice(3, 6).every(isNumber)) await createProperty("Half End Numbers");
-        if (digits.filter(isLetter).length === 1) await createProperty("Firefly");
+        if (isNumber(digits[0]) && isLetter(digits[1]) && isNumber(digits[4]) && isLetter(digits[5])) await createProperty("The Happy Troll");
+        else if (isNumber(digits[0]) && isLetter(digits[1]) && isLetter(digits[4]) && isNumber(digits[5])) await createProperty("The Happy Troll");
+        else if (isLetter(digits[0]) && isNumber(digits[1]) && isNumber(digits[4]) && isLetter(digits[5])) await createProperty("The Happy Troll");
+        else if (isLetter(digits[0]) && isNumber(digits[1]) && isLetter(digits[4]) && isNumber(digits[5])) await createProperty("The Happy Troll");
+        else if (digits.filter(isLetter).length === 1) await createProperty("Firefly");
         if (unique.size === 4) await createProperty("Quartet");
         if (digits.slice(0, 4).every(isNumber)) await createProperty("Suspicious");
         if (digits.slice(2, 6).every(isNumber)) await createProperty("Suspicious End");
@@ -431,26 +878,71 @@
         if (full.includes("a1") || full.includes("b2") || full.includes("c3") || full.includes("d4") || full.includes("e5") || full.includes("f6")) await createProperty("A1Z26");
         if (digits.slice(0, 5).every(isNumber)) await createProperty("So Close");
         if (digits.slice(1, 6).every(isNumber)) await createProperty("So Close End");
+        if (isb3(digits[0]) && !digits.slice(1, 6).some(isb3)) await createProperty("1b3");
+        if (isb(digits[0]) && !digits.slice(1, 6).some(isb)) await createProperty("1b");
         if (rh[0] === rh[1]) await createProperty("Twin Reds");
         if (gs[0] === gs[1]) await createProperty("Twin Greens");
         if (bl[0] === bl[1]) await createProperty("Twin Blues");
-        if (digits.every(isNumber)) await createProperty("RNGdle Roll");
+        if (rh[0] === bl[1]) await createProperty("Equilibrium");
+        if (digits.every(isNumber)) {
+          await createProperty("RNGdle Roll");
+          let epchr = analyze(Number(full)) / 10;
+          let rarity2 = "common";
+          if (epchr >= 100000000) {
+            rarity2 = "unheard";
+          } else {
+            rarity2 = ["common", "uncommon", "rare", "epic", "legendary", "mythic", "unheard", "unheard"][Math.floor(Math.log10(epchr))-1];
+          }
+          await sleep(500*Math.log(epchr)+750*Math.random());
+          document.querySelector("#props").insertAdjacentHTML("afterbegin", `
+            <div class="prop ${rarity2}">
+              <p class="large name">Earns ${epchr*10} EP in RNGdle</p>
+              <p class="medium description">Scored using the code in RNGdle Sandbox.</p>
+              <p class="small value ${rarity2}">+${Math.round(epchr)} Chroma</p>
+            </div>
+          `);
+          chrto += Math.round(epchr);
+          if (!rarity2.includes("common")) {
+            if (rareCount == 1) {A2rare.play(); shake = 2;}
+            if (rareCount == 2) {A3rare.play(); shake = 4;}
+            if (rareCount == 3) {A4rare.play(); shake = 6;}
+            if (rareCount > 3) {A5rare.play(); shake = 8;}
+          }
+          if (rarity2 == "common") {Acommon.playbackRate = 1+0.05*badgeCount; badgeCount += 1; Acommon.play(); shake = 1.5;}
+          if (rarity2 == "uncommon") {Auncommon.playbackRate = 1+0.05*badgeCount; badgeCount += 1; Auncommon.play(); shake = 2.5;}
+          if (rarity2 == "rare") {Arare.playbackRate = 1+0.025*rareCount; rareCount += 1; Arare.play(); shake = 4.5;}
+          if (rarity2 == "epic") {Aepic.playbackRate = 1+0.025*rareCount; rareCount += 1; Aepic.play(); shake = 7.5;}
+          if (rarity2 == "legendary") {Alegendary.playbackRate = 1+0.025*rareCount; rareCount += 1; Alegendary.play(); shake = 11.5;}
+          if (rarity2 == "mythic") {Amythic.playbackRate = 1+0.025*rareCount; rareCount += 1; Amythic.play(); shake = 16.5;}
+          if (rarity2 == "unheard") {Amythic.playbackRate = 1+0.025*rareCount; rareCount += 1; Amythic.play(); shake *= 21.5;}
+          await sleep(500*Math.log(epchr)+750*Math.random());
+        }
         if (digits.slice(0, 3).every(isLetter)) await createProperty("Half Letters");
         if (digits.slice(3, 6).every(isLetter)) await createProperty("Half End Letters");
         if (maxCount >= 3) await createProperty("Triple Trouble");
+        if (/([02468ace]){6}|([13579bdf]){6}/gi.test(full)) await createProperty("Flush");
+        if (/(([02468ace])([13579bdf])){3}|(([13579bdf])([02468ace])){3}/gi.test(full)) await createProperty("Alternate Alternator");
         if (digits.filter(isNumber).length === 1) await createProperty("Firefly+");
+        if (/012|123|234|345|456|567|678|789|89a|9ab|abc|bcd|cde|def|fed|edc|dcb|cba|ba9|a98|987|876|765|654|543|432|321|210/.test(full)) await createProperty("Sequence (3)");
         if (isNumber(full[0]) && isNumber(full[2]) && isNumber(full[4]) && isLetter(full[1]) && isLetter(full[3]) && isLetter(full[5])) await createProperty("Alternator");
         if (isLetter(full[0]) && isLetter(full[2]) && isLetter(full[4]) && isNumber(full[1]) && isNumber(full[3]) && isNumber(full[5])) await createProperty("Alternator");
         if (a1z26(rh)) await createProperty("Red A1Z26");
         if (a1z26(gs)) await createProperty("Green A1Z26");
         if (a1z26(bl)) await createProperty("Blue A1Z26");
+        if (/(.)(?!\1)(.).*\1\2/gi.test(full)) await createProperty("Rhyme")
         if (digits.slice(0, 4).every(isLetter)) await createProperty("Very Suspicious");
         if (digits.slice(2, 6).every(isLetter)) await createProperty("Very Suspicious End");
+        if (full.includes("00")) await createProperty("Void");
         if (full.includes("14")) await createProperty("The Other Brainrot Reversed");
+        if (full.includes("21")) await createProperty("Blackjack");
         if (full.includes("24")) await createProperty("Reversed Answer to Everything");
+        if (full.includes("3d")) await createProperty("3D");
         if (full.includes("41")) await createProperty("The Other Brainrot");
         if (full.includes("42")) await createProperty("Answer to Everything");
+        if (full.includes("4d")) await createProperty("4D");
+        if (full.includes("55")) await createProperty("FIVE FIVE! FIVE FIVE! FIVE FIVE!")
         if (full.includes("67")) await createProperty("Brainrot");
+        if (full.includes("68")) await createProperty("REVERSE Restaurant Fuck Shit Thing");
         if (full.includes("69")) await createProperty("Nice");
         if (full.includes("76")) await createProperty("Reverse Brainrot");
         if (full.includes("86")) await createProperty("Restaurant Fuck Shit Thing");
@@ -476,22 +968,64 @@
         if (full.includes("fa")) await createProperty("Fur Affinity");
         if (full.includes("fb")) await createProperty("Facebook");
         if (full.includes("fc")) await createProperty("Full Combo");
+        if (full.includes("ff")) await createProperty("Fullbright");
+        if (digits.every(d => "02468ace".includes(d))) await createProperty("Fully Even");
+        if (digits.every(d => "13579bdf".includes(d))) await createProperty("Fully Odd");
+        if (Math.abs(r-g) == 1 || Math.abs(g-b) == 1) await createProperty("2 Consecutive Colors");
+        if (digits.slice(0, 2).every(isb3) && !digits.slice(2, 6).some(isb3)) await createProperty("2b3");
+        if (rh[0] === rh[1] && gs[0] === gs[1]) await createProperty("Double Twins");
+        else if (gs[0] === gs[1] && bl[0] === bl[1]) await createProperty("Double Twins");
+        else if (rh[0] === rh[1] && bl[0] === bl[1]) await createProperty("Double Twins");
+        if (/(.)(?!\1)(.)\1\2/gi.test(full)) await createProperty("Mini Echo");
+        if (digits.slice(0, 2).every(isb) && !digits.slice(2, 6).some(isb)) await createProperty("2b");
+        if (maxCount > 2 && counts2.filter(c => c >= 2).length > 1) await createProperty("Full House");
         if (digits.slice(0, 5).every(isLetter)) await createProperty("Really Close");
         if (digits.slice(1, 6).every(isLetter)) await createProperty("Really Close End");
         if (unique.size === 3) await createProperty("Trinity");
         if (isNumber(digits[0]) && digits[0] > 0 && digits[1] == "e" && digits.slice(2, 6).every(isNumber)) await createProperty("Scientific Notation");
+        if (Math.max([r, g, b])-Math.min([r, g, b])<=10) await createProperty("Almost Greyscale");
         if ([r, g, b].filter(midtone).length >= 2) await createProperty("Foundational");
         if (r === g) await createProperty("Yellow Submarine");
         if (g === b) await createProperty("My Oh My");
         if (r === b) await createProperty("Hot Pink");
+        if (digits.reduce((acc, current) => acc + parseInt(current, 16), 0) == 21) await createProperty("Blackjack (sum)");
+        if (/(.)(?!\1)(.)..\1\2/.test(full)) await createProperty("Bookends");
+        if (/(.)\1..(?!\1)(.)\2/.test(full)) await createProperty("Paired Bookends")
+        if (/(.)(?!\1)(.)..\2\1/.test(full)) await createProperty("Mirror Bookends");
+        if (digits.slice(0, 3).every(isb3) && !digits.slice(3, 6).some(isb3)) await createProperty("3b3");
         if (r >= 95 && r <= 130 && g >= 70 && g <= 100 && b <= 50) await createProperty("This Looks Like Shit!");
+        if (/(.)(?!\1)(.)\2(?!\2)(.)\3(?!\1)(?!\3)./gi.test(full)) await createProperty("Framed Double");
         if (digits.every(isLetter)) await createProperty("It's a Letters Game");
         if (r > 220 && g > 220 && b > 220) await createProperty("Battery-powered");
+        if (Math.abs(r - g) > 249 || Math.abs(r - b) > 249 || Math.abs(g - b) > 249) await createProperty("High Contrast");
+        if (sum < 14) await createProperty("Low Ball");
+        if (digits.slice(0, 3).every(isb) && !digits.slice(3, 6).some(isb)) await createProperty("3b");
         if (unique.size === 3 && maxCount === 2) await createProperty("Three Pair");
+        if (/0123|1234|2345|3456|4567|5678|6789|789a|89ab|9abc|abcd|bcde|cdef|fedc|edcb|dcba|cba9|ba98|a987|9876|8765|7654|6543|5432|4321|3210/.test(full)) await createProperty("Sequence (4)");
+        if (full.includes("000")) await createProperty("Deep Void (3)");
+        if (full.includes("007")) await createProperty("Secret Agent");
+        if (full.includes("100")) await createProperty("Century");
+        if (full.includes("144")) await createProperty("Twelve Squared");
+        if (full.includes("271")) await createProperty("Euler Slice (3)");
+        if (full.includes("314")) await createProperty("Pi Slice (3)");
+        if (full.includes("400")) await createProperty("Bad Request");
+        if (full.includes("401")) await createProperty("Unauthorized");
+        if (full.includes("403")) await createProperty("Forbidden");
+        if (full.includes("404")) await createProperty("[object Object]");
+        if (full.includes("420")) await createProperty("Botanist");
+        if (full.includes("429")) await createProperty("Too Many Requests");
+        if (full.includes("500")) await createProperty("Internal Server Error");
+        if (full.includes("502")) await createProperty("Bad Gateway");
+        if (full.includes("503")) await createProperty("Service Unavailable");
+        if (full.includes("628")) await createProperty("Tau Slice (3)");
+        if (full.includes("727")) await createProperty("When You See It");
+        if (full.includes("777")) await createProperty("Jackpot 3");
         if (full.includes("bad")) await createProperty("Michael Jackson");
         if (full.includes("ace")) await createProperty("Asexual");
         if (full.includes("a55")) await createProperty("Watch Your Language");
         if (full.includes("add")) await createProperty("Baldi's Basics");
+        if (full.includes("bbc")) await createProperty("British Broadcasting Corporation");
+        if (full.includes("bed")) await createProperty("go to sleep lunarbee");
         if (full.includes("bee")) await createProperty("Milo the Protogen :3");
         if (full.includes("cab")) await createProperty("Taxi!!! Taxi!!!");
         if (full.includes("dab")) await createProperty("Dab on it");
@@ -499,30 +1033,66 @@
         if (full.includes("e62")) await createProperty("Furry Slice (3)");
         if (full.includes("e92")) await createProperty("Safe Furry Slice (3)");
         if (full.includes("fed")) await createProperty("Fed Up");
-        if ([r, g, b].filter(a1z26).length >= 2) await createProperty("Double A1Z26");
-        if (r < 20 && g < 20 && b < 20) await createProperty("Deep Void");
+        if (digits.slice(0, 4).every(isb3) && !digits.slice(4, 6).some(isb3)) await createProperty("4b3");
+        if ([rh, gs, bl].filter(a1z26).length >= 2) await createProperty("Double A1Z26");
+        if (digits.every((d, i, a) => i == 0 || d < a[i-1])) await createProperty("Decay");
+        if (digits.every((d, i, a) => i == 0 || d > a[i-1])) await createProperty("Ascension");
+        if (r < 20 && g < 20 && b < 20) await createProperty("Shadowborn");
+        if (full.slice(0, 3) === full.slice(3, 6)) await createProperty("Echo");
+        if (rh[0] === rh[1] && gs[0] === gs[1] && bl[0] === bl[1]) await createProperty("Triple Twins");
         if (full === [...full].reverse().join("")) await createProperty("Palindrome");
         if (unique.size === 2) await createProperty("Duality");
         if (maxCount >= 4) await createProperty("Quadruple Trouble");
+        if (digits.slice(0, 5).every(isb3) && !isb3(digits[5])) await createProperty("5b3");
+        if (digits.slice(0, 4).every(isb) && !digits.slice(4, 6).some(isb)) await createProperty("4b");
         if ([r, g, b].every(midtone)) await createProperty("Midtone");
+        if (/01234|12345|23456|34567|45678|56789|6789a|789ab|89abc|9abcd|abcde|bcdef|fedcb|edcba|dcba9|cba98|ba987|a9876|98765|87654|76543|65432|54321|43210/.test(full)) await createProperty("Sequence (5)");
         if ([r, g, b].filter(x => x !== 0).length === 1) await createProperty("Pure Signal");
+        if (full.includes("0000")) await createProperty("Deep Void (4)");
+        if (full.includes("1000")) await createProperty("Millennium");
         if (full.includes("1337")) await createProperty("Leetspeak");
+        if (full.includes("2718")) await createProperty("Euler Slice (4)");
+        if (full.includes("3141")) await createProperty("Pi Slice (4)");
+        if (full.includes("6283")) await createProperty("Tau Slice (4)");
         if (full.includes("7331")) await createProperty("Reverse Leetspeak");
+        if (full.includes("7777")) await createProperty("Jackpot 4");
+        if (full.includes("babe")) await createProperty("Hey Babe");
         if (full.includes("b00b")) await createProperty("Rated R");
         if (full.includes("cafe")) await createProperty("Café");
         if (full.includes("dead")) await createProperty("Count Your Days");
+        if (full.includes("deaf")) await createProperty("Hard of Hearing");
         if (full.includes("e621")) await createProperty("Furry Color");
         if (full.includes("e926")) await createProperty("Safe Furry Color");
         if (digits.every(d => "08f".includes(d))) await createProperty("Ternary Soul");
+        if (Math.abs(r-g) == 1 && Math.abs(g-b) == 1 && Math.abs(r-b) == 2) await createProperty("3 Consecutive Colors");
+        if (digits.slice(0, 5).every(isb) && !isb(digits[5])) await createProperty("5b");
         if (r === g && g === b) await createProperty("Greyscale");
         if (maxCount >= 5) await createProperty("Quintuple Trouble");
-        if ([r, g, b].every(a1z26)) await createProperty("Triple A1Z26");
+        if ([rh, gs, bl].every(a1z26)) await createProperty("Triple A1Z26");
         if (digits.every(d => d === "0" || d === "f")) await createProperty("Binary Soul");
+        if (full.includes("00000")) await createProperty("Deep Void (5)");
+        if (full.includes("27182")) await createProperty("Euler Slice (5)");
+        if (full.includes("31415")) await createProperty("Pi Slice (5)");
+        if (full.includes("62831")) await createProperty("Tau Slice (5)");
+        if (full.includes("77777")) await createProperty("Jackpot 5");
         if (full.includes("b00b5")) await createProperty("Rated X");
+        if ("0123456789abcdef".includes(full) || "fedcba9876543210".includes(full)) await createProperty("Sequence (6)");
         if (unique.size === 1) await createProperty("Homogeneous");
         if (["bada55", "c0ffee", "deadbf", "b00b69"].includes(full)) await createProperty("Funny Hex");
         if (["abcdef", "fedcba"].includes(full)) await createProperty("Perfect Sequence");
+        if (full === "777777") await createProperty("Jackpot 6")
+        if (full === "ff0000") await createProperty("Pure Red");
+        if (full === "ffff00") await createProperty("Pure Yellow");
+        if (full === "00ff00") await createProperty("Pure Green");
+        if (full === "00ffff") await createProperty("Pure Aqua");
+        if (full === "0000ff") await createProperty("Pure Blue");
+        if (full === "ff00ff") await createProperty("Pure Pink");
+        if (full === "000000") await createProperty("Pure Black");
+        if (full === "ffffff") await createProperty("Pure White");
+        if (full === "303336") await createProperty("ProtoType Studios");
         if (full === "663399") await createProperty("Rebecca's Blessing");
+        if (full === "4500a7") await createProperty("secretaltyouwontfind");
+        if (full === "7d0968") await createProperty("Accurate Image");
         if (full === "fafa00") await createProperty("What You Started With");
         await sleep(500+Math.random()*2500);
         const saturation = stdev([r, g, b]);
@@ -557,9 +1127,9 @@
         if (sp < 10) sp = 10;
         let rarity = "common";
         if (sp >= 10000000) {
-          rarity = "mythic";
+          rarity = "unheard";
         } else {
-          rarity = ["common", "uncommon", "rare", "epic", "legendary", "mythic", "mythic"][Math.floor(Math.log10(sp))-1];
+          rarity = ["common", "uncommon", "rare", "epic", "legendary", "mythic", "unheard", "unheard"][Math.floor(Math.log10(sp))-1];
         }
         document.querySelector("#props").insertAdjacentHTML("afterbegin", `
           <div class="prop ${rarity}">
@@ -570,12 +1140,19 @@
         `);
         chrto += sp;
         shake = 0.75;
+        if (!rarity.includes("common")) {
+          if (rareCount == 1) {A2rare.play(); shake = 2;}
+          if (rareCount == 2) {A3rare.play(); shake = 4;}
+          if (rareCount == 3) {A4rare.play(); shake = 6;}
+          if (rareCount > 3) {A5rare.play(); shake = 8;}
+        }
         if (rarity == "common") {Acommon.playbackRate = 1+0.05*badgeCount; badgeCount += 1; Acommon.play(); shake *= 1.5;}
         if (rarity == "uncommon") {Auncommon.playbackRate = 1+0.05*badgeCount; badgeCount += 1; Auncommon.play(); shake *= 2.5;}
         if (rarity == "rare") {Arare.playbackRate = 1+0.025*rareCount; rareCount += 1; Arare.play(); shake *= 4.5;}
-        if (rarity == "epic") {Aepic.playbackRate = 1+0.025*rareCount; rareCount += 1; Aepic.play(); shake *= 6.5;}
-        if (rarity == "legendary") {Alegendary.playbackRate = 1+0.025*rareCount; rareCount += 1; Alegendary.play(); shake *= 10.5;}
-        if (rarity == "mythic") {Amythic.playbackRate = 1+0.025*rareCount; rareCount += 1; Amythic.play(); shake *= 15.5;}
+        if (rarity == "epic") {Aepic.playbackRate = 1+0.025*rareCount; rareCount += 1; Aepic.play(); shake *= 7.5;}
+        if (rarity == "legendary") {Alegendary.playbackRate = 1+0.025*rareCount; rareCount += 1; Alegendary.play(); shake *= 11.5;}
+        if (rarity == "mythic") {Amythic.playbackRate = 1+0.025*rareCount; rareCount += 1; Amythic.play(); shake *= 16.5;}
+        if (rarity == "unheard") {Amythic.playbackRate = 1+0.025*rareCount; rareCount += 1; Amythic.play(); shake *= 21.5;}
         await sleep(1000);
         let brightness = [r, g, b].reduce((a, b) => a + b);
         // Scepthan on Discord
@@ -585,9 +1162,9 @@
         let bpchr = Math.round(10 / prob);
         rarity = "common";
         if (bpchr >= 10000000) {
-          rarity = "mythic";
+          rarity = "unheard";
         } else {
-          rarity = ["common", "uncommon", "rare", "epic", "legendary", "mythic", "mythic"][Math.floor(Math.log10(bpchr))-1];
+          rarity = ["common", "uncommon", "rare", "epic", "legendary", "mythic", "unheard", "unheard"][Math.floor(Math.log10(bpchr))-1];
         }
         document.querySelector("#props").insertAdjacentHTML("afterbegin", `
           <div class="prop ${rarity}">
@@ -598,25 +1175,34 @@
         `);
         chrto += bpchr;
         shake = 0.56;
+        if (!rarity.includes("common")) {
+          if (rareCount == 1) {A2rare.play(); shake = 2;}
+          if (rareCount == 2) {A3rare.play(); shake = 4;}
+          if (rareCount == 3) {A4rare.play(); shake = 6;}
+          if (rareCount > 3) {A5rare.play(); shake = 8;}
+        }
         if (rarity == "common") {Acommon.playbackRate = 1+0.05*badgeCount; badgeCount += 1; Acommon.play(); shake *= 1.5;}
         if (rarity == "uncommon") {Auncommon.playbackRate = 1+0.05*badgeCount; badgeCount += 1; Auncommon.play(); shake *= 2.5;}
         if (rarity == "rare") {Arare.playbackRate = 1+0.025*rareCount; rareCount += 1; Arare.play(); shake *= 4.5;}
-        if (rarity == "epic") {Aepic.playbackRate = 1+0.025*rareCount; rareCount += 1; Aepic.play(); shake *= 6.5;}
-        if (rarity == "legendary") {Alegendary.playbackRate = 1+0.025*rareCount; rareCount += 1; Alegendary.play(); shake *= 10.5;}
-        if (rarity == "mythic") {Amythic.playbackRate = 1+0.025*rareCount; rareCount += 1; Amythic.play(); shake *= 15.5;}
+        if (rarity == "epic") {Aepic.playbackRate = 1+0.025*rareCount; rareCount += 1; Aepic.play(); shake *= 7.5;}
+        if (rarity == "legendary") {Alegendary.playbackRate = 1+0.025*rareCount; rareCount += 1; Alegendary.play(); shake *= 11.5;}
+        if (rarity == "mythic") {Amythic.playbackRate = 1+0.025*rareCount; rareCount += 1; Amythic.play(); shake *= 16.5;}
+        if (rarity == "unheard") {Amythic.playbackRate = 1+0.025*rareCount; rareCount += 1; Amythic.play(); shake *= 21.5;}
         await sleep(1257);
+        const sorted = [r,g,b].sort();
         const redbeauty = 1.5*r*(1/(1+Math.pow((g+7)/(r**4/16581375), 3)))*Math.pow(1+b/(r+7), 2.5);
         const greenbeauty = 1.3333*g*(1/(1+Math.pow((r+7)/(g/1.4), 3)))*Math.pow(g/125+b/(g+7), 1.5);
-        const bluebeauty = 100*Math.cbrt(b/175)*Math.pow(0.8+b/(g+25), 2);
-        const beauty = Math.min([redbeauty, greenbeauty, bluebeauty].reduce((a, b) => a + b) / 5, 2000);
-        let ap = Math.round(10/(1-Math.pow(beauty/2010, 0.1))+0.0001*beauty**2-43);
+        const bluebeauty = 100*Math.cbrt(b/100)*Math.pow(0.8+b/(g+25), 2.5);
+        const sbeauty = (r+g+b)*(110+Math.abs(sorted[1]-sorted[2]))/365;
+        const beauty = Math.min([redbeauty, greenbeauty, bluebeauty, sbeauty].reduce((a, b) => a + b) / 5, 30000);
+        let ap = Math.round(10/(1-Math.pow(beauty/17000, 0.1))+0.0001*beauty**2-43);
         rarity = "common";
         if (ap >= 10000000) {
-          rarity = "mythic";
+          rarity = "unheard";
         } else if (ap < 10) {
           rarity = "trash";
         } else {
-          rarity = ["common", "uncommon", "rare", "epic", "legendary", "mythic", "mythic"][Math.floor(Math.log10(ap))-1];
+          rarity = ["common", "uncommon", "rare", "epic", "legendary", "mythic", "unheard", "unheard"][Math.floor(Math.log10(ap))-1];
         }
         document.querySelector("#props").insertAdjacentHTML("afterbegin", `
           <div class="prop ${rarity}">
@@ -627,12 +1213,19 @@
         `);
         chrto += ap;
         shake = 1;
+        if (!rarity.includes("common")) {
+          if (rareCount == 1) {A2rare.play(); shake = 2;}
+          if (rareCount == 2) {A3rare.play(); shake = 4;}
+          if (rareCount == 3) {A4rare.play(); shake = 6;}
+          if (rareCount > 3) {A5rare.play(); shake = 8;}
+        }
         if (rarity == "common") {Acommon.playbackRate = 1+0.05*badgeCount; badgeCount += 1; Acommon.play(); shake *= 1.5;}
         if (rarity == "uncommon") {Auncommon.playbackRate = 1+0.05*badgeCount; badgeCount += 1; Auncommon.play(); shake *= 2.5;}
         if (rarity == "rare") {Arare.playbackRate = 1+0.025*rareCount; rareCount += 1; Arare.play(); shake *= 4.5;}
         if (rarity == "epic") {Aepic.playbackRate = 1+0.025*rareCount; rareCount += 1; Aepic.play(); shake *= 6.5;}
         if (rarity == "legendary") {Alegendary.playbackRate = 1+0.025*rareCount; rareCount += 1; Alegendary.play(); shake *= 10.5;}
         if (rarity == "mythic") {Amythic.playbackRate = 1+0.025*rareCount; rareCount += 1; Amythic.play(); shake *= 15.5;}
+        if (rarity == "unheard") {Amythic.playbackRate = 1+0.025*rareCount; rareCount += 1; Amythic.play(); shake *= 25.5;}
         await sleep(800);
         return [saturation, brightness, beauty];
       } else if (type == "rgb") {
@@ -642,24 +1235,8 @@
         await createProperty("RGB");
       }
     }
-    
-    function updateColor(txt) {
-      document.querySelector("#color").style.backgroundColor = txt;
-      document.querySelector("#color2").textContent = txt;
-      document.querySelector("#color2").style.rotate = `${8*Math.random()-4}deg`;
-    }
-    function update() {
-      scale = parseFloat(document.querySelector("#color2").style.scale) || 1;
-      document.querySelector("#color2").style.scale = `${scale + 0.1 * (1 - scale)}`;
-      chr += 0.2 * (chrto - chr);
-      shake *= -0.9;
-      document.querySelector("#chroma").textContent = `${Math.round(chr)} Chroma`;
-      document.querySelector("#chroma").style.color = `hsl(${400/Math.PI*Math.atan(chrto/3333)}, 100%, 50%)`
-      document.querySelector("#chroma").style.setProperty("--shake", `${3*Math.atan(chrto/33333)}px`);
-      document.querySelector("#chroma").style.fontSize = `${1+3*Math.atan(chrto/70707)}em`;
-      document.body.style.setProperty("--global-shake", `${shake}px`);
-    }
     async function roll() {
+      document.querySelector("#roll")?.remove();
       chrto = 0;
       const hexregex = /#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})/gm;
       const rgbregex = /rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)/gm;
@@ -687,21 +1264,29 @@
       let g = 0;
       let b = 0;
       if (color == "hex") {
+        let scrext = true;
         for (let i = 0; i < 6; i++) {
           for (let j = 0; j < 30 + 5 * clist.length; j++) {
             color = `#${clist.join("")}${window.crypto.randomUUID().slice(0,6-clist.length)}`;
             updateColor(color);
+            if (!window.mobileAndTabletCheck()) {Aroll.playbackRate = 0.985 + 0.03*Math.random(); Aroll.play();}
+            if (i == 0 && ["#bada55", "#c0ffee", "#deadbf", "#b00b69", "#abcdef", "#fedbca", "#777777", "#ff0000", "#ffff00", "#00ff00", "#00ffff", "#ff00ff", "#000000", "#ffffff", "#303336", "#663399", "#4500a7", "#7d0968", "#fafa00"].includes(color)) await createProperty("Near Miss");
             await sleep(33 + 6 * clist.length);
           }
+          Areveal.play();
           clist.push(window.crypto.randomUUID().at(0));
-          document.querySelector("#color2").style.scale = 2;
-          shake = 0.83*Math.random();
+          document.querySelector("#color2").style.scale = 1.61803;
+          scr = 2*Math.random();
+          if (scr >= 1.44) {scrext = false; createProperty("Shaky");}
+          if (scr <= 0.12) {scrext = false; createProperty("Still");}
+          shake = scr;
         }
         updateColor(color);
         const matches = hexregex.exec(color);
         r = matches[1];
         g = matches[2];
         b = matches[3];
+        if (scrext) {await createProperty("Boring")}
         [saturation, brightness, beauty] = await analyzeNumber("hex", r, g, b, "-1");
       } else if (color == "rgb") {
         for (let i = 0; i < 6; i++) {
@@ -712,7 +1297,7 @@
             await sleep(33 + 6 * clist.length);
           }
           clist.push(window.crypto.randomUUID().at(0));
-          if (clist.length % 2 == 0) {document.querySelector("#color2").style.scale = 2; shake = 0.83*Math.random();}
+          if (clist.length % 2 == 0) {document.querySelector("#color2").style.scale = 1.61308; shake = 0.83*Math.random();}
         }
       } else if (color == "hsl") {
         for (let i = 0; i < 7; i++) {
@@ -723,7 +1308,7 @@
             await sleep(33 + 5 * clist.length);
           }
           clist.push(window.crypto.randomUUID().at(0));
-          if ("357".includes(clist.length)) {document.querySelector("#color2").style.scale = 2; shake = 0.83*Math.random();}
+          if ("357".includes(clist.length)) {document.querySelector("#color2").style.scale = 1.61308; shake = 0.83*Math.random();}
         }
       } else if (color == "rgba") {
         for (let i = 0; i < 8; i++) {
@@ -734,7 +1319,7 @@
             await sleep(33 + 4 * clist.length);
           }
           clist.push(window.crypto.randomUUID().at(0));
-          if (clist.length % 2 == 0) {document.querySelector("#color2").style.scale = 2; shake = 0.83*Math.random();}
+          if (clist.length % 2 == 0) {document.querySelector("#color2").style.scale = 1.61308; shake = 0.83*Math.random();}
         }
       } else {
         for (let i = 0; i < 9; i++) {
@@ -742,13 +1327,26 @@
             color = `${clist.join("")}${window.crypto.randomUUID().slice(0,9-clist.length)}`;
             color = `hsla(${Math.floor(parseInt(color.slice(0,3), 16)/4096*360)}, ${Math.floor(parseInt(color.slice(3,5), 16)/255*100)}%, ${Math.floor(parseInt(color.slice(5,7), 16)/255*100)}%, ${(parseInt(color.slice(7), 16)/255).toFixed(3)})`;
             updateColor(color);
-            await sleep(33 + 5 * clist.length);
+            await sleep(33 + 3 * clist.length);
           }
           clist.push(window.crypto.randomUUID().at(0));
-          if ("3579".includes(clist.length)) {document.querySelector("#color2").style.scale = 2; shake = 0.83*Math.random();}
+          if ("3579".includes(clist.length)) {document.querySelector("#color2").style.scale = 1.61308; shake = 0.83*Math.random();}
         }
       }
-      let percentile = (200/Math.PI*Math.atan(chrto/1220)).toFixed(2);
+      const submitscore = () => {
+        if (JSON.parse(localStorage.getItem("account") || '{"displayname":"user50500"}').displayname == "user50500") return;
+        const name = encodeURIComponent(JSON.parse(localStorage.getItem("account")).displayname.replace(/[^a-zA-Z0-9~!\-_+,.\/]/g, "."));
+        const score = Number(chrto || -1) || -1;
+        const color2 = String(encodeURIComponent(color) || "hacker") || "hacker";
+        const script = document.createElement("script");
+        script.src = `https://creulette.scratchy271.workers.dev?action=post&username=${name}&score=${score}&color=${color2}&callback=onsubmit`;
+        document.body.appendChild(script);
+      }
+      window.onsubmit = (response) => {
+        console.log("success!", response);
+      }
+      submitscore();
+      let percentile = (200/Math.PI*Math.atan(chrto/1250)).toFixed(2);
       if (percentile <= 99) {
         percentile = String(Math.round(percentile));
       } else if (percentile <= 99.9) {
@@ -756,7 +1354,7 @@
       }
       const ordinal = percentile.at(-2) == "1" ? "th" : percentile.endsWith("1") ? "st" : percentile.endsWith("2") ? "nd" : percentile.endsWith("3") ? "rd" : "th";
       document.querySelector("#stats").insertAdjacentHTML("beforeend", `
-        <p class="large mono sizeup2" id="percentile" style="color: hsl(${240/Math.PI*Math.atan(chrto/1220)}, 100%, 50%)">${percentile}${ordinal} percentile</p>
+        <p class="large mono sizeup2" id="percentile" style="color: hsl(${240/Math.PI*Math.atan(chrto/1250)}, 100%, 50%)">${percentile}${ordinal} percentile</p>
       `);
       await sleep(556);
       let redsq=[216,61,101];
@@ -797,29 +1395,90 @@
       `);
       await sleep(556);
       document.querySelector("#stats").insertAdjacentHTML("beforeend", `
-        <button class="large mono sizeup2" id="roll2" style="font-size: 1rem;" onclick="document.querySelector('#percentile').remove(); document.querySelector('#share').remove(); document.querySelector('#props').innerHTML = ''; document.querySelector('#color').classList.remove('sizeup'); badgeCount = 0; rareCount = 0; this.remove(); roll();">ROLL AGAIN</p>
+        <button class="large mono sizeup2" id="roll2" style="font-size: 1rem;" onclick="document.querySelector('#percentile').remove(); document.querySelector('#share').remove(); document.querySelector('#lockdaily').remove(); document.querySelector('#props').innerHTML = ''; document.querySelector('#color').classList.remove('sizeup'); badgeCount = 0; rareCount = 0; this.remove(); roll();">ROLL AGAIN</p>
+      `);
+      await sleep(556);
+      document.querySelector("#stats").insertAdjacentHTML("beforeend", `
+        <button class="large mono sizeup2" id="lockdaily" style="font-size: 1rem;" onclick="if (this.textContent == 'ARE YOU SURE?') {document.querySelector('#roll2').remove(); localStorage.setItem('creuletteday3sxf8f0sh', new Date().toISOString().slice(0, 10)); localStorage.setItem('creuletteroll3sxf8f0sh', '${color.replace(/[^0-9a-f,]/gi, "")}'); localStorage.setItem('creulettetype3sxf8f0sh', '${type}'); this.remove();} else {this.textContent = 'ARE YOU SURE?'}">I'M SATISFIED</p>
       `);
     }
     setInterval(update, 16);
+    Object.defineProperty(window.crypto, "randomUUID", {
+      value: window.crypto.randomUUID,
+      writable: false,
+      configurable: false
+    });
     let chrto = 0;
     let chr = 0;
     let shake = 0;
+    let scr = 0;
+    // Source - https://stackoverflow.com/a/11381730
+    // Posted by Michael Zaporozhets, modified by community. See post 'Timeline' for change history
+    // Retrieved 2026-06-25, License - CC BY-SA 4.0
+    window.mobileAndTabletCheck = function() {
+      let check = false;
+      (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))) check = true;})(navigator.userAgent||navigator.vendor||window.opera);
+      return check;
+    };
+    if (!localStorage.getItem("theme")) {
+      localStorage.setItem("theme", "dark");
+    }
     window.onload = async () => {
-      const color = new URLSearchParams(document.location.search).get("color");
-      const type = new URLSearchParams(document.location.search).get("type");
+      document.body.classList.add(localStorage.getItem("theme"));
+      let color = new URLSearchParams(document.location.search).get("color");
+      let type = new URLSearchParams(document.location.search).get("type");
+      let shared = false;
+      if (color && type) shared = true;
+      if (new Date().toISOString().slice(0, 10) == localStorage.getItem("creuletteday3sxf8f0sh") && !shared) {
+        color = localStorage.getItem("creuletteroll3sxf8f0sh") || "";
+        type = localStorage.getItem("creulettetype3sxf8f0sh") || "";
+      }
       if (color) {
         if (type=="hex") {
           document.querySelector("#roll").remove();
-          document.querySelector("h6").textContent = "User-shared roll";
-          document.querySelector(".back").textContent = "← Back to Creulette";
+          document.querySelector("h6").textContent = localStorage.getItem("creuletteday3sxf8f0sh") && !shared ? "You've already rolled today! Come back at midnight UTC to roll again." : "User-shared roll, click to enable sound!";
+          document.querySelector(".back").textContent = localStorage.getItem("creuletteday3sxf8f0sh") && !shared ? "← Back to ProtoType Studios" : "← Back to Creulette";
           document.querySelector("#color").style.backgroundColor = `#${color}`;
           document.querySelector("#color2").textContent = `#${color}`;
           await analyzeNumber("hex", color.slice(0,2), color.slice(2,4), color.slice(4,6), "-1");
         }
+      } else if (JSON.parse(localStorage.getItem("account") || '{"displayname":"user50500"}').displayname == "user50500") {
+        document.querySelector("#roll").insertAdjacentHTML("afterend", "<p class='small' style='width: 80%;'>Please set your display name before rolling on Creulette if you would like your roll to be saved to the leaderboard. To do this, click the Personalize Account button, then return here when you have set your display name.</p>")
       }
     }
+    window.onget = (response) => {
+      for (entry of response) {
+        const score = Number(entry.score || 0) || 0;
+        let percentile = (200/Math.PI*Math.atan(score/1250)).toFixed(2);
+        if (percentile <= 99) {
+          percentile = String(Math.round(percentile));
+        } else if (percentile <= 99.9) {
+          percentile = Number(percentile).toFixed(1);
+        }
+        const ordinal = percentile.at(-2) == "1" ? "th" : percentile.endsWith("1") ? "st" : percentile.endsWith("2") ? "nd" : percentile.endsWith("3") ? "rd" : "th";
+        const hue = 600/Math.PI*Math.atan(score/3333);
+        document.querySelector(".leaderboard").innerHTML += `
+        <br><div class="entry" style="background-color: hsl(${hue} 100% 67%); border: 3px solid hsl(${hue} 100% 50%); box-shadow: 0 0 50px ${score < 50000 ? -20 : score < 100000 ? 10 : score < 250000 ? 15 : score < 500000 ? 20 : score < 1000000 ? 25 : 30}px hsl(${hue} 100% 50%);"><p class="large">${entry.color || "hacker"}</p><p class="medium">${entry.score.toLocaleString() || "hacker"} Chroma</p><p class="medium">${percentile}${ordinal} percentile</p></div>
+        `;
+      }
+    }
+    document.querySelector("#rollbtn").onclick = () => {
+      document.querySelector(".roll").style.display = "block";
+      document.querySelector("#rollbtn").classList.add("selected");
+      document.querySelector(".leaderboard").style.display = "none";
+      document.querySelector("#ldbtn").classList.remove("selected");
+    }
+    document.querySelector("#ldbtn").onclick = () => {
+      document.querySelector(".roll").style.display = "none";
+      document.querySelector("#rollbtn").classList.remove("selected");
+      document.querySelector(".leaderboard").style.display = "block";
+      document.querySelector("#ldbtn").classList.add("selected");
+      document.querySelector(".leaderboard").innerHTML = "";
+      const script = document.createElement("script");
+      script.src = `https://creulette.scratchy271.workers.dev?action=get&callback=onget`;
+      document.body.appendChild(script);
+    }
     document.querySelector("#roll").onclick = async () => {
-      document.querySelector("#roll").remove();
       await roll();
     }
     document.querySelector(".back").onclick = () => {
@@ -829,5 +1488,6 @@
         window.location.href = "https://prototypestudios.neocities.org/creulette";
       }
     }
+    document.querySelector("#personalize").onclick = () => {window.location.href = "https://prototypestudios.neocities.org/personalize";}
   </script>
 </html>
